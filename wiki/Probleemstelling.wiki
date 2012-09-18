@@ -1,0 +1,31 @@
+#labels Featured,Phase-Requirements,Phase-Design
+= Introductie =
+Deze probleemstelling is geschreven voor project 5-6 van de Informatica opleiding van de Hogeschool Rotterdam.
+
+De probleemstelling is geschreven ter ondersteuning van de App 'Groupalarm' die wordt ontwikkeld tijdens dit project.
+
+= Auteurs =
+<ul>
+ <li>Stefan Bayarri</li>
+ <li>Rob Troost</li>
+ <li>Remco van der Kleijn</li>
+ <li>Nick van Leeuwen</li>
+</ul>
+
+== Samenvatting ==
+De samenvatting?
+
+=== Casus: Wat gaan wij onderzoeken? ===
+Wat?
+
+=== Relevantie: Waarom gaan wij dit onderzoek verrichten? ===
+Waarom?
+
+=== Modellen: Waarbinnen gaan wij het onderzoeken? ===
+Waarbinnen?
+
+=== Methode: Hoe gaan wij aan de slag? ===
+Hoe?
+
+=== Hypothese: De probleemstelling ===
+De probleemstelling inclusief deelvragen.
