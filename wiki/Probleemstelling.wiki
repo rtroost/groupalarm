@@ -24,8 +24,9 @@ Het komt vaak voor dat een groep personen op hetzelfde tijdstip aanwezig moeten 
 *Vraag:* Hoe kunnen wij zekerheid bieden aan gebruikers zodat zij weten dat alle uitgenodigde  groepsleden op hun respectievelijke tijd wakker zijn om deel te nemen aan een activiteit?
 
 === Deelvragen: ===
-Wat voor technieken bestaan er al om mensen te wekken?
-Welke wekker apps bestaan er al?
-Welke bestaande functionaliteiten bestaan er al?
-Welke bestaande functionaliteiten kunnen we gebruiken en verbeteren?
-Welke functionaliteiten missen de reeds bestaande wekker apps?
+<ul>
+<li>Wat voor technieken bestaan er al om mensen te wekken?</li>
+<li>Welke wekker apps bestaan er al?</li>
+<li>Welke bestaande functionaliteiten bestaan er al?</li>
+<li>Welke bestaande functionaliteiten kunnen we gebruiken en verbeteren?</li>
+<li>Welke functionaliteiten missen de reeds bestaande wekker apps?</li>
