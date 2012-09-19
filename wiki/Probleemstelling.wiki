@@ -12,20 +12,20 @@ De probleemstelling is geschreven ter ondersteuning van de App 'Groupalarm' die 
  <li>Nick van Leeuwen</li>
 </ul>
 
-== Samenvatting ==
-De samenvatting?
-
 === Casus: Wat gaan wij onderzoeken? ===
-Wat?
+Zijn er al mobiele applicaties die de gebruiker de mogelijkheid geeft om een alarm te synchroniseren binnen een gebruikersgroep?
 
 === Relevantie: Waarom gaan wij dit onderzoek verrichten? ===
-Waarom?
-
-=== Modellen: Waarbinnen gaan wij het onderzoeken? ===
-Waarbinnen?
-
-=== Methode: Hoe gaan wij aan de slag? ===
-Hoe?
+Wij onderzoeken andere applicaties binnen dit domein om te weten welke concurrentiestrijd wij aangaan tijdens dit project. Ook onderzoeken wij de functionaliteiten van concurrerende applicaties zodat wij deze functionaliteiten voor onze applicatie kunnen gebruiken en eventueel kunnen verbeteren. Op basis van het onderzoek naar de concurrenten kunnen wij nieuwe functionaliteiten die nog niet bestaan in onze applicatie implementeren.
 
 === Hypothese: De probleemstelling ===
-De probleemstelling inclusief deelvragen.
+Het komt vaak voor dat een groep personen op hetzelfde tijdstip aanwezig moeten zijn voor een bepaalde activiteit. Er wordt vanuit gegaan dat iedereen zijn wekker zet en de verantwoordelijkheid neemt om op tijd op te staan maar er is geen zekerheid dat dit ook daadwerkelijk gebeurd.
+
+*Vraag:* Hoe kunnen wij zekerheid bieden aan gebruikers zodat zij weten dat alle uitgenodigde  groepsleden op hun respectievelijke tijd wakker zijn om deel te nemen aan een activiteit?
+
+=== Deelvragen: ===
+Wat voor technieken bestaan er al om mensen te wekken?
+Welke wekker apps bestaan er al?
+Welke bestaande functionaliteiten bestaan er al?
+Welke bestaande functionaliteiten kunnen we gebruiken en verbeteren?
+Welke functionaliteiten missen de reeds bestaande wekker apps?
