@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Stopwatch en Timer</title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script src="js/jquery.timer.js"></script>
+		<script src="js/jquery.numeric.js"></script>
+		<script src="js/stopwatch.js"></script>
+		<script src="js/timer.js"></script>
+	</head>
+	<body>
+		<div id="content">
+			<a class="button-blue" href="ajax.html" >Ajax</a>
+			<h4>Stopwatch</h4>
+			<div class="stopwatch">
+				<div class="box">
+					<h5><span class="minuten">00</span> : <span class="seconds">00</span> : <span class="miliseconds">00</span></h5>
+					<div id="rondes"></div>
+				<button id="start-stop" class="button-blue">Start</button>
+				<button id="reset-lab" class="button-blue">Reset</button>
+				</div>
+				
+			</div>
+			
+			<h4>Timer</h4>
+			<div class="timer">
+				<div class="box">
+					<h5 class="inputs"><input class="input-minuten" type="text" maxlength="2" placeholder="min" /> : <input class="input-seconds" type="text" maxlength="2" placeholder="sec" /></h5>
+					<p class="error" style="display: none;">Verkeerde invoer!</p>
+					<h5><span class="timer-minuten">00</span> : <span class="timer-seconds">00</span></h5>
+					<button id="timer-start-stop" class="button-blue">Start</button>
+					<button id="timer-reset" class="button-blue">Reset</button>
+				</div>
+			</div>
+		</div>
+		<script>
+			stopwatch.init({
+				minuten: $('span.minuten'),
+				seconds: $('span.seconds'),
+				miliseconds: $('span.miliseconds'),
+				startStop: $('button#start-stop'),
+				resetLab: $('button#reset-lab'),
+				rondes: $('div#rondes')
+			});
+			
+			timer.init({
+				minuten: $('span.timer-minuten'),
+				seconds: $('span.timer-seconds'),
+				startStop: $('button#timer-start-stop'),
+				reset: $('button#timer-reset'),
+				inputMinuten: $('input.input-minuten').numeric(),
+				inputSeconds: $('input.input-seconds').numeric(),
+				error: $('p.error'),
+				inputs: $('h5.inputs'),
+			});
+		</script>
+	</body>
+</html>
