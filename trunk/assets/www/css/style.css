@@ -1,47 +1,100 @@
-body { margin-left: auto; margin-right: auto; width: 100%; height: 100%; text-align: center; }
+body{
+				padding-top: 90px;
+				padding-bottom: 90px;
+			}
+		
+			div#topbar{
+				background: gray;
+				color: white;
+				width: 100%;
+				height: 50px;
+				padding: 10px;
+				top: 0;
+				margin-top: 0;
+    			position: fixed;
+    			z-index: 1000;
+    			text-align: center;
+			}
+			
+			
+			div#maincontent{
+				background: #ccc;
+				border-radius: 10px;
+				width: 90%;
+/*				height: ;*/
+				padding: 10px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			
+			#bottombar{
+			    box-shadow: 0 1px 5px #000;
+                background: gray;
+                color: white;
+                width: 100%;
+                height: 8%;
+                padding: 2px 0px;
+                bottom: 0;
+                margin-bottom: 0;
+                position: fixed;
+                z-index: 1000;
+                text-align: center;
+/*              background: url('images/menu_bg.png');*/
 
-div#content { padding: 20px; }
-div.box {width: 240px; background: #EEEEEE; border: 1px solid #BBBBBB; border-radius: 5px; margin-bottom: 20px; padding: 20px; }
-div.box p { margin-bottom: 0; margin-top: 20px; }
-div.box h5 { margin-bottom: -20px; margin-top: -12px; }
-div.box input { width: 40px; font-size: 20px; }
-
-div#rondes p { margin-bottom: 0px;}
-
-h1 {font: 60px/68px 'HammersmithOneRegular', Arial, sans-serif;letter-spacing: 0;margin-bottom: 30px;}
-h2 {font: 50px/58px 'HammersmithOneRegular', Arial, sans-serif;letter-spacing: 0;margin-bottom: 25px;}
-h3 {font: 40px/58px 'HammersmithOneRegular', Arial, sans-serif;letter-spacing: 0;margin-bottom: 25px;}
-h4 {font: 30px/58px 'HammersmithOneRegular', Arial, sans-serif;letter-spacing: 0;}
-h5 {font: 26px/58px 'HammersmithOneRegular', Arial, sans-serif;letter-spacing: 0;}
-h6 {font: 10px/58px 'HammersmithOneRegular', Arial, sans-serif;letter-spacing: 0;margin-bottom: 25px;}
-
-p {font: 18px/27px 'HammersmithOneRegular', Arial, sans-serif; margin-bottom: 20px;}
-
-.button-blue 																	{ margin-top:10px;-moz-box-shadow:inset 0px 1px 0px 0px #78c3e3;-webkit-box-shadow:inset 0px 1px 0px 0px #78c3e3;	box-shadow:inset 0px 1px 0px 0px #78c3e3;background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #4aaed9), color-stop(1, #1683b1) );background:-moz-linear-gradient( center top, #4aaed9 5%, #1683b1 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4aaed9', endColorstr='#1683b1');background-color:#4aaed9;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;border:1px solid #2386aa;display:inline-block;color:#ffffff;font-family:arial;font-size:12px;font-weight:bold;padding:7px 12px;text-decoration:none;text-shadow:1px 1px 0px #1b7297;}
-.button-blue:hover 																{ color:#ffffff;color:rgba(255,255,255,0.8);text-decoration:none;background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1683b1), color-stop(1, #4aaed9) );background:-moz-linear-gradient( center top, #1683b1 5%, #4aaed9 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1683b1', endColorstr='#4aaed9');background-color:#1683b1;}
-.button-blue:active 															{ position:relative;top:1px;color:#fff; }
-.button-blue:hover img 															{ opacity:0.8; }
-
-label  																			{ float:left;width:20%;height:35px;line-height:35px;padding-top:8px;font: 18px 'HammersmithOneRegular', Arial, sans-serif; }
-
-form input[type="password"],
-form input[type="text"]															{ margin-bottom: 10px;width:72%;float:left;height:26px;padding:4px 12px;border:1px solid #d0d0d0;border-radius:4px;box-shadow:inset 0px 1px 3px 0 rgba(0,0,0,0.2), 1px 2px 3px 0 rgba(0,0,0,0.1);font-family:Arial, Verdana;color:#565656;font-size:12px;transition: box-shadow 0.3s;-moz-transition: box-shadow 0.3s;-webkit-transition: box-shadow 0.3s;-o-transition: box-shadow 0.3s;  }
-
-input[type="password"]:focus,
-input[type="text"]:focus 	 													{ border:1px solid #7bafdd;box-shadow:inset 0px 1px 3px 0 rgba(0,0,0,0.2), 0 0 3px 1px rgba(123,175,221,0.8); }
-	
-
-br.clear { clear: both; }
-
-
-@font-face {
-    font-family: 'HammersmithOneRegular';
-    src: url('../font/HammersmithOne-webfont.eot');
-    src: url('../font/HammersmithOne-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../font/HammersmithOne-webfont.woff') format('woff'),
-         url('../font/HammersmithOne-webfont.ttf') format('truetype'),
-         url('../font/HammersmithOne-webfont.svg#HammersmithOneRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
+                background: url('../images/menu_bg.png') no-repeat ;
+                background-size: 100% 100%;
+                /*background: black;
+                  background-image: -moz-linear-gradient(top, #484848, #000000);
+                  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#484848), to(#000000));
+                  background-image: -webkit-linear-gradient(top, #484848, #000000);
+                  background-image: -o-linear-gradient(top, #484848, #000000);
+                  background-image: linear-gradient(to bottom, #484848, #000000);
+                  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff484848', endColorstr='#ff000000', GradientType=0);*/
+            }
+			
+			#bottombar > ul{
+				list-style-type: none;
+			}
+			
+			#bottombar li{
+				width: 25%;
+				height: 100%;
+/*				background: yellow;*/
+				float: left;
+				margin-bottom: 5px;
+				
+			}
+			
+			#bottombar li.active{
+				background: url('../images/a_bg.png') no-repeat ;
+				background-size: 100% 100%;
+			}
+			
+			#bottombar li img{
+				height: 70%;
+/*				float: left;*/
+				margin: 0 auto;
+			}
+			
+			#bottombar span{
+/*				float: left;*/
+				margin: 0 auto;
+				line-height: 2px;
+				font-size: 14px;
+				display: block;
+				
+			}
+			
+			#bottombar a{
+				color: white;
+				text-decoration: none;
+			}
+			
+			/*div#bottombar > div:hover{
+				background: gray;
+			}*/
+			
+			h1{
+				font-size: 30px;
+			}
+			
