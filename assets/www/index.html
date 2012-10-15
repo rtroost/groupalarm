@@ -9,50 +9,52 @@
 	
 	
 		<div id="topbar">
-			<h1>topbar</h1>
+			<h1>Register</h1>
 		</div>
-	
-		<div id="maincontent">
-			<h1>Contacten</h1>
+		
+		<div id="maincontent" class="logo">
 			
+			<img src="images/logo.png" />
+			
+			
+		</div>
+		
+		<div id="maincontent" class="mail" style="display: none;">
+			<p>A mail has been send to your mailaccount.</p>
+			
+			<p>click refresh if you clicked on the link in de mail</p>
+			<button class="refresh">Refresh</button>
 			<br />
+			<p>Click resend or enter your mail address to send the mail to another account.</p>
+			<button class="resend">Resend</button>
 			<br />
+			<label for="id">Email</label><input class="email" type="text" />
+			<button class="submit">Verstuur</button>
 			
-			<label for="id">Email</label><input id="email" type="text" />
-			<button id="submit">Verstuur</button>
-			
-			
-			<div id="resultbox">
-				
+			<div class="showdata">
 				
 			</div>
-		
+		</div>
+	
+		<div id="maincontent" class="form" style="display: none;">
+			<h1>Registreren</h1>
+			
+			<br />
+			<br />
+			<p>Vul hieronder je email adres in.</p>
+			
+			<label for="id">Email</label><input class="email" type="text" />
+			<button class="submit">Verstuur</button>
+			
+			<div class="showdata">
+				
+			</div>
+			<p class="paftermail" style="display: none;">Klik op refresh als je de mail geopend hebt.</p>
+			<button class="refresh buttonaftermail" style="display: none;">Refresh</button>
+			
 			
 			
 		</div>
-		
-		<nav id="bottombar">
-	
-			<ul>
-				<li class="active">
-					<a href="index.html"><img src="images/contacten_a.png" />
-					 <span> contacten </span> </a>
-				</li>
-				<li>
-					<a href="wekkers.html"><img src="images/wekkers.png" />
-					<span> wekkers </span></a>
-				</li>
-				<li>
-					<a href="groepen.html"><img src="images/groepen.png" />
-					<span> groepen </span></a>
-				</li>
-				<li>
-					<a href="instellingen.html"><img src="images/instellingen.png" />
-					<span> instellingen </span></a>
-				</li>
-			</ul>
-	
-		</nav>
 		
 	<script src="js/jquery-1.7.2.js"></script>
 	<script src="js/register.js"></script>
