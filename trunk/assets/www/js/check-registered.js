@@ -1,6 +1,11 @@
 (function($) {
 		
-	var imei = window.location.href.split('?')[1].split('=')[1];
+		
+	if(window.location.href.split('?')[1]){
+		var imei = window.location.href.split('?')[1].split('=')[1];
+	} else {
+		var imei = 123456789012345;
+	}
 	
 	$.ajax({
 		url : 'http://www.remcovdk.com/groupalarm/check_registerd.php',

@@ -2,12 +2,21 @@
 	var formbutton = $('.form button.submit'), forminput = $('.form input.email'),
 		mailbutton = $('.mail button.submit'), mailinput = $('.mail input.email'),
 	    mail = $('div#maincontent.mail'), formdata = $('.form div.showdata'), emaildata = $('.mail div.showdata'),
-		form = $('div#maincontent.form'), logo = $('div#maincontent.logo'), imei = window.location.href.split('?')[1].split('=')[1],
+		form = $('div#maincontent.form'), logo = $('div#maincontent.logo'), 
 		buttonaftermail = $('.buttonaftermail'), paftermail = $('.paftermail');
 		
-		console.log(imei);
-		console.log(forminput);
-		console.log(mailinput);
+	
+	if(window.location.href.split('?')[1]){
+		var imei = window.location.href.split('?')[1].split('=')[1];
+	} else {
+		var imei = 123456789012345;
+	}
+	
+	
+		
+	console.log(imei);
+	console.log(forminput);
+	console.log(mailinput);
 		
 	var activeDiv = 'logo';
 	
