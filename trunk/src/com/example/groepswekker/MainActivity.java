@@ -14,7 +14,7 @@ public class MainActivity extends DroidGap {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.loadUrl("file:///android_asset/www/index.html?imei="+getImei());
+        super.loadUrl("file:///android_asset/www/contact.html?imei="+getImei());
     }
 
     @Override

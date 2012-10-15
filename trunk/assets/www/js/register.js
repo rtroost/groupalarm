@@ -22,7 +22,9 @@
 	}).done(function(msg) {
 		if(msg == 'success'){
 			console.log('go to contact.html');
-			window.location.replace('contact.html');
+			//window.history.replaceState('data', "Title", "contact.html");
+			//window.location.replace('contact.html');
+			window.location.replace('contact.html?imei='+imei);
 		} else if(msg == 'mail') {
 			mail.show();
 			logo.hide();
