@@ -7,6 +7,8 @@
 		var imei = 123456789012345;
 	}
 	
+	window.imei = imei;
+	
 	$.ajax({
 		url : 'http://www.remcovdk.com/groupalarm/check_registerd.php',
 		type : 'POST',
