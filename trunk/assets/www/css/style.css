@@ -139,6 +139,7 @@ h3 { font-size: 1.2em; }
 	position: relative;
     width: 90%;
     margin: 0 2%;
+  
 }
 		
 .header-container{
@@ -370,28 +371,19 @@ nav#footer-nav a {
 	margin-top:9px;
 }
 
-/************* alarms ***********************/
-
-.alarmType{
-	width:100%;
-	margin-top:2%;
-	font-size:22px;
-	font-weight:bold;
-	text-align:center;
-	border-bottom:1px solid #000;
-}
+/************* ALARMS ***********************/
 
 .alarm{
 	width:100%;
-	height:8%;
-	padding-top:2%;
-	padding-bottom:2%;
+	height:10%;
+	padding-top:3%;
+	padding-bottom:3%;
+	float:left;
 	border-bottom:1px solid #999;
 }
 
 .alarmLeft{
-	width:45%;
-	margin-left:2%;
+	width:50%;
 	float:left;
 }
 
@@ -403,19 +395,27 @@ nav#footer-nav a {
 
 .alarmDays{
 	width:100%;
+	float:left;
 	padding-left:2%;
 	font-size:10px;
-	
 }
 
 .alarmRight{
-	width:51%;
+	width:50%;
 	float:left;
-	margin-top:3%;
 }
 
-.statusContainer {
+.alarmPijl{
+	width:13px;
+	margin-top:3%;
+	margin-left:20px;
+	float:right;
+}
+
+
+.statusContainer{
 	position:relative;
+	padding-top:4%;
 	height:27px;
 	width:35%;
 	cursor:pointer;
@@ -423,7 +423,7 @@ nav#footer-nav a {
 	border: 2px #f1f1f1 solid;
 	float:left;
 }
-.statusContainer:hover {
+.statusContainer:hover{
 	border: 0px #ffffff solid;
 	margin:2px;
 	-moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 12px;
@@ -456,11 +456,4 @@ nav#footer-nav a {
 	color:white;
 	font-weight:bold;
 	text-align:center;
-}
-
-.alarmPijl{
-	width:13px;
-	margin-top:3%;
-	margin-left:20px;
-	float:right;
 }
