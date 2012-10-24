@@ -14,6 +14,7 @@ public class MainActivity extends DroidGap {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        super.setBooleanProperty("keepRunning", false);
         super.loadUrl("file:///android_asset/www/contact.html");
     }
 
