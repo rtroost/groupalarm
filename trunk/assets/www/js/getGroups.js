@@ -10,7 +10,7 @@
 	}).done(function(msg) {
 		if(msg == null){
 
-			$("#maincontent").html("Je bent niet aangemeld bij een groep.");
+			$("#group-list").html("Je bent niet aangemeld bij een groep.");
 
 		} else {
 
@@ -33,7 +33,7 @@
 				);
 			}
 
-			$("#maincontent").html(groepenHTML);
+			$("#group-list").html(groepenHTML);
 		}
 	}).fail(function(msg) {
 		alert("ajax request failed");
