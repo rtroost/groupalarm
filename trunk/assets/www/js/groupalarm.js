@@ -9,11 +9,11 @@
 
 	}).done(function(msg) {
 		if(msg == null){
-			$("#maincontent").html("Je bent niet aangemeld bij een groep");
+			$("#content").html("Je bent niet aangemeld bij een groep");
 		}else{
 			var groepen = "";
 			for(i=0; i<msg.length; i++){
-				groepen = groepen+'<div class="groep">'+
+				groepen = groepen+'<div class="groep clearfix">'+
 					'<img class="groepImg"></img>'+
 					'<div class="groepLeft">'+
 						'<span class="groepNaam">'+msg[i]['naam']+'</span>'+
@@ -26,7 +26,7 @@
 					'</div>'+
 				'</div>';			}
 			//alert('groepen');
-			$("#maincontent").html(groepen);
+			$("#content").html(groepen);
 		}
 	}).fail(function(msg) {
 		alert("ajax request failed");
