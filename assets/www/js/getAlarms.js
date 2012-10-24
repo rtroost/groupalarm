@@ -8,7 +8,7 @@
 	dataType : 'JSON',
 	}).done(function(msg) {
 		if(msg == null){
-			$("#maincontent").html("Er zijn nog geen wekkers beschikbaar.");
+			$(".wrapper").html("Er zijn nog geen wekkers beschikbaar.");
 		}else{
 			var alarms = "";
 			for(i=0; i<msg.length; i++){
@@ -41,7 +41,7 @@
 			}
 
 
-			$("#maincontent").html(alarms);
+			$(".wrapper").html(alarms);
 			
 		}
 	}).fail(function(msg) {
