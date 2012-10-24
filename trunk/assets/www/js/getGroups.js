@@ -1,7 +1,8 @@
 (function($) {
+	console.log(window.imei);
 	$.ajax({
-	url : 'http://localhost/groupalarm/php/getGroups.php',
-	type : 'GET',
+	url : 'http://www.remcovdk.com/groupalarm/getGroups.php',
+	type : 'POST',
 	data : {
 		imei : window.imei
 	},

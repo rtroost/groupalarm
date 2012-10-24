@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>Contact</title>
+	<meta charset="UTF-8" />
 	<link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -27,7 +29,6 @@
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor.</p>
 				</footer>
 			</article>
-
 			<aside>
 				<h3>aside</h3>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices.</p>
@@ -41,7 +42,7 @@
 			<nav id="footer-nav">
 				<ul>
 					<li class="active">
-						<a href="index.html">
+						<a href="contact.html">
 							<img src="images/contacten_a.png" />
 							<span>Contacts</span>
 						</a>
@@ -71,8 +72,27 @@
 
 	<!-- here comes the javascript -->
 	<script src="js/jquery-1.8.2.min.js"></script>
-	<script src="js/check-registered.js"></script>
 	<script src="js/cordova-2.0.0.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/check-registered.js"></script>
+	<script src="js/alarm.js"></script>
+	<script>
+	
+	document.addEventListener("deviceready", onDeviceReady, false);
+
+	function onDeviceReady() {
+	    $('button#click').on('click', klik);
+	}
+	
+	function klik(){
+		console.log('geklikt');
+		window.wekker('1030', function(result) {
+			alert(result);
+			console.log(result);
+		}); 
+	}
+
+	</script>
 
 	<!-- this is where we put our custom functions -->
 	<script src="js/script.js"></script>

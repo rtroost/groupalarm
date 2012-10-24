@@ -1,33 +1,44 @@
-(function($) {
-		
-		
-	if(window.location.href.split('?')[1]){
-		var imei = window.location.href.split('?')[1].split('=')[1];
-	} else {
-		var imei = 123456789012345;
+// ****************************************************************************************
+
+
+
+// COMMENTS IN DIT DOCUMENT AUB NIET WEGHALEN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// anders kom ik achter je aan met een hooivork
+
+
+// ****************************************************************************************
+
+// PC VERSIE
+window.imei = 123456789012345;
+// =========
+
+//document.addEventListener("deviceready", onDeviceReady, false);
+
+//function onDeviceReady() {
+
+	//window.getimei(function(imei) {
+	//	window.imei = imei;
+		checkregistered();
+	//});
+	
+	function checkregistered(){
+		$.ajax({
+			url : 'http://www.remcovdk.com/groupalarm/check_registerd.php',
+			type : 'POST',
+			data : {
+				imei : window.imei
+			},
+			dataType : 'json',
+	
+		}).done(function(msg) {
+			if(msg != 'success'){
+				window.location.replace('index.html');
+			}
+		}).fail(function(msg) {
+			console.log('kan geen verbinding maken');
+		});
 	}
 	
-	window.imei = imei;
 	
-	$.ajax({
-		url : 'http://www.remcovdk.com/groupalarm/check_registerd.php',
-		type : 'POST',
-		data : {
-			imei : imei
-		},
-		dataType : 'json',
 
-	}).done(function(msg) {
-		if(msg != 'success'){
-			window.location.replace('index.html?imei='+imei);
-		}
-	}).fail(function(msg) {
-		console.log('kan geen verbinding maken');
-	});
-	
-	var as = $('#bottombar a');
-	for(var i=0; i < as.length; i++){
-		as.eq(i).attr('href', as.eq(i).attr('href') + '?imei='+imei);
-	}
-
-})(jQuery); 
+//}
