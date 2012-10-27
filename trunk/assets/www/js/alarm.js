@@ -70,8 +70,8 @@ var jsalarm = {
 			type : 'POST',
 			data : {
 				action : 'set',
-				hour : hour,
-				min : min,
+				hour : self.padfield(hour),
+				min : self.padfield(min),
 				set : 0,
 				imei : window.imei
 			},
@@ -153,7 +153,7 @@ var jsalarm = {
 	
 	setAppAlarm : function(hour, min, idwekker){
 		var self = jsalarm;
-		self.activeAlarms.push({ 'hourwake': hour, 'minutewake': min, 'secondwake': '00', 'idwekker': idwekker});
+		self.activeAlarms.push({ 'hourwake': self.padfield(hour), 'minutewake': self.padfield(min), 'secondwake': '00', 'idwekker': idwekker});
 		//console.log(self.activeAlarms);
 	},
 	
@@ -179,12 +179,13 @@ var jsalarm = {
 			dataType : 'json',
 	
 		}).done(function(msg) {
+			var self = jsalarm;
 			for(var item in msg){
 				if(msg[item].active == 1){
-					jsalarm.createRow(msg[item].idwekker, msg[item].hour, msg[item].min, true);
+					jsalarm.createRow(msg[item].idwekker, self.padfield(msg[item].hour), self.padfield(msg[item].min), true);
 					jsalarm.setAppAlarm(msg[item].hour, msg[item].min, msg[item].idwekker);
 				} else {
-					jsalarm.createRow(msg[item].idwekker, msg[item].hour, msg[item].min, false);
+					jsalarm.createRow(msg[item].idwekker, self.padfield(msg[item].hour), self.padfield(msg[item].min), false);
 				}
 			}
 		}).fail(function(msg) {
@@ -195,8 +196,8 @@ var jsalarm = {
 	removealarm : function(){
 		var self = jsalarm,
 			$this = $(this);
-			
-		var id = $this.parent('td').parent('tr').attr('class');
+
+		var id = $this.parents('div.alarm').attr('id');
 		$.ajax({
 			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
 			type : 'POST',
@@ -206,7 +207,6 @@ var jsalarm = {
 				imei : window.imei
 			},
 			dataType : 'json',
-	
 		}).done(function(msg) {
 			console.log('success');
 			$this.parents('div.alarm').remove();
