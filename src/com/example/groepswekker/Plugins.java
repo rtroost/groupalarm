@@ -3,9 +3,6 @@ package com.example.groepswekker;
 import org.apache.cordova.api.Plugin;
 import org.apache.cordova.api.PluginResult;
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
@@ -33,20 +30,6 @@ public class Plugins extends Plugin {
 			} else {
 				return new PluginResult(PluginResult.Status.ERROR);
 			}
-		} else if (action.equals("wekker")) {
-			try {
-				String echo = args.getString(0);
-				if (echo != null && echo.length() > 0) {
-					return new PluginResult(PluginResult.Status.OK, wekker(echo));
-				} else {
-					return new PluginResult(PluginResult.Status.ERROR);
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return new PluginResult(PluginResult.Status.ERROR);
-			}
-
 		} else {
 			return new PluginResult(PluginResult.Status.INVALID_ACTION);
 		}
@@ -57,15 +40,4 @@ public class Plugins extends Plugin {
 				.getActivity().getSystemService(Context.TELEPHONY_SERVICE);
 		return telephonyManager.getDeviceId();
 	}
-	
-	public String wekker(String input){
-		if(input.equals("1030")){
-			return "succes";
-		} else {
-			return "fail";
-		}
-		
-		
-	}
-
 }

@@ -1,4 +1,4 @@
-(function($) {
+getGroups = function(){
 	console.log(window.imei);
 	$.ajax({
 	url : 'http://www.remcovdk.com/groupalarm/getGroups.php',
@@ -38,4 +38,17 @@
 	}).fail(function(msg) {
 		alert("ajax request failed");
 	});
-})(jQuery); 
+}
+
+//document.addEventListener("deviceready", onDeviceReady, false);
+
+//function onDeviceReady() {
+	if(window.imei != undefined){
+		getGroups();
+	} else {
+		window.getimei(function(imei) {
+			window.imei = imei;
+			getGroups();
+		});
+	}
+//}

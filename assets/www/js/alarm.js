@@ -1,13 +1,7 @@
 var jsalarm = {
 	
 	init : function() {
-		var dateobj = new Date();
-		
-		// viable clock
-		this.ctref = $('#jsalarm_ct');
-		
-		this.currentTime;
-		this.submitbutton = $('#submitbutton');
+		this.submitbutton = $('#submitbutton');
 		this.selections = $('#jsalarmclock select');
 		this.hourselect = this.selections.eq(0);
 		this.minuteselect = this.selections.eq(1);
@@ -17,7 +11,8 @@ var jsalarm = {
 		
 		this.getAll();
 		
-		this.bindEvents();
+		this.bindEvents();
+
 		for (var i = 0; i < 60; i++) {
 			if (i < 24) {//If still within range of hours field: 0-23
 				$('<option>', {value: this.padfield(i), text: this.padfield(i)}).appendTo(this.hourselect);
@@ -25,6 +20,10 @@ var jsalarm = {
 			$('<option>', {value: this.padfield(i), text: this.padfield(i)}).appendTo(this.minuteselect);
 		}
 		
+		// deze 7 regels zijn tijdelijk om de tijd te kunnen zien. kan weg in productie
+		var dateobj = new Date();
+		this.ctref = $('#jsalarm_ct');		// viable clock
+		this.currentTime;
 		this.showcurrenttime();
 		this.timer = setInterval(function() {
 			jsalarm.showcurrenttime();
@@ -42,6 +41,8 @@ var jsalarm = {
 		return (f < 10) ? "0" + f : f;
 	},
 	
+	
+	// deze functie is tijdelijk om de tijd te kunnen zien. kan weg in productie
 	showcurrenttime : function() {
 		var self = jsalarm;
 		var dateobj = new Date();
@@ -51,13 +52,13 @@ var jsalarm = {
 		// set viable clock
 		self.ctref.text(ct);
 		
-		if (self.activeAlarms.length !== 0) {//if alarm is set
+		/*if (self.activeAlarms.length !== 0) {//if alarm is set
 			for (var item in self.activeAlarms) {
 				if (self.currentTime == (self.activeAlarms[item].hourwake + ":" + self.activeAlarms[item].minutewake + ":" + self.activeAlarms[item].secondwake)) {
 					alert('time is up van alarm : ' + self.activeAlarms[item].idwekker);
 				}
 			};
-		}
+		}*/
 	},
 	
 	savealarm : function(){
@@ -126,7 +127,8 @@ var jsalarm = {
 			}
 		}).fail(function(msg) {
 			console.log('kan geen verbinding maken');
-		});
+		});
+
 	},
 	
 	createRow : function(id, hour, min, set){
@@ -153,19 +155,16 @@ var jsalarm = {
 	
 	setAppAlarm : function(hour, min, idwekker){
 		var self = jsalarm;
-		self.activeAlarms.push({ 'hourwake': self.padfield(hour), 'minutewake': self.padfield(min), 'secondwake': '00', 'idwekker': idwekker});
-		//console.log(self.activeAlarms);
+		if(window.main != undefined){
+			window.main.setAlarm(parseInt(idwekker), parseInt(self.padfield(hour)), parseInt(self.padfield(min)));
+		}
 	},
 	
 	removeAppAlarm : function(idwekker){
 		var self = jsalarm;
-		for(var item in self.activeAlarms){
-			if(self.activeAlarms[item].idwekker == idwekker){
-				var index = self.activeAlarms.indexOf(self.activeAlarms[item]);
-				self.activeAlarms.splice(index, 1);
-			}
+		if(window.main != undefined){
+			window.main.removeAlarm(parseInt(idwekker));
 		}
-		//console.log(self.activeAlarms);
 	},
 	
 	getAll : function(){
@@ -198,6 +197,11 @@ var jsalarm = {
 			$this = $(this);
 
 		var id = $this.parents('div.alarm').attr('id');
+		if($this.data('toggle') == 'On'){
+			if(window.main != undefined){
+				window.main.removeAlarm(parseInt(id));
+			}
+		}
 		$.ajax({
 			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
 			type : 'POST',
@@ -215,3 +219,16 @@ var jsalarm = {
 		});
 	}
 }
+
+//document.addEventListener("deviceready", onDeviceReady, false);
+
+//function onDeviceReady() {
+	if(window.imei != undefined){
+		jsalarm.init();
+	} else {
+		window.getimei(function(imei) {
+			window.imei = imei;
+			jsalarm.init();
+		});
+	}
+//}

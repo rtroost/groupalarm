@@ -1,18 +1,3 @@
-// ****************************************************************************************
-
-
-
-// COMMENTS IN DIT DOCUMENT AUB NIET WEGHALEN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// anders kom ik achter je aan met een hooivork
-
-
-// ****************************************************************************************
-
-
-// PC VERSIE
-window.imei = 123456789012345;
-// =========
-
 //document.addEventListener("deviceready", onDeviceReady, false);
 
 //function onDeviceReady() {
@@ -22,15 +7,17 @@ window.imei = 123456789012345;
 		form = $('div#maincontent.form'), logo = $('div#maincontent.logo'), 
 		buttonaftermail = $('.buttonaftermail'), paftermail = $('.paftermail');
 	
-	//window.getimei(function(imei) {
-		//window.imei = imei;
+	
+	if(window.imei != undefined){
 		register();
-	//});	
+	} else {
+		window.getimei(function(imei) {
+			window.imei = imei;
+			register();
+		});
+	}
 	
 	function register(){
-		console.log(window.imei);
-		console.log(forminput);
-		console.log(mailinput);
 			
 		var activeDiv = 'logo';
 		
@@ -44,7 +31,6 @@ window.imei = 123456789012345;
 	
 		}).done(function(msg) {
 			if(msg == 'success'){
-				console.log('go to contact.html');
 				window.location.replace('contact.html');
 			} else if(msg == 'mail') {
 				mail.show();
@@ -62,19 +48,16 @@ window.imei = 123456789012345;
 		$('div#maincontent').on('click', 'button.submit', function() {
 			var email, data, input, button;
 			if(activeDiv == 'mail'){
-				console.log('mail');
 				email = mailinput.attr('value');
 				data = emaildata;
 				input = mailinput;
 				button = mailbutton;
 			} else {
-				console.log('form');
 				email = forminput.attr('value');
 				data = formdata;
 				input = forminput;
 				button = formbutton;
 			}
-			console.log(email);
 			var ajax = $.ajax({
 				url : 'http://www.remcovdk.com/groupalarm/register.php',
 				type : 'POST',
