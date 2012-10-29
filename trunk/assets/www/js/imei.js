@@ -1,25 +1,15 @@
-// ****************************************************************************************
-
-
-
-// COMMENTS IN DIT DOCUMENT AUB NIET WEGHALEN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// anders kom ik achter je aan met een hooivork
-
-
-// ****************************************************************************************
-
-// PC VERSIE
-window.imei = 123456789012345;
-// =========
-
 //document.addEventListener("deviceready", onDeviceReady, false);
 
 //function onDeviceReady() {
 
-	//window.getimei(function(imei) {
-	//	window.imei = imei;
+	if(window.imei != undefined){
 		checkregistered();
-	//});
+	} else {
+		window.getimei(function(imei) {
+			window.imei = imei;
+			checkregistered();
+		});
+	}
 	
 	function checkregistered(){
 		$.ajax({
@@ -38,7 +28,4 @@ window.imei = 123456789012345;
 			console.log('kan geen verbinding maken');
 		});
 	}
-	
-	
-
 //}
