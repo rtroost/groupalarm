@@ -12,6 +12,7 @@ var jsalarm = {
 		this.getAll();
 		
 		this.bindEvents();
+		this.getTemplates();
 
 		for (var i = 0; i < 60; i++) {
 			if (i < 24) {//If still within range of hours field: 0-23
@@ -35,6 +36,14 @@ var jsalarm = {
 		self.submitbutton.on('click', self.savealarm);
 		self.divresult.on('click', 'div.set', self.setalarm);
 		self.divresult.on('click', 'button.remove', self.removealarm);
+	},
+	
+	getTemplates: function(){
+		//template = Handlebars.compile( $('#alarmtemplate').html() );
+		template = Handlebars.compile( $('#alarmtemplate').html() );
+		// Handlebars.registerHelper('fullName', function( author ) {
+			// return author.first + ' ' + author.last + ' - ' + author.age;
+		// });
 	},
 	
 	padfield : function(f) {
@@ -79,7 +88,7 @@ var jsalarm = {
 			dataType : 'json',
 	
 		}).done(function(msg) {
-			jsalarm.createRow(msg, hour, min, false);
+			jsalarm.createRow({id: msg, hour: hour, min: min, set: false});
 		}).fail(function(msg) {
 			console.log('kan geen verbinding maken');
 		});
@@ -131,25 +140,10 @@ var jsalarm = {
 
 	},
 	
-	createRow : function(id, hour, min, set){
+	createRow : function(context){
 		var self = jsalarm;
-	
-		var maindiv = $('<div>', {class: 'alarm', 'id': id}).appendTo(self.divresult);
-		var alarmLeft = $('<div>', {class: 'alarmLeft'}).appendTo(maindiv);
-		$('<span>', {class: 'alarmTime', text: hour + ':' + min}).appendTo(alarmLeft);
-		$('<span>', {class: 'alarmDays', text: 'Every day'}).appendTo(alarmLeft);
-		
-		var alarmRight = $('<div>', {class: 'alarmRight'}).appendTo(maindiv);
-		var statusContainer = $('<div>', {class: 'statusContainer'}).appendTo(alarmRight);
-		if(set){
-			var status = 'On';
-		} else {
-			var status = 'Off';
-		}
-		var statusdiv = $('<div>', {class: 'status' + status + ' set', 'data-toggle': status}).appendTo(statusContainer);
-		$('<div>', {class: 'status' + status + 'Tekst', text: status}).appendTo(statusdiv);
-		$('<button>', {text: 'remove', class: 'remove'}).appendTo(alarmRight);
-		$('<img>', {class: 'alarmPijl', 'src': 'images/pijl.png'}).appendTo(alarmRight);
+
+		self.divresult.append( template(context) );
 
 	},
 	
@@ -181,10 +175,10 @@ var jsalarm = {
 			var self = jsalarm;
 			for(var item in msg){
 				if(msg[item].active == 1){
-					jsalarm.createRow(msg[item].idwekker, self.padfield(msg[item].hour), self.padfield(msg[item].min), true);
+					jsalarm.createRow({id: msg[item].idwekker, hour: self.padfield(msg[item].hour), min: self.padfield(msg[item].min), set: true});
 					jsalarm.setAppAlarm(msg[item].hour, msg[item].min, msg[item].idwekker);
 				} else {
-					jsalarm.createRow(msg[item].idwekker, self.padfield(msg[item].hour), self.padfield(msg[item].min), false);
+					jsalarm.createRow({id: msg[item].idwekker, hour: self.padfield(msg[item].hour), min: self.padfield(msg[item].min), set: false});
 				}
 			}
 		}).fail(function(msg) {

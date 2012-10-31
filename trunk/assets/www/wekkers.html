@@ -32,8 +32,35 @@
 					
 					
 					<div id="result">
-						
-						
+						<script id="alarmtemplate" type="text/x-handlebars-template">
+							<div id="{{id}}" class="alarm">
+								<div class="alarmLeft">
+									<span class="alarmTime">{{hour}}:{{min}}</span>
+									<span class="alarmDays">Every day</span>
+								</div>
+								<div class="alarmRight">
+									<div class="statusContainer">
+										{{#if set}}
+											<div class="statusOn set" data-toggle="On">
+												<div class="statusOnTekst">
+													On
+												</div>
+											</div>
+										{{else}}
+											<div class="statusOff set" data-toggle="Off">
+												<div class="statusOffTekst">
+													Off
+												</div>
+											</div>
+										{{/if}}
+									</div>
+									<button class="remove">
+										remove
+									</button>
+									<img class="alarmPijl" src="images/pijl.png">
+								</div>
+							</div>
+						</script>
 					</div>
 					
 				
@@ -78,6 +105,7 @@
 	<script src="js/jquery-1.8.2.min.js"></script>
 	<script src="js/cordova-2.0.0.js"></script>
 	<script src="js/plugins.js"></script>
+	<script src="js/handlebars.js"></script>
 	<script src="js/imei.js"></script>
 	<script src="js/alarm.js"></script>
 
