@@ -13,8 +13,6 @@ import android.telephony.TelephonyManager;
 import android.view.Menu;
 import org.apache.cordova.*;
 
-import com.example.groepswekker.R;
-
 public class MainActivity extends DroidGap {
 
 	HashMap<Integer, PendingIntent> alarmintents;
