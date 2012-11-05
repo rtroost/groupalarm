@@ -518,7 +518,7 @@ nav#footer-nav a {
 
 
 .group-list {}
-.group-item { display:block; position: relative; height: 75px; border-right: 5px solid rgba(0,0,0,0); padding: 5px; background: #e0ecf4; margin: 10px 0;
+.group-item { display:block; position: relative; border-right: 5px solid rgba(0,0,0,0); padding: 5px; background: #e0ecf4; margin: 10px 0;
 	-webkit-box-shadow:  0px 0px 3px 0px rgba(0, 0, 0, 0.5);
 			box-shadow:  0px 0px 3px 0px rgba(0, 0, 0, 0.5);
 	border-radius: 3px;
@@ -529,7 +529,7 @@ nav#footer-nav a {
 .group-item.red {border-color: red;}
 .group-item.gray {border-color: gray;}
 .group-item .group-image { float: left; margin-right: 5px;}
-.group-item	.group-name { margin-left: 90px; font-size: 18px; font-weight: 600; color: #1d3d52;}
+.group-item	.group-name { margin-left: 90px; font-size: 18px; font-weight: 600; color: #1d3d52; letter-spacing: -1px;}
 
 
 .group-item .group-alarm {
@@ -550,7 +550,14 @@ nav#footer-nav a {
 
 
 
-.group-item	.group-pictures { display: block; position: absolute; bottom: 2px; left: 90px; overflow: hidden;}
+.group-item	.group-pictures {
+	display: block;
+	/*position: absolute; bottom: 4px; left: 90px; overflow: hidden;*/
+	margin-top: 14px;
+}
+.group-item	.group-pictures-large {
+	
+}
 .group-item	.group-pictures .leader {
 	font-size: 8px;
     bottom: 0;
@@ -561,21 +568,22 @@ nav#footer-nav a {
 .group-item	.group-pictures .picture-status {
 	font-size: 13px;
     display: block;
-    height: 75%;
+    height: 50%;
     left: 0;
     top: 0;
     position: absolute;
-    padding-top: 25%;
+    padding-top: 50%;
     width: 100%;
 	text-align: center;
+	line-height: 0;
 	color: rgba(0,0,0,0.4);
 }
 .picture-status.awake {background: rgba(0,255,0,0.2);}
 .picture-status.snooze {background:rgba(255,255,0,0.2);}
 .picture-status.delay {background:rgba(255,0,0,0.2);}
 ul.group-pictures-list { list-style-type: none; white-space: nowrap; }
-ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1px 0 0; width: 35px; height: 35px; }
+ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1px 0 0; width: 35px; height: 35px; padding: 1px; border: 1px solid #aecee2;}
 
 .group-item-wrapper { cursor: pointer; height: 75px; width: 100%; }
-.group-collapsed-data { display: hidden; }
+.group-collapsed-data { display: none; }
 
