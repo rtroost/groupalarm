@@ -1,3 +1,7 @@
+// PC VERSIE
+window.imei = 123456789012345;
+// =========
+
 //document.addEventListener("deviceready", onDeviceReady, false);
 
 //function onDeviceReady() {

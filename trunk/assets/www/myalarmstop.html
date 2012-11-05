@@ -1,0 +1,62 @@
+<!DOCTYPE htlm>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<style>
+			body{
+				margin: 0px;
+				margin-top: 30%;
+			}
+			div{
+				margin: auto auto;
+				width: 40%;
+			}
+			button{
+				width: 100%;
+				height: 20%;
+			}
+		</style>
+	</head>
+	<body>
+
+	<div>
+		<button id="stopalarm">
+			STOPALARM
+		</button>
+		
+	</div>
+
+
+	<script src="js/jquery-min.js"></script>
+	<script src="js/cordova-2.0.0.js"></script>
+	<script src="js/imei.js"></script>
+	<script>
+		$('button#stopalarm').on('click', function(){
+		
+			var id = window.wekker.getId();
+			console.log(id);
+
+			$.ajax({
+				url : 'http://www.remcovdk.com/groupalarm/alarm.php',
+				type : 'POST',
+				data : {
+					action : 'active',
+					set : 0,
+					idwekker : id,
+					imei : window.imei
+				},
+				dataType : 'json',
+			}).done(function(msg) {
+				
+			}).fail(function(msg) {
+				console.log('kan geen verbinding maken');
+			});
+			window.wekker.stopAlarm();
+			
+		});
+		
+		
+	</script>
+	
+	</body>
+</html>

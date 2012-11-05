@@ -1,13 +1,9 @@
 var jsalarm = {
-	
-	padfield : function(f) {
-		return (f < 10) ? "0" + f : f;
-	},
-	
+
 	setAppAlarm : function(hour, min, idwekker){
 		var self = jsalarm;
 		if(window.main != undefined){
-			window.main.setAlarm(parseInt(idwekker), parseInt(self.padfield(hour)), parseInt(self.padfield(min)));
+			window.main.setAlarm(parseInt(idwekker), parseInt(hour), parseInt(min));
 		}
 	},
 	
