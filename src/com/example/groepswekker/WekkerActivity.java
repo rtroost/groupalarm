@@ -18,6 +18,7 @@ import android.widget.Button;
 
 public class WekkerActivity extends DroidGap {
     private MediaPlayer mMediaPlayer;
+    int wekkerid;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,23 +26,53 @@ public class WekkerActivity extends DroidGap {
         //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         //        WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.alarm);   
- 
-        Button stopAlarm = (Button) findViewById(R.id.stopAlarm);
-        stopAlarm.setOnTouchListener(new OnTouchListener() {
-            public boolean onTouch(View arg0, MotionEvent arg1) {
-                mMediaPlayer.stop();
-                Intent myIntent = new Intent(WekkerActivity.this, MainActivity.class);
-                myIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                //myIntent.putExtra("action", 10);
-                WekkerActivity.this.startActivity(myIntent);
-                finish();
-                return false;
-            }
-        });
+        super.init();
+        
+        appView.addJavascriptInterface(this, "wekker");
+        
+        Bundle b = getIntent().getExtras();
+        this.wekkerid = b.getInt("id");
+        
+        System.out.println("wekker id " + this.wekkerid);
+        
+        super.loadUrl("file:///android_asset/www/myalarmstop.html");
+        
+        
+        
+        
+//        setContentView(R.layout.alarm);   
+// 
+//        Button stopAlarm = (Button) findViewById(R.id.stopAlarm);
+//        stopAlarm.setOnTouchListener(new OnTouchListener() {
+//            public boolean onTouch(View arg0, MotionEvent arg1) {
+//                mMediaPlayer.stop();
+//                Intent myIntent = new Intent(WekkerActivity.this, MainActivity.class);
+//                myIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//                //myIntent.putExtra("action", 10);
+//                WekkerActivity.this.startActivity(myIntent);
+//                finish();
+//                return false;
+//            }
+//        });
+        
  
         playSound(this, getAlarmUri());
         
+    }
+    
+    public int getId(){
+    	return this.wekkerid;
+    }
+    
+    public boolean stopAlarm() {
+        mMediaPlayer.stop();
+        Intent myIntent = new Intent(WekkerActivity.this, MainActivity.class);
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        //myIntent.putExtra("action", 10);
+        WekkerActivity.this.startActivity(myIntent);
+        System.out.println("testtesst");
+        finish();
+        return false;
     }
 	    
     private void playSound(Context context, Uri alert) {

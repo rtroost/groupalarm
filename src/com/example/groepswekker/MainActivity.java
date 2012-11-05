@@ -56,6 +56,7 @@ public class MainActivity extends DroidGap {
     }
     
     public void setAlarm(int id, String hour, String min){
+    	System.out.println("hour" + hour);
     	int inthour = Integer.parseInt(hour);
     	int intmin = Integer.parseInt(min);
     	
@@ -70,22 +71,38 @@ public class MainActivity extends DroidGap {
     	
     	if(nowhour > inthour){
     		// volgende dag
-    		tmp.add(Calendar.HOUR, 24-(nowhour - inthour));
+    		System.out.println("volgende dag");
+    		System.out.println("nowhour" + nowhour);
+    		System.out.println("inthour" + inthour);
+    		System.out.println("som = " + (24-(nowhour - inthour)));
+    		tmp.add(Calendar.HOUR_OF_DAY, 24-(nowhour - inthour));
     	} else {
-    		tmp.add(Calendar.HOUR,  inthour - nowhour);
+    		tmp.add(Calendar.HOUR_OF_DAY,  inthour - nowhour);
     	}
-    	if(nowmin > intmin){
-			//volgende dag
-    		tmp.add(Calendar.MINUTE, 60-(nowmin - intmin));
-		} else {
+//    	if(nowmin > intmin){
+//			//volgende dag
+//    		tmp.add(Calendar.MINUTE, 60-(nowmin - intmin));
+//		} else {
 			tmp.add(Calendar.MINUTE,  intmin - nowmin);
-		}
+//		}
+    	
+    	System.out.println(tmp.get(Calendar.HOUR_OF_DAY));
+    	System.out.println(tmp.get(Calendar.MINUTE));
+    	
+    	System.out.println("now timeinmil = " + now.getTimeInMillis());
+    	System.out.println("new timeinmil = " + tmp.getTimeInMillis());
+    	
 
     	tmp.set(Calendar.SECOND, 00);
     	
         this.intents.put(id, new Intent(this, WekkerActivity.class));
+        this.intents.get(id).putExtra("id", id);
         this.alarmintents.put(id, PendingIntent.getActivity(this, id, this.intents.get(id), PendingIntent.FLAG_CANCEL_CURRENT));
         this.am.set(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), this.alarmintents.get(id));
+    }
+    
+    public void setRepeatAlarm(int id, String hour, String min, String[] days){
+
     }
     
     public void removeAlarm(int id){
