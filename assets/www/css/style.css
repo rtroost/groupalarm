@@ -460,7 +460,7 @@ nav#footer-nav a {
 	font-family: 'customFont';
 	content: attr(data-icon);
 	speak: none;
-	font-weight: normal;
+	/*font-weight: normal;*/
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -479,9 +479,28 @@ nav#footer-nav a {
 .group-item.red {border-color: red;}
 .group-item.gray {border-color: gray;}
 .group-item .group-image { float: left; margin-right: 5px;}
-.group-item	.group-name { margin-left: 90px; font-size: 18px; font-weight: 600; }
-.group-item .group-alarm { margin-left: 95px; font-size: 10px; max-width: 100%; overflow: hidden; }
-.group-item	.group-pictures { display: block; position: absolute; bottom: 5px; left: 90px; height: 25px; max-width: 100%; overflow: hidden;}
+.group-item	.group-name { margin-left: 90px; font-size: 18px; font-weight: 600; color: #1d3d52;}
+
+
+.group-item .group-alarm {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	padding: 5px 0 5px 8px;
+	border-radius: 3px;
+	border: 1px solid #bad5e7;
+	background: #c7ddeb;
+	font-size: 10px;
+	font-weight: 400;
+	line-height: 11px;
+}
+.group-alarm .icon {font-size: 12px; line-height: 0; margin-right: 2px;}
+.group-alarm .date {}
+.group-alarm .time {margin-left: 8px; background: #aecee2; padding: 5px 8px; }
+
+
+
+.group-item	.group-pictures { display: block; position: absolute; bottom: 2px; left: 90px; overflow: hidden;}
 .group-item	.group-pictures .leader {
 	font-size: 8px;
     bottom: 0;
@@ -492,11 +511,11 @@ nav#footer-nav a {
 .group-item	.group-pictures .picture-status {
 	font-size: 13px;
     display: block;
-    height: 100%;
+    height: 75%;
     left: 0;
-    position: absolute;
-    padding-top: 15%;
     top: 0;
+    position: absolute;
+    padding-top: 25%;
     width: 100%;
 	text-align: center;
 	color: rgba(0,0,0,0.4);
@@ -505,7 +524,7 @@ nav#footer-nav a {
 .picture-status.snooze {background:rgba(255,255,0,0.2);}
 .picture-status.delay {background:rgba(255,0,0,0.2);}
 ul.group-pictures-list { list-style-type: none; white-space: nowrap; }
-ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 5px 0 0; width: 25px; height: 25px; }
+ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1px 0 0; width: 35px; height: 35px; }
 
 .group-item-wrapper { cursor: pointer; height: 75px; width: 100%; }
 .group-collapsed-data { display: hidden; }
