@@ -33,24 +33,36 @@
 	<script>
 		$('button#stopalarm').on('click', function(){
 		
-			var id = window.wekker.getId();
-			console.log(id);
+			var data = window.wekker.getData();
+			console.log(data);
+			var id = data.split('/')[0];
+			var days = data.split('/')[1];
+			console.log('wekker id = ' + id);
+			console.log('days = ' + days);
+			
+			
+			
+			if(days == 'no-repeat'){
+				$.ajax({
+					url : 'http://www.remcovdk.com/groupalarm/alarm.php',
+					type : 'POST',
+					data : {
+						action : 'active',
+						set : 0,
+						idwekker : id,
+						imei : window.imei
+					},
+					dataType : 'json',
+				}).done(function(msg) {
+					
+				}).fail(function(msg) {
+					console.log('kan geen verbinding maken');
+				});
+			} else {
+				var repDays = days.split(',');
+			}
 
-			$.ajax({
-				url : 'http://www.remcovdk.com/groupalarm/alarm.php',
-				type : 'POST',
-				data : {
-					action : 'active',
-					set : 0,
-					idwekker : id,
-					imei : window.imei
-				},
-				dataType : 'json',
-			}).done(function(msg) {
-				
-			}).fail(function(msg) {
-				console.log('kan geen verbinding maken');
-			});
+			
 			window.wekker.stopAlarm();
 			
 		});

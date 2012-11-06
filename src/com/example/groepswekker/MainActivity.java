@@ -69,7 +69,7 @@ public class MainActivity extends DroidGap {
     	//if( nowhour == inthour && nowmin == intmin )
     	// return;
     	
-    	if(nowhour > inthour){
+    	if(nowhour > inthour || (nowmin >= intmin && inthour <= nowhour )){
     		// volgende dag
     		System.out.println("volgende dag");
     		System.out.println("nowhour" + nowhour);
@@ -79,12 +79,12 @@ public class MainActivity extends DroidGap {
     	} else {
     		tmp.add(Calendar.HOUR_OF_DAY,  inthour - nowhour);
     	}
-//    	if(nowmin > intmin){
+//    	if(nowmin >= intmin){
 //			//volgende dag
 //    		tmp.add(Calendar.MINUTE, 60-(nowmin - intmin));
-//		} else {
+		//} else {
 			tmp.add(Calendar.MINUTE,  intmin - nowmin);
-//		}
+		//}
     	
     	System.out.println(tmp.get(Calendar.HOUR_OF_DAY));
     	System.out.println(tmp.get(Calendar.MINUTE));
@@ -97,12 +97,70 @@ public class MainActivity extends DroidGap {
     	
         this.intents.put(id, new Intent(this, WekkerActivity.class));
         this.intents.get(id).putExtra("id", id);
+        this.intents.get(id).putExtra("days", "no-repeat");
         this.alarmintents.put(id, PendingIntent.getActivity(this, id, this.intents.get(id), PendingIntent.FLAG_CANCEL_CURRENT));
         this.am.set(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), this.alarmintents.get(id));
     }
     
-    public void setRepeatAlarm(int id, String hour, String min, String[] days){
+    public void setRepeatAlarm(int id, String hour, String min, String days){
+    	System.out.println("REPEAT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    	int inthour = Integer.parseInt(hour);
+    	int intmin = Integer.parseInt(min);
+    	String[] repDays = days.split(",");
+    	
+    	System.out.println("hour" + inthour);
+    	System.out.println("min" + intmin);
+    	
+    	int calID = 0;
 
+    	for(int i = 1; i < repDays.length; i++){
+    		switch(i){case 0:calID=0;break;case 1:calID=Calendar.MONDAY;break;case 2:calID=Calendar.TUESDAY;break;case 3:calID=Calendar.WEDNESDAY;break;case 4:calID=Calendar.THURSDAY;break;
+			case 5:calID=Calendar.FRIDAY;break;case 6:calID=Calendar.SATURDAY;break;case 7:calID=Calendar.SUNDAY;break;};
+			System.out.println(calID);
+    		System.out.println(repDays[i]);
+    		if(Integer.parseInt(repDays[i]) == 1){
+    			Calendar now = Calendar.getInstance();
+    	    	
+    	    	int nowhour = now.get(Calendar.HOUR_OF_DAY);
+    	    	int nowmin = now.get(Calendar.MINUTE);
+    	    	
+    	    	//if() huidige dag gelijk is aan de intestellen dag doe + 1 week
+
+    	    	Calendar tmp = (Calendar) now.clone();
+    	    	tmp.set(Calendar.HOUR_OF_DAY, inthour); //hour
+    	    	tmp.set(Calendar.MINUTE, intmin); //min
+    	    	tmp.set(Calendar.DAY_OF_WEEK, calID);
+    	    	System.out.println("dag1 = " + calID);
+    	    	System.out.println("dag1 = " + now.get(Calendar.DAY_OF_WEEK));
+    	    	if((calID == now.get(Calendar.DAY_OF_WEEK) && nowhour > inthour) || (calID == now.get(Calendar.DAY_OF_WEEK) && nowmin >= intmin && inthour <= nowhour) ){
+    	    		System.out.println("extra week");
+    	    		tmp.add(Calendar.WEEK_OF_YEAR, 1);
+    	    	}
+    	    	//set day =========================
+    			//tmp.add(Calendar.HOUR_OF_DAY, 12);	
+    			//tmp.add(Calendar.MINUTE, 29);
+    				
+    	    	System.out.println("new hour = " + tmp.get(Calendar.HOUR_OF_DAY));
+    	    	System.out.println("new min = " + tmp.get(Calendar.MINUTE));
+    	    	
+    	    	System.out.println("now timeinmil = " + now.getTimeInMillis());
+    	    	System.out.println("new timeinmil = " + tmp.getTimeInMillis());
+    	    	
+
+    	    	tmp.set(Calendar.SECOND, 00);
+    	    	
+    	    	String id2 = Integer.toString(id);
+    	    	id2 = "-" + id2 + i;
+    	    	int id3 = Integer.parseInt(id2);
+    	    	System.out.println(id3);
+    	    	
+    	    	this.intents.put(id3, new Intent(this, WekkerActivity.class));
+    	        this.intents.get(id3).putExtra("id", id3);
+    	        this.intents.get(id3).putExtra("days", days);
+    	        this.alarmintents.put(id3, PendingIntent.getActivity(this, id3, this.intents.get(id3), PendingIntent.FLAG_CANCEL_CURRENT));
+    	        this.am.setRepeating(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), 60000, this.alarmintents.get(id3)); // 1 week = 604800000 // 1 min = 60000
+    		}
+    	}
     }
     
     public void removeAlarm(int id){

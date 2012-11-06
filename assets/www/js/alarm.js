@@ -7,7 +7,7 @@ var jsalarm = {
 		this.minuteselect = this.selections.eq(1);
 		this.divresult = $('#result');
 		
-		this.activeAlarms = [];
+		this.alarms = {};
 		
 		this.getAll();
 		
@@ -40,14 +40,20 @@ var jsalarm = {
 	},
 	
 	getTemplates: function(){
-		//template = Handlebars.compile( $('#alarmtemplate').html() );
 		template = Handlebars.compile( $('#alarmtemplate').html() );
 		Handlebars.registerHelper('frepDays', function( repDay ) {
-			if(repDay[0] == 'no'){
-				return 'statusOnA';
-			}
-			return 'statusOffA';
-			//return author.first + ' ' + author.last + ' - ' + author.age;
+			var html = '';
+			for (var i=0; i < repDay.length; i++) {
+				var text;
+				switch(i){case 0:text='No-repeat';break;case 1:text='Mon';break;case 2:text='Tue';break;case 3:text='Wen';break;case 4:text='Thu';break;
+					case 5:text='Fri';break;case 6:text='Sat';break;case 7:text='Sun';break;};
+				if(repDay[i] == 1){
+					html +=	'<a class="statusOnA">' + text + '</a>';
+				} else {
+					html +=	'<a class="statusOffA">' + text + '</a>';
+				}
+			};
+			return new Handlebars.SafeString( html );
 		});
 	},
 	
@@ -71,25 +77,28 @@ var jsalarm = {
 	},
 	
 	setAppAlarm : function(hour, min, idwekker){
-		var self = jsalarm;
 		if(window.main != undefined){
 			console.log(parseInt(hour));
 			window.main.setAlarm(parseInt(idwekker), parseInt(hour), parseInt(min));
 		}
 	},
 	
+	setAppRepeatAlarm : function(hour, min, idwekker, repDays){
+		if(window.main != undefined){
+			console.log('REPEAT');
+			console.log(parseInt(hour));
+			window.main.setRepeatAlarm(parseInt(idwekker), parseInt(hour), parseInt(min), repDays.join());
+		}
+	},
+	
 	removeAppAlarm : function(idwekker){
-		var self = jsalarm;
 		if(window.main != undefined){
 			window.main.removeAlarm(parseInt(idwekker));
 		}
 	},
 	
 	createRow : function(context){
-		var self = jsalarm;
-
-		self.divresult.append( template(context) );
-
+		jsalarm.divresult.append( template(context) );
 	},
 	
 	savealarm : function(){
@@ -110,7 +119,13 @@ var jsalarm = {
 			dataType : 'json',
 	
 		}).done(function(msg) {
-			jsalarm.createRow({id: msg, hour: hour, min: min, set: false, repDay: ['no', 0, 0, 0, 0, 0, 0, 0]});
+			self.alarms[msg] = {
+				hour: hour,
+				min: min,
+				set: 0,
+				repDay: [1, 0, 0, 0, 0, 0, 0, 0]
+			}
+			jsalarm.createRow({id: msg, hour: hour, min: min, set: false, repDay: [1, 0, 0, 0, 0, 0, 0, 0]});
 		}).fail(function(msg) {
 			console.log('kan geen verbinding maken');
 		});
@@ -123,17 +138,13 @@ var jsalarm = {
 			$this = $(this);
 			
 		var id = $this.parents('div.alarm').attr('id');
-		if($this.data('toggle') == 'Off'){
-			var set = 1;
-		} else {
-			var set = 0;
-		}
-		var time = $this.parents('div.alarmRight').siblings('div.alarmLeft').children('span.alarmTime').text();
-		console.log("tijd = "+ time);
-		var hour = time.split(':')[0];
+		var set = (self.alarms[id].set == 1) ? 0 : 1;
+		//var time = $this.parents('div.alarmRight').siblings('div.alarmLeft').children('span.alarmTime').text();
+		//console.log("tijd = "+ time);
+		var hour = self.alarms[id].hour
 		console.log("uur niet geparsed = " + hour);
 		console.log("uur niet functie = " + self.reversePadfield(hour));
-		var min = time.split(':')[1];
+		var min = self.alarms[id].min;
 		
 		console.log("uur = " + parseInt(hour));
 		console.log("min = " + parseInt(min));
@@ -153,7 +164,8 @@ var jsalarm = {
 			if(set == 1){
 				$this.removeClass('statusOff').addClass('statusOn').data('toggle', 'On');
 				$this.children('div').text('On').removeClass('statusOffTekst').addClass('statusOnTekst');
-				jsalarm.setAppAlarm(self.reversePadfield(hour), self.reversePadfield(min), id);
+				//if()
+				jsalarm.setAppAlarm(hour, min, id);
 			} else {
 				$this.removeClass('statusOn').addClass('statusOff').data('toggle', 'Off');
 				$this.children('div').text('Off').removeClass('statusOnTekst').addClass('statusOffTekst');
@@ -163,33 +175,6 @@ var jsalarm = {
 			console.log('kan geen verbinding maken');
 		});
 
-	},
-	
-	removealarm : function(){
-		var self = jsalarm,
-			$this = $(this);
-
-		var id = $this.parents('div.alarm').attr('id');
-		if($this.data('toggle') == 'On'){
-			if(window.main != undefined){
-				window.main.removeAlarm(parseInt(id));
-			}
-		}
-		$.ajax({
-			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
-			type : 'POST',
-			data : {
-				action : 'remove',
-				idwekker : id,
-				imei : window.imei
-			},
-			dataType : 'json',
-		}).done(function(msg) {
-			console.log('success');
-			$this.parents('div.alarm').remove();
-		}).fail(function(msg) {
-			console.log('kan geen verbinding maken');
-		});
 	},
 	
 	getAll : function(){
@@ -206,17 +191,58 @@ var jsalarm = {
 			var self = jsalarm;
 			for(var item in msg){
 				// loop door de rep_day heen
-				//if(msg[item].rep_days == 0){
-					var repDay = ['no', 0, 0, 0, 0, 0, 0, 0];
-				//}
-				console.log(repDay);
-				if(msg[item].active == 1){
-					jsalarm.createRow({id: msg[item].idwekker, hour: self.padfield(msg[item].hour), min: self.padfield(msg[item].min), set: true, repDay: repDay});
-					jsalarm.setAppAlarm(msg[item].hour, msg[item].min, msg[item].idwekker);
+				if(msg[item].rep_days == 0){
+					var repDay = [1, 0, 0, 0, 0, 0, 0, 0];
+				} else if(msg[item].rep_days == 1){
+					var repDay = [0, 1, 0, 0, 0, 0, 0, 0];
 				} else {
-					jsalarm.createRow({id: msg[item].idwekker, hour: self.padfield(msg[item].hour), min: self.padfield(msg[item].min), set: false, repDay: repDay});
+					var repDay = [0, 0, 1, 0, 0, 0, 0, 0];
+				}
+				self.alarms[msg[item].idwekker] = {
+					hour: msg[item].hour,
+					min: msg[item].min,
+					set: msg[item].active,
+					repDay: repDay
+				}
+				//console.log(repDay);
+				if(msg[item].active == 1){
+					self.createRow({id: msg[item].idwekker, hour: self.padfield(msg[item].hour), min: self.padfield(msg[item].min), set: true, repDay: repDay});
+					if(repDay[0] == 1){
+						self.setAppAlarm(msg[item].hour, msg[item].min, msg[item].idwekker);
+					} else {
+						self.setAppRepeatAlarm(msg[item].hour, msg[item].min, msg[item].idwekker, repDay);
+					}
+				} else {
+					self.createRow({id: msg[item].idwekker, hour: self.padfield(msg[item].hour), min: self.padfield(msg[item].min), set: false, repDay: repDay});
 				}
 			}
+		}).fail(function(msg) {
+			console.log('kan geen verbinding maken');
+		});
+	},
+	
+	removealarm : function(){
+		var self = jsalarm,
+			$this = $(this);
+
+		var id = $this.parents('div.alarm').attr('id');
+		if(self.alarms[id].set == 1){ //$this.data('toggle') == 'On'
+			if(window.main != undefined){
+				window.main.removeAlarm(parseInt(id));
+			}
+		}
+		$.ajax({
+			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
+			type : 'POST',
+			data : {
+				action : 'remove',
+				idwekker : id,
+				imei : window.imei
+			},
+			dataType : 'json',
+		}).done(function(msg) {
+			console.log('success');
+			$this.parents('div.alarm').remove();
 		}).fail(function(msg) {
 			console.log('kan geen verbinding maken');
 		});
