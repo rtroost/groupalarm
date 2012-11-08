@@ -20,6 +20,7 @@
 	<body>
 
 	<div>
+		<h1></h1>
 		<button id="stopalarm">
 			STOPALARM
 		</button>
@@ -31,17 +32,18 @@
 	<script src="js/cordova-2.0.0.js"></script>
 	<script src="js/imei.js"></script>
 	<script>
-		$('button#stopalarm').on('click', function(){
-		
-			var data = window.wekker.getData();
+	
+		var data = window.wekker.getData();
 			console.log(data);
 			var id = data.split('/')[0];
 			var days = data.split('/')[1];
 			console.log('wekker id = ' + id);
 			console.log('days = ' + days);
 			
+		$('h1').text('Wekker id = ' + id);
 			
-			
+		$('button#stopalarm').on('click', function(){
+
 			if(days == 'no-repeat'){
 				$.ajax({
 					url : 'http://www.remcovdk.com/groupalarm/alarm.php',
