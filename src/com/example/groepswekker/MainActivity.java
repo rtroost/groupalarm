@@ -132,7 +132,7 @@ public class MainActivity extends DroidGap {
     	    	tmp.set(Calendar.DAY_OF_WEEK, calID);
     	    	System.out.println("dag1 = " + calID);
     	    	System.out.println("dag1 = " + now.get(Calendar.DAY_OF_WEEK));
-    	    	if((calID == now.get(Calendar.DAY_OF_WEEK) && nowhour > inthour) || (calID == now.get(Calendar.DAY_OF_WEEK) && nowmin >= intmin && inthour <= nowhour) ){
+    	    	if(calID < now.get(Calendar.DAY_OF_WEEK) || (calID == now.get(Calendar.DAY_OF_WEEK) && nowhour > inthour) || (calID == now.get(Calendar.DAY_OF_WEEK) && nowmin >= intmin && inthour <= nowhour)  ){
     	    		System.out.println("extra week");
     	    		tmp.add(Calendar.WEEK_OF_YEAR, 1);
     	    	}
@@ -168,6 +168,7 @@ public class MainActivity extends DroidGap {
     		this.am.cancel(this.alarmintents.get(id));
     		this.alarmintents.remove(id);
     		this.intents.remove(id);
+    		// eventueel pending intents verwijderen
     	}
     }
 }

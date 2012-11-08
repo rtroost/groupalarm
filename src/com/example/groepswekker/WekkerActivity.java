@@ -70,9 +70,7 @@ public class WekkerActivity extends DroidGap {
         mMediaPlayer.stop();
         Intent myIntent = new Intent(WekkerActivity.this, MainActivity.class);
         myIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        //myIntent.putExtra("action", 10);
         WekkerActivity.this.startActivity(myIntent);
-        System.out.println("testtesst");
         finish();
         return false;
     }
