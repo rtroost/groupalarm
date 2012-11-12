@@ -33,14 +33,83 @@ function onSuccess(contacts){
         }
     }
 
-    for (var x=0; x<names.length; x++){
-        for (var y=0; y<names[x].length; y++){
-            alert(names[x][y]);
-        }       
-    }  
+    $.ajax({
+        url : 'http://www.remcovdk.com/groupalarm/contacts.php',
+        type : 'POST',
+        data : {
+            action : 'checkApp',
+            names : names,
+        },
+        dataType : 'html',
+    })
+
+    .done(function(msg){
+        names = msg;
+        for (var x=0; x<names.length; x++){
+            for (var y=0; y<names[x].length; y++){
+                alert(names[x][y]);
+            }       
+        }
+    })
+
+    .fail(function(msg){
+            console.log('Kan geen verbinding maken');
+    }); 
 }
+
 
 // onError: Failed to get the contacts
 function onError(contactError){
     alert('onError!');
 }
+
+/*
+var jscontacten = {
+
+    init : function() {
+        this.divcontacten = $('#contacten');
+        
+        this.getAll();
+        this.getTemplates();
+        this.bindEvents();
+    },
+
+    getAll : function(){
+        $.ajax({
+            url : 'http://www.remcovdk.com/groupalarm/contacts.php',
+            type : 'POST',
+            data : {
+                action : 'checkApp',
+                names : names,
+            },
+            dataType : 'json',
+        })
+
+        }).done(function(msg) {
+            var self = jsinvites;
+            for(var item in msg){
+                self.createRow({id : item, beheerder : msg[item].beheerder, groepsnaam : msg[item].groepsnaam, idgroep : msg[item].idgroep})
+            }
+
+        }).fail(function(msg) {
+            console.log('kan geen verbinding maken');
+        });
+    },
+
+    bindEvents: function(){
+        var self = jsinvites;
+    },
+
+    createRow : function(context){
+        jsinvites.divinvites.append( template(context) );
+    },
+
+    getTemplates: function(){
+        template = Handlebars.compile( $('#invitesTemplate').html() );
+    },
+}
+*/
+
+
+
+
