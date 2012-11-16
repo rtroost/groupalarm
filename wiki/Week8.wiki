@@ -1,0 +1,11 @@
+= Blog week 8 =
+
+In week 8 hebben we verder gewerkt aan de onderstaande user stories:
+<ul>
+<li>Bij het installeren van de App moet het telefoonnummer van de gebruiker geregistreerd worden.</li>
+<li>Als gebruiker wil ik een overzicht kunnen zien van alle groepen waarin ik zit.</li>
+<li>De beheerder moet meerdere wekkers kunnen instellen voor de groep.</li>
+<li>Als gebruiker wil ik alle wekkers kunnen zien in een overzicht van alle groepen waar ik in zit inclusief mijn eigen wekker.</li>
+</ul>
+
+Tijdens het ontwikkelen van deze user stories zijn we tegen het probleem aangelopen 
