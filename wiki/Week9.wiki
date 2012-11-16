@@ -5,6 +5,7 @@ In week 9 hebben we de volgende user stories afgerond:
 <ul>
 <li>Bij het installeren van de App moet het telefoonnummer van de gebruiker geregistreerd worden.</li>
 <li>De beheerder moet meerdere wekkers kunnen instellen voor de groep.</li>
+</ul>
 
 In week 9 hebben we verder gewerkt aan de volgende user stories:
 <ul>
