@@ -1,3 +1,54 @@
+var jscontacts = {
+    init : function() {
+        this.divcontacts = $('#contacts');
+        //this.acceptbutton = $('#acceptButton');
+        //this.rejectbutton = $('#rejectButton');
+
+        this.getAll();
+        this.getTemplates();
+        this.bindEvents();
+    },
+
+    getAll : function(){
+        $.ajax({
+            url : 'http://www.remcovdk.com/groupalarm/contacts.php',
+            type : 'POST',
+            data : {
+                action : 'checkApp',
+                names : names,
+            },
+            dataType : 'json',
+    
+        }).done(function(msg) {
+            var self = jscontacts;
+            for(var item in msg){
+                self.createRow({naam: msg[item][0], hasApp: msg[item]['hasApp'], tel : msg[item][1]})
+            }
+        }).fail(function(msg) {
+            console.log('kan geen verbinding maken');
+        });
+    },
+
+    bindEvents: function(){
+        var self = jscontacts;
+        //self.divinvites.on('click', 'button.acceptbutton', self.acceptInvite);
+        //self.divinvites.on('click', 'button.rejectbutton', self.rejectInvite);
+    },
+
+    createRow : function(context){
+        jscontacts.divcontacts.append( template(context) );
+    },
+
+    getTemplates: function(){
+        template = Handlebars.compile( $('#contactsTemplate').html() );
+    },
+}
+
+// onError: Failed to get the contacts
+function onError(contactError){
+    alert('onError!');
+}
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 // PhoneGap is ready
@@ -12,11 +63,41 @@ function onDeviceReady(){
 
 names = new Array();
 
+/*contact = new Array();
+
+contact[0] = {
+    displayName : "Nick van Leeuwen"
+}
+contact[1] = {
+    displayName : "Remco van der Kleijn"
+}
+contact[2] = {
+    displayName : "Rob Troost"
+}
+contact[3] = {
+    displayName : "Stefan Bayarri"
+}
+contact[0].displayName = "Nick van Leeuwen";
+contact[0].phoneNumbers = new Array();
+contact[0].phoneNumbers[0] = "0648210022";
+contact[0].phoneNumbers[1] = "0645213578";
+contact[1].displayName = "Remco van der Kleijn";
+contact[1].phoneNumbers = new Array();
+contact[1].phoneNumbers[0] = "0627836370";
+contact[2].displayName = "Rob Troost";
+contact[2].phoneNumbers = new Array();
+contact[2].phoneNumbers[0] = "0614285923";
+contact[3].displayName = "Stefan Bayarri";
+contact[3].phoneNumbers = new Array();
+contact[3].phoneNumbers[0] = "0634345974";
+
+onSuccess(contact);*/
+
 // onSuccess: Get a snapshot of the current contacts
 function onSuccess(contacts){
     for (var i=0; i<contacts.length; i++){
         names[i] = new Array();
-        if (contacts[i].displayName) {  // many contacts don't have displayName
+        if (contacts[i].displayName) { // many contacts don't have displayName
             names[i][0] = contacts[i].displayName;
         } else{
             names[i][0] = 'Onbekend';
@@ -32,84 +113,6 @@ function onSuccess(contacts){
             names[i][1] = 'Onbekend';
         }
     }
-
-    $.ajax({
-        url : 'http://www.remcovdk.com/groupalarm/contacts.php',
-        type : 'POST',
-        data : {
-            action : 'checkApp',
-            names : names,
-        },
-        dataType : 'html',
-    })
-
-    .done(function(msg){
-        names = msg;
-        for (var x=0; x<names.length; x++){
-            for (var y=0; y<names[x].length; y++){
-                alert(names[x][y]);
-            }       
-        }
-    })
-
-    .fail(function(msg){
-            console.log('Kan geen verbinding maken');
-    }); 
+    jscontacts.init()
 }
-
-
-// onError: Failed to get the contacts
-function onError(contactError){
-    alert('onError!');
-}
-
-/*
-var jscontacten = {
-
-    init : function() {
-        this.divcontacten = $('#contacten');
-        
-        this.getAll();
-        this.getTemplates();
-        this.bindEvents();
-    },
-
-    getAll : function(){
-        $.ajax({
-            url : 'http://www.remcovdk.com/groupalarm/contacts.php',
-            type : 'POST',
-            data : {
-                action : 'checkApp',
-                names : names,
-            },
-            dataType : 'json',
-        })
-
-        }).done(function(msg) {
-            var self = jsinvites;
-            for(var item in msg){
-                self.createRow({id : item, beheerder : msg[item].beheerder, groepsnaam : msg[item].groepsnaam, idgroep : msg[item].idgroep})
-            }
-
-        }).fail(function(msg) {
-            console.log('kan geen verbinding maken');
-        });
-    },
-
-    bindEvents: function(){
-        var self = jsinvites;
-    },
-
-    createRow : function(context){
-        jsinvites.divinvites.append( template(context) );
-    },
-
-    getTemplates: function(){
-        template = Handlebars.compile( $('#invitesTemplate').html() );
-    },
-}
-*/
-
-
-
 
