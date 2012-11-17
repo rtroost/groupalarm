@@ -587,3 +587,65 @@ ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1
 .group-item-wrapper { cursor: pointer; height: 75px; width: 100%; }
 .group-collapsed-data { display: none; }
 
+
+.group-item ul.group-members-large {
+	display: block;
+	list-style-type: none;
+	margin-top: 10px;
+}
+
+.group-item ul.group-members-large > li {
+	display: block;
+	clear:both;
+	-webkit-box-shadow:  0px 0px 3px 0px rgba(0, 0, 0, 0.4);
+			box-shadow:  0px 0px 3px 0px rgba(0, 0, 0, 0.4);
+	padding: 5px;
+	position: relative;
+	margin-bottom: 5px;
+}
+
+.group-item ul.group-members-large li > img {
+	float: left;
+}
+
+.group-item ul.group-members-large li .meta-data {
+	margin-left: 60px;
+	position: relative;
+	min-height: 50px;
+}
+
+ul.group-members-large li .meta-data .name {
+	font-size: 18px;
+	display: block;
+}
+
+ul.group-members-large li .meta-data .buttons {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	display: inline-block;
+	cursor: pointer;
+	font-size: 36px;
+	color: #63a0c7;
+}
+
+ul.group-members-large li .actions {
+	display: none;
+	position: relative;
+	margin-top: 10px;
+}
+
+ul.group-members-large li .actions ul { display: block; padding: 0; margin: 0; }
+ul.group-members-large li .actions ul li { 
+	display: inline-block;
+	height: 100%;
+	background: #c7ddeb;
+	width: 32.2%;
+	padding: 5px 0;
+	border-radius: 3px;
+	/*-webkit-box-shadow:  0px 0px 2px 0px rgba(0, 0, 0, 0.5);*/
+			/*box-shadow:  0px 0px 2px 0px rgba(0, 0, 0, 0.5);*/
+	text-align: center;
+	font-size: 18px;
+	font-weight: 600;
+}
