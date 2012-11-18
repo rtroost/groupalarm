@@ -17,13 +17,14 @@ var jscontacts = {
             data : {
                 action : 'checkApp',
                 names : names,
+                imei : window.imei
             },
             dataType : 'json',
     
         }).done(function(msg) {
             var self = jscontacts;
             for(var item in msg){
-                self.createRow({id: msg[item]['idgebruiker'], naam: msg[item][0], hasApp: msg[item]['hasApp'], tel : msg[item][1], idgebruiker : msg[item]['idgebruiker']})
+                self.createRow({id: msg[item]['idgebruiker'], naam: msg[item][0], hasApp: msg[item]['hasApp'], tel : msg[item][1], idgebruiker : msg[item]['idgebruiker'], self : msg[item]['self']})
             }
         }).fail(function(msg) {
             console.log('kan geen verbinding maken');
