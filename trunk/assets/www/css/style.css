@@ -649,3 +649,9 @@ ul.group-members-large li .actions ul li {
 	font-size: 18px;
 	font-weight: 600;
 }
+
+#invites{
+ position:fixed;
+ bottom:49px;
+ border:1px solid #000;
+}

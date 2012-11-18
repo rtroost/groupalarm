@@ -37,7 +37,7 @@ var jsinvites = {
 	},
 
 	acceptInvite : function(){
-		var self = jsalarm,
+		var self = jsinvites,
 		$this = $(this);
 		var id = $this.parents('div.invite').attr('id');
 		alert(id);

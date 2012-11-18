@@ -257,23 +257,22 @@
 						</div>
 					</div>
 				</div>
-				<div class="group-item new">
+				<a href="newgroup.html" class="group-item new">
 					<div class="group-item-wrapper" id="group-item-wrapper">
 						<span data-icon="+" aria-hidden="true"></span> New Group
 					</div>
-				</div>
-
-				<div id="invites">
-					<script id="invitesTemplate" type="text/x-handlebars-template">
-						<div id="{{id}}" class="invite">
-							<span>{{beheerder}}</span>
-							<span>{{idgroep}}</span>
-							<span>{{groepsnaam}}</span>
-							<button class="acceptbutton" >accept</button>
-							<button class="rejectbutton" >reject</button>
-						</div>
-					</script>
-				</div>
+				</a>
+			</div>
+			<div id="invites">
+				<script id="invitesTemplate" type="text/x-handlebars-template">
+					<div id="{{id}}" class="invite">
+						<span>{{beheerder}}</span>
+						<span>{{idgroep}}</span>
+						<span>{{groepsnaam}}</span>
+						<button class="acceptbutton" >accept</button>
+						<button class="rejectbutton" >reject</button>
+					</div>
+				</script>
 			</div>
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
@@ -315,6 +314,7 @@
 	<script src="js/jquery-min.js"></script>
 	<script src="js/cordova-2.0.0.js"></script>
 	<script src="js/plugins.js"></script>
+	<script src="js/handlebars.js"></script>
 	<script src="js/imei.js"></script>
 	<!-- <script src="js/getGroups.js"></script> -->
 	<script src="js/alarm_everywere.js"></script>
