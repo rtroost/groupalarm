@@ -15,20 +15,19 @@
 	</div>
 	<div class="main-container">
 		<div class="wrapper clearfix">
-			<div class="newGroup">
-				<span id="newGroupLabel">Group name:</span>
-				<input id="newGroupInput" maxLength="25" name="groupname" type="text" />
-			</div>
-			<div id="contacts">
-    			<script id="contactsTemplate" type="text/x-handlebars-template">
-     				<div id="{{id}}" class="contact">
-     					{{#if hasApp}}
-     						<span><input id="{{idgebruiker}}" class="contactCheckbox" type="checkbox"></span>
-				      		<span>{{naam}}</span>
-				     	{{/if}}
-				    </div>
-    			</script>
-   			</div>
+				<span>Group name:</span>
+				<input id="groupname" maxLength="25" name="groupname" type="text" />
+				<div id="contacts">
+	    			<script id="contactsTemplate" type="text/x-handlebars-template">
+	     				<div id="{{id}}" class="contact">
+	     					{{#if hasApp}}
+	     						<span><input id="{{idgebruiker}}" class="contactCheckbox" type="checkbox"></span>
+					      		<span>{{naam}}</span>
+					     	{{/if}}
+					    </div>
+	    			</script>
+   				</div>
+			<button class="saveGroup" >save</button>
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
 
@@ -71,7 +70,6 @@
 	<script src="js/plugins.js"></script>
 	<script src="js/handlebars.js"></script>
 	<script src="js/imei.js"></script>
-	<script src="js/alarm.js"></script>
 
 	<!-- this is where we put our custom functions -->
 	<script src="js/alarm_everywere.js"></script>
