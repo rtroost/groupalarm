@@ -21,8 +21,11 @@
 	    			<script id="contactsTemplate" type="text/x-handlebars-template">
 	     				<div id="{{id}}" class="contact">
 	     					{{#if hasApp}}
-	     						<span><input id="{{idgebruiker}}" class="contactCheckbox" type="checkbox"></span>
-					      		<span>{{naam}}</span>
+	     						{{#if self}}
+	     						{{else}}
+	     							<span><input id="{{idgebruiker}}" class="contactCheckbox" type="checkbox"></span>
+					      			<span>{{naam}}</span>
+	     						{{/if}}
 					     	{{/if}}
 					    </div>
 	    			</script>
