@@ -319,48 +319,6 @@ nav#footer-nav a {
 	margin-left:10px;
 }
 
-/************* new group ***********************/
-.newGroup{
-	width:100%;
-	border-bottom:1px solid #666;
-	height:40px;
-	line-height:37px;
-}
-
-#newGroupLabel{
-	float:left;
-}
-
-#newGroupInput{
-	border:0px solid #666;
-	float:left;
-	height:40px;
-	padding-bottom:4px;
-	width:100%;
-	margin-right:-100px;
-}
-
-#newGroupChars{
-	float:right;
-	font-size:14px;
-}
-
-#newGroupNumOfParticipants{
-	width:100%;
-	margin-right:-100px;
-	float:left;
-}
-
-#newGroupAddParticipants{
-	text-align:right;
-}
-
-#newGroupImg{
-	width:17px;
-	height:17px;
-	margin-top:9px;
-}
-
 /************* ALARMS ***********************/
 
 .alarm{
@@ -523,7 +481,7 @@ nav#footer-nav a {
 			box-shadow:  0px 0px 3px 0px rgba(0, 0, 0, 0.5);
 	border-radius: 3px;
 }
-.group-item.new { border: 0; height: 30px; text-align: center; font-size: 20px; font-weight: 600; line-height: 28px; color: rgba(0,0,0,.7);}
+.group-item.new { text-decoration:none;border: 0; height: 30px; text-align: center; font-size: 20px; font-weight: 600; line-height: 28px; color: rgba(0,0,0,.7);}
 .group-item.green {border-color: green;}
 .group-item.orange {border-color: orange;}
 .group-item.red {border-color: red;}
