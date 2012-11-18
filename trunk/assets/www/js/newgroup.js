@@ -31,9 +31,13 @@ var jscontacts = {
 
     bindEvents: function(){
         var self = jscontacts;
-        //self.divinvites.on('click', 'button.acceptbutton', self.acceptInvite);
+        self.divcontacts.on('click', '.contactCheckbox', self.acceptInvite);
         //self.divinvites.on('click', 'button.rejectbutton', self.rejectInvite);
     },
+
+    acceptInvite: function(){
+        alert('test');
+    }
 
     createRow : function(context){
         jscontacts.divcontacts.append( template(context) );
