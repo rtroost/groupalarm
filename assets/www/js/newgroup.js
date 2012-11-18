@@ -78,7 +78,7 @@ function onDeviceReady(){
 
 names = new Array();
 
-contact = new Array();
+/*contact = new Array();
 
 contact[0] = {
     displayName : "Nick van Leeuwen"
@@ -106,7 +106,7 @@ contact[3].displayName = "Stefan Bayarri";
 contact[3].phoneNumbers = new Array();
 contact[3].phoneNumbers[0] = "0634345974";
 
-onSuccess(contact);
+onSuccess(contact);*/
 
 // onSuccess: Get a snapshot of the current contacts
 function onSuccess(contacts){
@@ -121,7 +121,7 @@ function onSuccess(contacts){
         try{
             if(contacts[i].phoneNumbers.length > 0){
                 for (var j=1; j<=contacts[i].phoneNumbers.length; j++){
-                    names[i][j] = contacts[i].phoneNumbers[j*1-1]; 
+                    names[i][j] = contacts[i].phoneNumbers[j*1-1].value; 
                 }
             }
         } catch (e){
