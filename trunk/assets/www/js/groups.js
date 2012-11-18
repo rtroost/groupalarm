@@ -90,16 +90,27 @@ var jsinvites = {
 	},
 }
 
-$('.group-item').click(function() {
-	var groupitem = $(this);
+$('.group-item .group-item-wrapper').click(function() {
+	var groupitem = $(this).parent();
 
-	$('.group-item').not($(this)).fadeOut('fast', function() {
-		// $(groupitem).children('.group-pictures').hide('normal', function() {
-			$(groupitem).children('.group-collapsed-data').show('normal');
-		// });
-	});
+	if($(groupitem).hasClass('active')) {
+		$(groupitem).removeClass('active');
+
+		$(groupitem).children('.group-collapsed-data').slideUp('normal', function() {
+			$('.actions').hide();
+			$('.group-item').fadeIn('normal');
+		});
+	} else {
+		$(groupitem).addClass('active');
+
+		$('.group-item').not($(groupitem)).fadeOut('normal', function() {
+			// $(groupitem).children('.group-pictures').hide('normal', function() {
+				$(groupitem).children('.group-collapsed-data').slideDown('normal');
+			// });
+		});
+	}	
 });
 
 $('.group-members-large .single-member').click(function() {
-	$(this).children('.actions').show('normal');
+	$(this).children('.actions').slideDown('normal');
 });

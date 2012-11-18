@@ -613,3 +613,83 @@ ul.group-members-large li .actions ul li {
  bottom:49px;
  border:1px solid #000;
 }
+
+.hidden {
+	display: none;
+}
+
+ul.blocks > li {
+	display:block; position: relative; 
+	border-right: 5px solid rgba(0,0,0,0); 
+	padding: 5px 10px; 
+	background: #e0ecf4; 
+	margin: 10px 0;
+	box-shadow:  0px 0px 3px 0px rgba(0, 0, 0, 0.5);
+	border-radius: 3px;
+	position: relative;
+}
+
+ul.blocks li h1 {
+	display: block;
+	text-align: center;
+	margin: 0 0 0 0;
+	font-size: 20px;
+}
+
+.personal-alarms .icon {
+	position: relative;
+	font-size: 26px;
+	margin-right: 6px;
+}
+
+ul.blocks li.active { border-color: green; }
+ul.blocks li.nonactive { border-color: red; }
+
+.personal-alarms .time {
+	font-size: 26px;
+	font-weight: 600;
+}
+
+.personal-alarms .config {
+	position: absolute;
+	right: 10px;
+	top: 5px;
+	font-size: 20px;
+}
+
+.personal-alarms ul.repetition {
+	font-size: 10px;
+	display: block;
+	margin-top: 10px;
+}
+
+.personal-alarms ul.repetition li {
+	box-shadow:  0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+	padding: 5px;
+	display: inline-block;	
+	position: relative;
+	margin: 0 10px 10px 0;
+}
+
+.personal-alarms ul.repetition li > span {
+	position: absolute;
+	top: -5px;
+	left: -5px;
+}
+
+.personal-alarms ul.buttons {
+	display: block;
+	border-top: 1px solid #c7ddeb;
+	padding: 10px 0;
+	position: relative;
+
+}
+
+.personal-alarms ul.buttons > li {
+	display: inline-block;
+	width: 28%;
+	background: #c7ddeb;
+	border-radius: 3px;
+	padding: 8px 2%;
+	text-align: center;
+}
