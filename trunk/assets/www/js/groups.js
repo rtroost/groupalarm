@@ -23,7 +23,7 @@ var jsinvites = {
 		}).done(function(msg) {
 			var self = jsinvites;
 			for(var item in msg){
-				self.createRow({id : item, beheerder : msg[item].beheerder, groepsnaam : msg[item].groepsnaam, idgroep : msg[item].idgroep})
+				self.createRow({id : msg[item].idgroep, beheerder : msg[item].beheerder, groepsnaam : msg[item].groepsnaam, idgroep : msg[item].idgroep})
 			}
 		}).fail(function(msg) {
 			console.log('kan geen verbinding maken');
@@ -40,11 +40,45 @@ var jsinvites = {
 		var self = jsinvites,
 		$this = $(this);
 		var id = $this.parents('div.invite').attr('id');
-		alert(id);
+
+        $.ajax({
+            url : 'http://www.remcovdk.com/groupalarm/acceptGroup.php',
+            type : 'POST',
+            data : {
+                groep : id,
+                imei : window.imei,
+                action : 'accept'
+            },
+            dataType : 'html',
+    
+        }).done(function(msg) {
+                $this.parents('div.invite').css('display', 'none')
+                alert(msg);
+        }).fail(function(msg) {
+            console.log('kan geen verbinding maken');
+	    })
 	},
 
 	rejectInvite : function(){
-		alert('test2');
+		var self = jsinvites,
+		$this = $(this);
+		var id = $this.parents('div.invite').attr('id');
+        $.ajax({
+            url : 'http://www.remcovdk.com/groupalarm/acceptGroup.php',
+            type : 'POST',
+            data : {
+                groep : id,
+                imei : window.imei,
+                action : 'reject'
+            },
+            dataType : 'html',
+    
+        }).done(function(msg) {
+                $this.parents('div.invite').css('display', 'none')
+                alert(msg);
+        }).fail(function(msg) {
+            console.log('kan geen verbinding maken');
+	    })
 	},
 
 	createRow : function(context){
