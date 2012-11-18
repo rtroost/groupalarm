@@ -9,69 +9,86 @@
 	<div class="header-container">
 		<header class="clearfix">
 			<h1 class="title">Alarms</h1>
-			<div class="btn left">Change</div>
-   			<div class="btn right">New</div>
 		</header>
 	</div>
 	<div class="main-container">
 		<div class="wrapper clearfix">
-			<article>
-				<h1>Wekker</h1>
-				<span> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
-				
-					<div id="jsalarmclock" style="font-weight: bold;">
-						<div style="margin-bottom: 10px;">
-							<span id="jsalarm_ct" style="letter-spacing: 2px; font-size:26px;"></span>
-						</div>
-						<div style="margin-bottom: 10px;">
+			<ul class="blocks personal-alarms" id="personal-alarms">
+				<li id="new-personal-alarm">
+					<div class="visible">
+						<h1><span data-icon="+" aria-hidden="true"></span> Create a new alarm</h1>
+					</div>
+					<div class="hidden">
+						<div class="new-alarm-block">
 							<span><select></select> Hour</span><span><select></select> Minutes</span>
+							<input type="submit" value="Set new alarm" id="submitbutton" />
 						</div>
-						<input type="submit" value="Set new alarm" id="submitbutton" />
-	<!-- 					<input type="reset" value="reset" id="resetbutton" /> -->
 					</div>
-					
-					<div id="result">
-						<script id="alarmtemplate" type="text/x-handlebars-template">
-							<div id="{{id}}" class="alarm">
-								<div class="alarmLeft">
-									<span class="alarmTime">{{hour}}:{{min}}</span>
-									<span class="alarmDays">Every day</span>
-								</div>
-								<div class="alarmRight">
-									<div class="statusContainer">
-										{{#if set}}
-											<div class="statusOn set" data-toggle="On">
-												<div class="statusOnTekst">
-													On
-												</div>
-											</div>
-										{{else}}
-											<div class="statusOff set" data-toggle="Off">
-												<div class="statusOffTekst">
-													Off
-												</div>
-											</div>
-										{{/if}}
-									</div>
-									<img class="alarmPijl" src="images/pijl.png">
-								</div>
-								<div class="alarmhidden">
-									<p>Ingesteld op: </p>
-									<div class="days">
-										{{frepDays repDay}}
-									</div>
-									<div class="divbutton">
-										<button class="remove">
-											Remove
-										</button>
-									</div>
-								</div>
-							</div>
-						</script>
+				</li>
+				<li class="active">
+					<div class="visible">
+						<span data-icon="P" aria-hidden="true" class="icon"></span>
+						<span class="time">13:17</span>
+						<span data-icon="S" aria-hidden="true" class="config"></span>
+						<ul class="repetition">
+							<li>Mon <span data-icon="V" aria-hidden="true"></span></li>
+							<li>Tue <span data-icon="V" aria-hidden="true"></span></li>
+							<li>Wed <span data-icon="V" aria-hidden="true"></span></li>
+							<li>Thu <span data-icon="V" aria-hidden="true"></span></li>
+							<li>Fri <span data-icon="V" aria-hidden="true"></span></li>
+							<li>Sat <span data-icon="V" aria-hidden="true"></span></li>
+							<li>Sun <span data-icon="V" aria-hidden="true"></span></li>
+						</ul>						
 					</div>
-					
+					<div class="hidden">
+						<ul class="buttons">
+							<li><span data-icon="/" aria-hidden="true"></span> Active</li>
+							<li><span data-icon="S" aria-hidden="true"></span> Configure</li>
+							<li><span data-icon="\" aria-hidden="true"></span> Remove</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
 				
-			</article>
+			<div id="result">
+				<script id="alarmtemplate" type="text/x-handlebars-template">
+					<div id="{{id}}" class="alarm">
+						<div class="alarmLeft">
+							<span class="alarmTime">{{hour}}:{{min}}</span>
+							<span class="alarmDays">Every day</span>
+						</div>
+						<div class="alarmRight">
+							<div class="statusContainer">
+								{{#if set}}
+									<div class="statusOn set" data-toggle="On">
+										<div class="statusOnTekst">
+											On
+										</div>
+									</div>
+								{{else}}
+									<div class="statusOff set" data-toggle="Off">
+										<div class="statusOffTekst">
+											Off
+										</div>
+									</div>
+								{{/if}}
+							</div>
+							<img class="alarmPijl" src="images/pijl.png">
+						</div>
+						<div class="alarmhidden">
+							<p>Ingesteld op: </p>
+							<div class="days">
+								{{frepDays repDay}}
+							</div>
+							<div class="divbutton">
+								<button class="remove">
+									Remove
+								</button>
+							</div>
+						</div>
+					</div>
+				</script>
+			</div>
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
 
@@ -116,7 +133,24 @@
 	<script src="js/imei.js"></script>
 	<script src="js/alarm.js"></script>
 
-	<!-- this is where we put our custom functions -->
-	<script src="js/script.js"></script>
+	<script>
+
+		$('#personal-alarms > li').on('click', function() {
+
+			var clickedItem = $(this);
+
+			if( ! $(clickedItem).hasClass('clicked')) {
+
+				$(clickedItem).addClass('clicked');
+				$(clickedItem).children('.hidden').slideDown('normal');
+
+			} else {
+
+				$(clickedItem).removeClass('clicked');
+				$(clickedItem).children('.hidden').slideUp('normal');
+			}	
+
+		});
+	</script>
 </body>
 </html>
