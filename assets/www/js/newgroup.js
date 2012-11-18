@@ -4,6 +4,7 @@ var jscontacts = {
         //this.acceptbutton = $('#acceptButton');
         //this.rejectbutton = $('#rejectButton');
 
+        group = new Array();
         this.getAll();
         this.getTemplates();
         this.bindEvents();
@@ -22,7 +23,7 @@ var jscontacts = {
         }).done(function(msg) {
             var self = jscontacts;
             for(var item in msg){
-                self.createRow({naam: msg[item][0], hasApp: msg[item]['hasApp'], tel : msg[item][1], idgebruiker : msg[item]['idgebruiker']})
+                self.createRow({id: msg[item]['idgebruiker'], naam: msg[item][0], hasApp: msg[item]['hasApp'], tel : msg[item][1], idgebruiker : msg[item]['idgebruiker']})
             }
         }).fail(function(msg) {
             console.log('kan geen verbinding maken');
@@ -31,13 +32,22 @@ var jscontacts = {
 
     bindEvents: function(){
         var self = jscontacts;
-        self.divcontacts.on('click', '.contactCheckbox', self.acceptInvite);
-        //self.divinvites.on('click', 'button.rejectbutton', self.rejectInvite);
+        self.divcontacts.on('click', '.contactCheckbox', self.memberAdd);
     },
 
-    acceptInvite: function(){
-        alert('test');
-    }
+    memberAdd: function(){
+        var self = jscontacts,
+            $this = $(this);
+            
+        var id = $this.parents('div.contact').attr('id');
+        if($this.attr('checked')){
+            if(group.indexOf(id)){
+                group.push(id);
+            }
+        }else{
+            group.splice(group.indexOf(id), 1);  
+        }
+    },
 
     createRow : function(context){
         jscontacts.divcontacts.append( template(context) );
@@ -47,6 +57,7 @@ var jscontacts = {
         template = Handlebars.compile( $('#contactsTemplate').html() );
     },
 }
+
 
 // onError: Failed to get the contacts
 function onError(contactError){
@@ -67,7 +78,7 @@ function onDeviceReady(){
 
 names = new Array();
 
-/*contact = new Array();
+contact = new Array();
 
 contact[0] = {
     displayName : "Nick van Leeuwen"
@@ -95,7 +106,7 @@ contact[3].displayName = "Stefan Bayarri";
 contact[3].phoneNumbers = new Array();
 contact[3].phoneNumbers[0] = "0634345974";
 
-onSuccess(contact);*/
+onSuccess(contact);
 
 // onSuccess: Get a snapshot of the current contacts
 function onSuccess(contacts){
@@ -110,7 +121,7 @@ function onSuccess(contacts){
         try{
             if(contacts[i].phoneNumbers.length > 0){
                 for (var j=1; j<=contacts[i].phoneNumbers.length; j++){
-                    names[i][j] = contacts[i].phoneNumbers[j*1-1].value; 
+                    names[i][j] = contacts[i].phoneNumbers[j*1-1]; 
                 }
             }
         } catch (e){
@@ -119,4 +130,25 @@ function onSuccess(contacts){
     }
     jscontacts.init()
 }
+
+$(document).ready(function() {
+    $('.saveGroup').click(function(){
+        groupname = $('#groupname').val();
+        $.ajax({
+            url : 'http://www.remcovdk.com/groupalarm/newGroup.php',
+            type : 'POST',
+            data : {
+                gebruikers : group,
+                naam : groupname,
+                imei : window.imei
+            },
+            dataType : 'html',
+    
+        }).done(function(msg) {
+                alert(msg);
+        }).fail(function(msg) {
+            console.log('kan geen verbinding maken');
+        });
+    })
+});
 

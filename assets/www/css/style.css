@@ -481,7 +481,7 @@ nav#footer-nav a {
 			box-shadow:  0px 0px 3px 0px rgba(0, 0, 0, 0.5);
 	border-radius: 3px;
 }
-.group-item.new { text-decoration:none;border: 0; height: 30px; text-align: center; font-size: 20px; font-weight: 600; line-height: 28px; color: rgba(0,0,0,.7);}
+.group-item.new { margin-bottom:100px;text-decoration:none;border: 0; height: 30px; text-align: center; font-size: 20px; font-weight: 600; line-height: 28px; color: rgba(0,0,0,.7);}
 .group-item.green {border-color: green;}
 .group-item.orange {border-color: orange;}
 .group-item.red {border-color: red;}
