@@ -619,7 +619,8 @@ ul.group-members-large li .actions ul li {
 }
 
 ul.blocks > li {
-	display:block; position: relative; 
+	display:block; 
+	position: relative; 
 	border-right: 5px solid rgba(0,0,0,0); 
 	padding: 5px 10px; 
 	background: #e0ecf4; 
@@ -693,3 +694,30 @@ ul.blocks li.inactive { border-color: red; }
 	padding: 8px 2%;
 	text-align: center;
 }
+
+.contacts li {
+	height: 50px;
+}
+.contacts .picture {
+	height: 50px;
+	width: 50px;
+	float: left;
+}
+.contacts .name {
+	font-size: 20px;
+	margin: 10px 0 0 10px;
+}
+.contacts .phone {
+	font-size: 12px;
+	display: block;
+	margin-left: 60px;
+}
+.contacts .hasApp {
+	position: absolute;
+	top: 20%;
+	right: 10px;
+	font-size: 26px;
+}
+
+.contacts .hasApp.yes { color: green; }
+.contacts .hasApp.no { color: gray; }

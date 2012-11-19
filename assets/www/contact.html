@@ -9,27 +9,24 @@
 	<div class="header-container">
 		<header class="clearfix">
 			<h1 class="title">Contacts</h1>
-			<div class="btn left">Change</div>
-   			<div class="btn right">New</div>
 		</header>
 	</div>
 	<div class="main-container">
 		<div class="wrapper clearfix">
-			<div id="contacts">
-    			<script id="contactsTemplate" type="text/x-handlebars-template">
-     				<div id="{{id}}" class="contact">
-    					<div style="margin-bottom:10px">
-					      	<span>{{naam}}</span>
-					      	{{#if hasApp}}
-					      		<span>App: Ja</span>
-							{{else}}
-								<span>App: Nee</span>
-					     	{{/if}}
-					     	<span>{{tel}}</span>
-					     </div>
-				    </div>
-    			</script>
-   			</div>
+			<ul class="blocks contacts" id="contacts">
+				<script id="contactsTemplate" type="text/x-handlebars-template">
+					<li id="{{id}}" class="contact">
+						<img src="http://placehold.it/50x50" class="picture" />
+						<span class="name">{{naam}}</span>
+						<span class="phone">{{tel}}</span>
+						{{#if hasApp}}
+							<span class="hasApp yes"><span data-icon="." aria-hidden="true"></span><span>
+						{{else}}
+							<span class="hasApp no"><span data-icon="." aria-hidden="true"></span></span>
+						{{/if}}						
+					</li>
+				</script>
+			</ul>
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
 
