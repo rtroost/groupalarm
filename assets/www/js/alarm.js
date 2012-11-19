@@ -151,8 +151,7 @@ var jsalarm = {
 			hour = self.alarms[id].hour,
 			min = self.alarms[id].min;
 
-		// Verander SET
-		self.alarms[id].set = ! self.alarms[id].set;
+		
 
 		console.log("uur niet geparsed = " + hour);
 		console.log("uur niet functie = " + self.reversePadfield(hour));
@@ -165,7 +164,7 @@ var jsalarm = {
 			type : 'POST',
 			data : {
 				action : 'active',
-				set : self.alarms[id].set,
+				set : ! self.alarms[id].set,
 				idwekker : id,
 				imei : window.imei
 			},
@@ -174,6 +173,9 @@ var jsalarm = {
 		}).done(function(msg) {
 
 			var self = jsalarm;
+
+			// Verander SET
+			self.alarms[id].set = ! self.alarms[id].set;
 
 			if(self.alarms[id].set){
 
