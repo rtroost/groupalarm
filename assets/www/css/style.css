@@ -726,21 +726,25 @@ ul.blocks li.inactive { border-color: red; }
 }
 
 .invites .icon {
-	font-size: 30px;
+	font-size: 24px;
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 40px;
 }
 .invites .leader {
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 600;
 }
 
 .invites .groupname {
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 600;
 }
 
 .invites .buttons {
-	position: absolute;
+	/*position: absolute;
 	top: 20%;
-	right: 0;
+	right: 0;*/
 	font-size: 28px;
+	float: right;
 }

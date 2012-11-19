@@ -17,9 +17,6 @@
 				<script id="invitesTemplate" type="text/x-handlebars-template">
 				<li id="{{id}}">
 					<span class="icon"><span data-icon="R" aria-hidden="true" class="rejectbutton"></span></span>
-					You've been invited to join a new group by
-					<span class="leader">{{beheerder}}</span> to join the group
-					<span class="groupname">{{groepsnaam}}</span>
 					<div class="buttons">
 						<span class="rejectbutton">
 							<span data-icon="\" aria-hidden="true"></span>
@@ -27,7 +24,11 @@
 						<span class="acceptbutton">
 							<span data-icon="." aria-hidden="true"></span>
 						</span>
-					</div>				
+					</div>	
+					You've been invited to join a new group by
+					<span class="leader">{{beheerder}}</span> to join the group
+					<span class="groupname">{{groepsnaam}}</span>
+								
 				</li>
 				</script>
 			</ul>
