@@ -16,20 +16,20 @@
 	<div class="main-container">
 		<div class="wrapper clearfix">
 				<span>Group name:</span>
-				<input id="groupname" maxLength="25" name="groupname" type="text" />
+				<input id="groupname" maxLength="25" name="groupname" type="text" placeholder="Group name" />
 				<div id="contacts">
-	    			<script id="contactsTemplate" type="text/x-handlebars-template">
-	     				<div id="{{id}}" class="contact">
-	     					{{#if hasApp}}
-	     						{{#if self}}
-	     						{{else}}
-	     							<span><input id="{{idgebruiker}}" class="contactCheckbox" type="checkbox"></span>
-					      			<span>{{naam}}</span>
-	     						{{/if}}
-					     	{{/if}}
-					    </div>
-	    			</script>
-   				</div>
+					<script id="contactsTemplate" type="text/x-handlebars-template">
+						<div id="{{id}}" class="contact">
+							{{#if hasApp}}
+								{{#if self}}
+								{{else}}
+									<span><input id="{{idgebruiker}}" class="contactCheckbox" type="checkbox"></span>
+									<span>{{naam}}</span>
+								{{/if}}
+							{{/if}}
+						</div>
+					</script>
+				</div>
 			<button class="saveGroup" >save</button>
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
