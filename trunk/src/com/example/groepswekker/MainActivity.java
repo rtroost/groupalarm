@@ -158,7 +158,7 @@ public class MainActivity extends DroidGap {
     	        this.intents.get(id3).putExtra("id", id3);
     	        this.intents.get(id3).putExtra("days", days);
     	        this.alarmintents.put(id3, PendingIntent.getActivity(this, id3, this.intents.get(id3), PendingIntent.FLAG_CANCEL_CURRENT));
-    	        this.am.setRepeating(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), 60000, this.alarmintents.get(id3)); // 1 week = 604800000 // 1 min = 60000
+    	        this.am.setRepeating(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), 604800000, this.alarmintents.get(id3)); // 1 week = 604800000 // 1 min = 60000
     		}
     	}
     }

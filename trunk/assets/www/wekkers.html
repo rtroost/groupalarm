@@ -20,7 +20,7 @@
 					</div>
 					<div class="hidden">
 						<div class="new-alarm-block">
-							<span><select></select> Hour</span><span><select></select> Minutes</span>
+							<span><select id="hour"></select> Hour</span><span><select id="min"></select> Minutes</span>
 							<input type="submit" value="Set new alarm" id="submitbutton" />
 						</div>
 					</div>
@@ -44,7 +44,7 @@
 						<ul class="buttons">
 							<li><span data-icon="/" aria-hidden="true"></span> Active</li>
 							<li><span data-icon="S" aria-hidden="true"></span> Configure</li>
-							<li><span data-icon="\" aria-hidden="true"></span> Remove</li>
+							<li><span data-icon="\\" aria-hidden="true"></span> Remove</li>
 						</ul>
 					</div>
 				</li>
@@ -135,20 +135,9 @@
 
 	<script>
 
-		$('#personal-alarms > li').on('click', function() {
-
-			var clickedItem = $(this);
-
-			if( ! $(clickedItem).hasClass('clicked')) {
-
-				$(clickedItem).addClass('clicked');
-				$(clickedItem).children('.hidden').slideDown('normal');
-
-			} else {
-
-				$(clickedItem).removeClass('clicked');
-				$(clickedItem).children('.hidden').slideUp('normal');
-			}	
+		$('#personal-alarms').on('click', '.visible', function() {
+			console.log('lolll');
+			$(this).parent('li').children('.hidden').slideToggle('normal');
 
 		});
 	</script>
