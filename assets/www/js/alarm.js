@@ -2,9 +2,9 @@ var jsalarm = {
 	
 	init : function() {
 		this.submitbutton = $('#submitbutton');
-		this.selections = $('#jsalarmclock select');
-		this.hourselect = this.selections.eq(0);
-		this.minuteselect = this.selections.eq(1);
+		//this.selections = $('#jsalarmclock select');
+		this.hourselect = $('select#hour');
+		this.minuteselect = $('select#min');
 		this.divresult = $('#result');
 		
 		this.alarms = {};
