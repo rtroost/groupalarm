@@ -32,14 +32,14 @@ var jsinvites = {
 
 	bindEvents: function(){
 		var self = jsinvites;
-		self.divinvites.on('click', 'button.acceptbutton', self.acceptInvite);
-		self.divinvites.on('click', 'button.rejectbutton', self.rejectInvite);
+		self.divinvites.on('click', 'span.acceptbutton', self.acceptInvite);
+		self.divinvites.on('click', 'span.rejectbutton', self.rejectInvite);
 	},
 
 	acceptInvite : function(){
 		var self = jsinvites,
 		$this = $(this);
-		var id = $this.parents('div.invite').attr('id');
+		var id = $this.parents('li').attr('id');
 
         $.ajax({
             url : 'http://www.remcovdk.com/groupalarm/acceptGroup.php',
@@ -52,7 +52,7 @@ var jsinvites = {
             dataType : 'html',
     
         }).done(function(msg) {
-                $this.parents('div.invite').css('display', 'none')
+                $this.parents('li').css('display', 'none')
                 alert(msg);
         }).fail(function(msg) {
             console.log('kan geen verbinding maken');
@@ -62,7 +62,7 @@ var jsinvites = {
 	rejectInvite : function(){
 		var self = jsinvites,
 		$this = $(this);
-		var id = $this.parents('div.invite').attr('id');
+		var id = $this.parents('li').attr('id');
         $.ajax({
             url : 'http://www.remcovdk.com/groupalarm/acceptGroup.php',
             type : 'POST',
@@ -74,7 +74,7 @@ var jsinvites = {
             dataType : 'html',
     
         }).done(function(msg) {
-                $this.parents('div.invite').css('display', 'none')
+                $this.parents('li').css('display', 'none')
                 alert(msg);
         }).fail(function(msg) {
             console.log('kan geen verbinding maken');
