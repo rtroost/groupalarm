@@ -613,12 +613,6 @@ ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1
 	font-weight: 600;
 }
 
-#invites{
- position:fixed;
- bottom:49px;
- border:1px solid #000;
-}
-
 .hidden {
 	display: none;
 }
@@ -726,3 +720,27 @@ ul.blocks li.inactive { border-color: red; }
 
 .contacts .hasApp.yes { color: green; }
 .contacts .hasApp.no { color: gray; }
+
+.invites {
+	font-size: 14px;
+}
+
+.invites .icon {
+	font-size: 30px;
+}
+.invites .leader {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.invites .groupname {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.invites .buttons {
+	position: absolute;
+	top: 20%;
+	right: 0;
+	font-size: 28px;
+}
