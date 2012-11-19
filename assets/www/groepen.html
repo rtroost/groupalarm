@@ -13,6 +13,20 @@
 	</div>
 	<div class="main-container">
 		<div class="wrapper clearfix" id="content">
+			<ul class="blocks invites" id="invites">
+				<script id="invitesTemplate" type="text/x-handlebars-template">
+				<li id="{{id}}">
+					<span class="icon"><span data-icon="R" aria-hidden="true" class="rejectbutton"></span></span>
+					You've been invited to join a new group by
+					<span class="leader">{{beheerder}}</span> to join the group
+					<span class="groupname">{{groepsnaam}}</span>
+					<div class="buttons">
+						<span data-icon="\" aria-hidden="true" class="rejectbutton"></span>
+						<span data-icon="." aria-hidden="true" class="acceptbutton"></span>
+					</div>				
+				</li>
+				</script>
+			</ul>
 			<ul class="blocks groups" id="groups">
 				<script id="groupsTemplate" type="text/x-handlebars-template">
 				<li id="{{id}}">
@@ -118,21 +132,7 @@
 					</div>
 					<div class="hidden"></div>
 				</a>
-			</ul>
-			<ul class="blocks invites" id="invites">
-				<script id="invitesTemplate" type="text/x-handlebars-template">
-				<li id="{{id}}">
-					<span class="icon"><span data-icon="R" aria-hidden="true" class="rejectbutton"></span></span>
-					You've been invited to join a new group by
-					<span class="leader">{{beheerder}}</span> to join the group
-					<span class="groupname">{{groepsnaam}}</span>
-					<div class="buttons">
-						<span data-icon="\" aria-hidden="true" class="rejectbutton"></span>
-						<span data-icon="." aria-hidden="true" class="acceptbutton"></span>
-					</div>				
-				</li>
-				</script>
-			</ul>
+			</ul>			
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
 
