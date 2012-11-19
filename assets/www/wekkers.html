@@ -25,70 +25,39 @@
 						</div>
 					</div>
 				</li>
-				<li class="active">
+				<script id="alarmtemplate" type="text/x-handlebars-template">
+				<li class="alarm active" id="{{id}}">
 					<div class="visible">
 						<span data-icon="P" aria-hidden="true" class="icon"></span>
-						<span class="time">13:17</span>
+						<span class="time">{{hour}}:{{min}}</span>
 						<span data-icon="S" aria-hidden="true" class="config"></span>
-						<ul class="repetition">
-							<li>Mon <span data-icon="V" aria-hidden="true"></span></li>
-							<li>Tue <span data-icon="V" aria-hidden="true"></span></li>
-							<li>Wed <span data-icon="V" aria-hidden="true"></span></li>
-							<li>Thu <span data-icon="V" aria-hidden="true"></span></li>
-							<li>Fri <span data-icon="V" aria-hidden="true"></span></li>
-							<li>Sat <span data-icon="V" aria-hidden="true"></span></li>
-							<li>Sun <span data-icon="V" aria-hidden="true"></span></li>
+						<ul class="days">
+							<li>Mon <span data-icon="-" aria-hidden="true"></span></li>
+							<li>Tue <span data-icon="-" aria-hidden="true"></span></li>
+							<li>Wed <span data-icon="-" aria-hidden="true"></span></li>
+							<li>Thu <span data-icon="/" aria-hidden="true"></span></li>
+							<li>Fri <span data-icon="/" aria-hidden="true"></span></li>
+							<li>Sat <span data-icon="/" aria-hidden="true"></span></li>
+							<li>Sun <span data-icon="/" aria-hidden="true"></span></li>
 						</ul>						
 					</div>
 					<div class="hidden">
 						<ul class="buttons">
-							<li><span data-icon="/" aria-hidden="true"></span> Active</li>
-							<li><span data-icon="S" aria-hidden="true"></span> Configure</li>
-							<li><span data-icon="\\" aria-hidden="true"></span> Remove</li>
+							{{#if set}}
+							<li class="set-alarm" data-toggle="On">
+								<span data-icon="/" aria-hidden="true"></span> Active	
+							</li>									
+							{{else}}
+							<li class="set-alarm" data-toggle="Off">
+								<span data-icon="'" aria-hidden="true"></span> Inactive
+							</li>
+							{{/if}}
+							<li class="delete-alarm"><span data-icon="\" aria-hidden="true"></span> Remove</li>
 						</ul>
 					</div>
 				</li>
-			</ul>
-				
-			<div id="result">
-				<script id="alarmtemplate" type="text/x-handlebars-template">
-					<div id="{{id}}" class="alarm">
-						<div class="alarmLeft">
-							<span class="alarmTime">{{hour}}:{{min}}</span>
-							<span class="alarmDays">Every day</span>
-						</div>
-						<div class="alarmRight">
-							<div class="statusContainer">
-								{{#if set}}
-									<div class="statusOn set" data-toggle="On">
-										<div class="statusOnTekst">
-											On
-										</div>
-									</div>
-								{{else}}
-									<div class="statusOff set" data-toggle="Off">
-										<div class="statusOffTekst">
-											Off
-										</div>
-									</div>
-								{{/if}}
-							</div>
-							<img class="alarmPijl" src="images/pijl.png">
-						</div>
-						<div class="alarmhidden">
-							<p>Ingesteld op: </p>
-							<div class="days">
-								{{frepDays repDay}}
-							</div>
-							<div class="divbutton">
-								<button class="remove">
-									Remove
-								</button>
-							</div>
-						</div>
-					</div>
 				</script>
-			</div>
+			</ul>
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
 
@@ -134,11 +103,8 @@
 	<script src="js/alarm.js"></script>
 
 	<script>
-
 		$('#personal-alarms').on('click', '.visible', function() {
-			console.log('lolll');
 			$(this).parent('li').children('.hidden').slideToggle('normal');
-
 		});
 	</script>
 </body>

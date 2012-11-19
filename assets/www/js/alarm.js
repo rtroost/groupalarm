@@ -5,7 +5,15 @@ var jsalarm = {
 		//this.selections = $('#jsalarmclock select');
 		this.hourselect = $('select#hour');
 		this.minuteselect = $('select#min');
-		this.divresult = $('#result');
+		this.divresult = $('#personal-alarms');
+
+		// gjiojfgoijgifo
+		this.activation_button_html = [
+			'<span data-icon="\'" aria-hidden="true"></span> Inactive',
+			'<span data-icon="/" aria-hidden="true"></span> Active',
+		];
+
+
 		
 		this.alarms = {};
 		
@@ -34,8 +42,8 @@ var jsalarm = {
 	bindEvents: function(){
 		var self = jsalarm;
 		self.submitbutton.on('click', self.savealarm);
-		self.divresult.on('click', 'div.set', self.setalarm);
-		self.divresult.on('click', 'button.remove', self.removealarm);
+		self.divresult.on('click', 'li.set-alarm', self.setalarm);
+		self.divresult.on('click', 'li.delete-alarm', self.removealarm);
 		self.divresult.on('click', 'img.alarmPijl', self.showSettings);
 		self.divresult.on('click', 'a.day', self.setDays);
 	},
@@ -138,16 +146,16 @@ var jsalarm = {
 	
 	setalarm : function() {
 		var self = jsalarm,
-			$this = $(this);
-			
-		var id = $this.parents('div.alarm').attr('id');
-		var set = (self.alarms[id].set == 1) ? 0 : 1;
-		//var time = $this.parents('div.alarmRight').siblings('div.alarmLeft').children('span.alarmTime').text();
-		//console.log("tijd = "+ time);
-		var hour = self.alarms[id].hour
+			$this = $(this),
+			id = $this.parents('li.alarm').attr('id'),
+			hour = self.alarms[id].hour,
+			min = self.alarms[id].min;
+
+		// Verander SET
+		self.alarms[id].set = ! self.alarms[id].set;
+
 		console.log("uur niet geparsed = " + hour);
 		console.log("uur niet functie = " + self.reversePadfield(hour));
-		var min = self.alarms[id].min;
 		
 		console.log("uur = " + parseInt(hour));
 		console.log("min = " + parseInt(min));
@@ -157,27 +165,29 @@ var jsalarm = {
 			type : 'POST',
 			data : {
 				action : 'active',
-				set : set,
+				set : self.alarms[id].set,
 				idwekker : id,
 				imei : window.imei
 			},
 			dataType : 'json',
 	
 		}).done(function(msg) {
+
 			var self = jsalarm;
-			if(set == 1){
-				$this.removeClass('statusOff').addClass('statusOn').data('toggle', 'On');
-				$this.children('div').text('On').removeClass('statusOffTekst').addClass('statusOnTekst');
-				self.alarms[id].set = '1';
+
+			if(self.alarms[id].set){
+
+				$this.parents('li.alarm').removeClass('inactive').addClass('active');
+
 				if(self.alarms[id].repDayInt == 0){
 					self.setAppAlarm(hour, min, id);
 				} else {
 					self.setAppRepeatAlarm(hour, min, id, self.alarms[id].repDay);
 				}
 			} else {
-				$this.removeClass('statusOn').addClass('statusOff').data('toggle', 'Off');
-				$this.children('div').text('Off').removeClass('statusOnTekst').addClass('statusOffTekst');
-				self.alarms[id].set = '0';
+
+				$this.parents('li.alarm').removeClass('active').addClass('inactive');
+
 				if(self.alarms[id].repDayInt == 0){
 					self.removeAppAlarm(id);
 				} else {
@@ -186,6 +196,10 @@ var jsalarm = {
 					}
 				}
 			}
+
+			// Change (in)active button
+			$this.html(self.activation_button_html[+self.alarms[id].set]);
+
 		}).fail(function(msg) {
 			console.log('kan geen verbinding maken');
 		});
@@ -324,14 +338,27 @@ var jsalarm = {
 				}
 				//console.log(repDay);
 				if(msg[item].active == 1){
-					self.createRow({id: msg[item].idwekker, hour: self.padfield(msg[item].hour), min: self.padfield(msg[item].min), set: true, repDay: repDay});
+					self.createRow({
+						id: msg[item].idwekker, 
+						hour: self.padfield(msg[item].hour), 
+						min: self.padfield(msg[item].min), 
+						set: true, 
+						repDay: repDay
+					});
+
 					if(repDay[0] == 1){
 						self.setAppAlarm(msg[item].hour, msg[item].min, msg[item].idwekker);
 					} else {
 						self.setAppRepeatAlarm(msg[item].hour, msg[item].min, msg[item].idwekker, repDay);
 					}
 				} else {
-					self.createRow({id: msg[item].idwekker, hour: self.padfield(msg[item].hour), min: self.padfield(msg[item].min), set: false, repDay: repDay});
+					self.createRow({
+						id: msg[item].idwekker, 
+						hour: self.padfield(msg[item].hour), 
+						min: self.padfield(msg[item].min), 
+						set: false, 
+						repDay: repDay
+					});
 				}
 			}
 		}).fail(function(msg) {
@@ -341,12 +368,13 @@ var jsalarm = {
 	
 	removealarm : function(){
 		var self = jsalarm,
-			$this = $(this);
-			
-		var id = $this.parents('div.alarm').attr('id');
+			$this = $(this),
+			id = $this.parents('li.alarm').attr('id');
+
 		if(self.alarms[id].set == 1){
 			self.removeAppAlarm(id);
 		}
+
 		$.ajax({
 			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
 			type : 'POST',
@@ -358,7 +386,7 @@ var jsalarm = {
 			dataType : 'json',
 		}).done(function(msg) {
 			console.log('success');
-			$this.parents('div.alarm').remove();
+			$this.parents('li.alarm').remove();
 			delete self.alarms[id];
 		}).fail(function(msg) {
 			console.log('kan geen verbinding maken');
