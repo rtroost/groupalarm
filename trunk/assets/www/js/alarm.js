@@ -46,7 +46,7 @@ var jsalarm = {
 	},
 	
 	getTemplates: function(){
-		template = Handlebars.compile( $('#alarmtemplate').html() );
+		jsalarm.template = Handlebars.compile( $('#alarmtemplate').html() );
 		Handlebars.registerHelper('frepDays', function( repDay ) {
 			var html = '';
 			var daynr = 0;
@@ -109,7 +109,7 @@ var jsalarm = {
 	},
 	
 	createRow : function(context){
-		jsalarm.divresult.append( template(context) );
+		jsalarm.divresult.append( jsalarm.template(context) );
 	},
 	
 	savealarm : function(){
