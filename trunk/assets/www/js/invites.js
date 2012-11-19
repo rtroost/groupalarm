@@ -37,6 +37,7 @@ var jsinvites = {
 	},
 
 	acceptInvite : function(){
+		console.log('test');
 		var self = jsinvites,
 		$this = $(this);
 		var id = $this.parents('li').attr('id');

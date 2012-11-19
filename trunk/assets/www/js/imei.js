@@ -1,6 +1,6 @@
 // PC VERSIE
 //window.imei = 123; NUMMER NICK
-window.imei = 123456789012345; // NUMMER REMCO
+window.imei = 123; // NUMMER REMCO
 // =========
 
 //document.addEventListener("deviceready", onDeviceReady, false);
