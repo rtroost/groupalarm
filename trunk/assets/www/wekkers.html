@@ -26,7 +26,7 @@
 					</div>
 				</li>
 				<script id="alarmtemplate" type="text/x-handlebars-template">
-				<li class="alarm active" id="{{id}}">
+				<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
 					<div class="visible">
 						<span data-icon="P" aria-hidden="true" class="icon"></span>
 						<span class="time">{{hour}}:{{min}}</span>

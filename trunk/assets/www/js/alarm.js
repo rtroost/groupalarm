@@ -133,7 +133,7 @@ var jsalarm = {
 			self.alarms[msg] = {
 				hour: hour,
 				min: min,
-				set: '0',
+				set: false,
 				repDay: [1, 0, 0, 0, 0, 0, 0, 0],
 				repDayInt: 0
 			}
@@ -150,7 +150,8 @@ var jsalarm = {
 			hour = self.alarms[id].hour,
 			min = self.alarms[id].min;
 
-		
+		console.log(self.alarms[id].hour);
+		console.log(self.alarms[id].min);
 
 		console.log("uur niet geparsed = " + hour);
 		console.log("uur niet functie = " + self.reversePadfield(hour));
@@ -261,6 +262,10 @@ var jsalarm = {
 			self.alarms[id].repDay[index] = 1;
 			self.alarms[id].repDayInt += $this.data('daynr');
 			
+			if(self.alarms[id].set){
+				self.removeAppAlarm(id);
+			} 
+			
 			self.changeDbRepDay(id, function(){
 				var self = jsalarm;
 				if(self.alarms[id].set == '1'){
@@ -284,7 +289,7 @@ var jsalarm = {
 			},
 			dataType : 'json',
 		}).done(function(msg) {
-			console.log('success');
+			//console.log('success');
 			if(typeof(callback) == 'function'){
 				callback(id);
 			}
@@ -325,7 +330,7 @@ var jsalarm = {
 				self.alarms[msg[item].idwekker] = {
 					hour: msg[item].hour,
 					min: msg[item].min,
-					set: msg[item].active,
+					set: (msg[item].active == 1) ? true : false,
 					repDay: repDay,
 					repDayInt: parseInt(msg[item].rep_days)
 				}
