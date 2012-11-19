@@ -14,10 +14,11 @@
 	<div class="main-container">
 		<div class="wrapper clearfix" id="content">
 			<ul class="blocks groups" id="groups">
-				<li>
+				<script id="groupsTemplate" type="text/x-handlebars-template">
+				<li id="{{id}}">
 					<div class="visible">
 						<img src="http://placehold.it/75x75" class="group-image" />
-						<div class="group-name">Group 1</div>
+						<div class="group-name">{{groupname}}</div>
 						<div class="group-alarm">
 							<span data-icon="P" aria-hidden="true" class="icon"></span>
 							<span class="date">Mon 13 jan</span><span class="time">13:37</span>
@@ -107,6 +108,7 @@
 						</ul>
 					</div>
 				</li>
+				</script>
 				<li class="new-group">
 					<div class="visible">
 						<span data-icon="+" aria-hidden="true"></span>
@@ -174,6 +176,7 @@
 	<!-- <script src="js/getGroups.js"></script> -->
 	<script src="js/alarm_everywere.js"></script>
 	<script src="js/groups.js"></script>
+	<script src="js/invites.js"></script>
 	<script> jsinvites.init();</script>
 
 	<script>
