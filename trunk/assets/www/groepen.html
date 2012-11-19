@@ -119,18 +119,20 @@
 					<div class="hidden"></div>
 				</a>
 			</ul>
-
-			<div id="invites">
+			<ul class="blocks invites" id="invites">
 				<script id="invitesTemplate" type="text/x-handlebars-template">
-					<div id="{{id}}" class="invite">
-						<span>{{beheerder}}</span>
-						<span>{{idgroep}}</span>
-						<span>{{groepsnaam}}</span>
-						<button class="acceptbutton" >accept</button>
-						<button class="rejectbutton" >reject</button>
-					</div>
+				<li id="{{id}}">
+					<span class="icon"><span data-icon="R" aria-hidden="true" class="rejectbutton"></span></span>
+					You've been invited to join a new group by
+					<span class="leader">{{beheerder}}</span> to join the group
+					<span class="groupname">{{groepsnaam}}</span>
+					<div class="buttons">
+						<span data-icon="\" aria-hidden="true" class="rejectbutton"></span>
+						<span data-icon="." aria-hidden="true" class="acceptbutton"></span>
+					</div>				
+				</li>
 				</script>
-			</div>
+			</ul>
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
 
