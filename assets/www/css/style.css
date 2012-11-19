@@ -475,7 +475,7 @@ nav#footer-nav a {
 
 
 .groups a {
-	color: #222;
+	color: #333;
 	text-decoration: none;
 }
 
@@ -483,11 +483,11 @@ nav#footer-nav a {
 	margin-bottom:100px;
 	text-decoration:none;
 	border: 0; 
-	height: 30px; 
+	height: 20px; 
 	text-align: center; 
-	font-size: 20px; 
+	font-size: 16px; 
 	font-weight: 600; 
-	line-height: 28px; 
+	line-height: 20px; 
 	color: rgba(0,0,0,.7);
 }
 .groups.green {border-color: green;}
@@ -549,10 +549,6 @@ nav#footer-nav a {
 .picture-status.delay {background:rgba(255,0,0,0.2);}
 ul.group-pictures-list { list-style-type: none; white-space: nowrap; }
 ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1px 0 0; width: 35px; height: 35px; padding: 1px; border: 1px solid #aecee2;}
-
-.group-item-wrapper { cursor: pointer; height: 75px; width: 100%; }
-.group-collapsed-data { display: none; }
-
 
 .groups ul.group-members-large {
 	display: block;
