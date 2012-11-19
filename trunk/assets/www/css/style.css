@@ -321,7 +321,7 @@ nav#footer-nav a {
 
 /************* ALARMS ***********************/
 
-.alarm{
+/*.alarm{
 	width:100%;
 	height:10%;
 	padding-top:3%;
@@ -358,9 +358,9 @@ nav#footer-nav a {
 	margin-top:3%;
 	margin-left:20px;
 	float:right;
-}
+}*/
 
-
+/*
 .statusContainer{
 	position:relative;
 	padding-top:4%;
@@ -433,7 +433,7 @@ nav#footer-nav a {
 }
 
 .alarmhidden a{
-    /*background: url("../images/off.png") repeat scroll 0 0 transparent;*/
+    background: url("../images/off.png") repeat scroll 0 0 transparent;
     padding: 5px 4px;
     float: left;
     margin-right: 2px;
@@ -454,7 +454,7 @@ nav#footer-nav a {
     float: left;
     width: 20%;
     text-align: center;
-}
+}*/
 
 @font-face {
 	font-family: 'customFont';
@@ -643,7 +643,7 @@ ul.blocks li h1 {
 }
 
 ul.blocks li.active { border-color: green; }
-ul.blocks li.nonactive { border-color: red; }
+ul.blocks li.inactive { border-color: red; }
 
 .personal-alarms .time {
 	font-size: 26px;
@@ -657,13 +657,13 @@ ul.blocks li.nonactive { border-color: red; }
 	font-size: 20px;
 }
 
-.personal-alarms ul.repetition {
+.personal-alarms ul.days {
 	font-size: 10px;
 	display: block;
 	margin-top: 10px;
 }
 
-.personal-alarms ul.repetition li {
+.personal-alarms ul.days li {
 	box-shadow:  0px 0px 2px 0px rgba(0, 0, 0, 0.5);
 	padding: 5px;
 	display: inline-block;	
@@ -671,7 +671,7 @@ ul.blocks li.nonactive { border-color: red; }
 	margin: 0 10px 10px 0;
 }
 
-.personal-alarms ul.repetition li > span {
+.personal-alarms ul.days li > span {
 	position: absolute;
 	top: -5px;
 	left: -5px;
@@ -687,7 +687,7 @@ ul.blocks li.nonactive { border-color: red; }
 
 .personal-alarms ul.buttons > li {
 	display: inline-block;
-	width: 28%;
+	width: 45%;
 	background: #c7ddeb;
 	border-radius: 3px;
 	padding: 8px 2%;
