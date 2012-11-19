@@ -41,11 +41,11 @@ var jscontacts = {
     },
 
     createRow : function(context){
-        jscontacts.divcontacts.append( template(context) );
+        jscontacts.divcontacts.append( jscontacts.template(context) );
     },
 
     getTemplates: function(){
-        template = Handlebars.compile( $('#contactsTemplate').html() );
+        jscontacts.template = Handlebars.compile( $('#contactsTemplate').html() );
     },
 }
 

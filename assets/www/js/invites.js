@@ -82,10 +82,10 @@ var jsinvites = {
 	},
 
 	createRow : function(context){
-		jsinvites.divinvites.append( template(context) );
+		jsinvites.divinvites.append( jsinvites.template(context) );
 	},
 
 	getTemplates: function(){
-		template = Handlebars.compile( $('#invitesTemplate').html() );
+		jsinvites.template = Handlebars.compile( $('#invitesTemplate').html() );
 	},
 }

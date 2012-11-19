@@ -2,6 +2,7 @@ var jsgroups = {
 
 	init : function() {
 		this.groups = $('#groups');
+		console.log(groups);
 		//this.acceptbutton = $('#acceptButton');
 		//this.rejectbutton = $('#rejectButton');
 
@@ -42,11 +43,11 @@ var jsgroups = {
 	},
 
 	createRow : function(context){
-		jsgroups.groups.append( template(context) );
+		jsgroups.groups.append( jsgroups.template(context) );
 	},
 
 	getTemplates: function(){
-		template = Handlebars.compile( $('#groupsTemplate').html() );
+		jsgroups.template = Handlebars.compile( $('#groupsTemplate').html() );
 	},
 }
 
