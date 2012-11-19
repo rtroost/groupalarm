@@ -474,23 +474,31 @@ nav#footer-nav a {
 
 
 
-
-.group-list {}
-.group-item { display:block; position: relative; border-right: 5px solid rgba(0,0,0,0); padding: 5px; background: #e0ecf4; margin: 10px 0;
-	-webkit-box-shadow:  0px 0px 3px 0px rgba(0, 0, 0, 0.5);
-			box-shadow:  0px 0px 3px 0px rgba(0, 0, 0, 0.5);
-	border-radius: 3px;
+.groups a {
+	color: #222;
+	text-decoration: none;
 }
-.group-item.new { margin-bottom:100px;text-decoration:none;border: 0; height: 30px; text-align: center; font-size: 20px; font-weight: 600; line-height: 28px; color: rgba(0,0,0,.7);}
-.group-item.green {border-color: green;}
-.group-item.orange {border-color: orange;}
-.group-item.red {border-color: red;}
-.group-item.gray {border-color: gray;}
-.group-item .group-image { float: left; margin-right: 5px;}
-.group-item	.group-name { margin-left: 90px; font-size: 18px; font-weight: 600; color: #1d3d52; letter-spacing: -1px;}
+
+.groups .new-group {
+	margin-bottom:100px;
+	text-decoration:none;
+	border: 0; 
+	height: 30px; 
+	text-align: center; 
+	font-size: 20px; 
+	font-weight: 600; 
+	line-height: 28px; 
+	color: rgba(0,0,0,.7);
+}
+.groups.green {border-color: green;}
+.groups.orange {border-color: orange;}
+.groups.red {border-color: red;}
+.groups.gray {border-color: gray;}
+.groups .group-image { float: left; margin-right: 5px;}
+.groups	.group-name { margin-left: 90px; font-size: 18px; font-weight: 600; color: #1d3d52; letter-spacing: -1px;}
 
 
-.group-item .group-alarm {
+.groups .group-alarm {
 	position: absolute;
 	top: 5px;
 	right: 5px;
@@ -502,28 +510,28 @@ nav#footer-nav a {
 	font-weight: 400;
 	line-height: 11px;
 }
-.group-alarm .icon {font-size: 12px; line-height: 0; margin-right: 2px;}
-.group-alarm .date {}
-.group-alarm .time {margin-left: 8px; background: #aecee2; padding: 5px 8px; }
+.groups .group-alarm .icon {font-size: 12px; line-height: 0; margin-right: 2px;}
+.groups .group-alarm .date {}
+.groups .group-alarm .time {margin-left: 8px; background: #aecee2; padding: 5px 8px; }
 
 
 
-.group-item	.group-pictures {
+.groups	.group-pictures {
 	display: block;
 	/*position: absolute; bottom: 4px; left: 90px; overflow: hidden;*/
 	margin-top: 14px;
 }
-.group-item	.group-pictures-large {
+.groups	.group-pictures-large {
 	
 }
-.group-item	.group-pictures .leader {
+.groups	.group-pictures .leader {
 	font-size: 8px;
     bottom: 0;
     right: 0;
     position: absolute;
     color: rgba(0,0,0,0.4);
 }
-.group-item	.group-pictures .picture-status {
+.groups	.group-pictures .picture-status {
 	font-size: 13px;
     display: block;
     height: 50%;
@@ -546,13 +554,13 @@ ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1
 .group-collapsed-data { display: none; }
 
 
-.group-item ul.group-members-large {
+.groups ul.group-members-large {
 	display: block;
 	list-style-type: none;
 	margin-top: 10px;
 }
 
-.group-item ul.group-members-large > li {
+.groups ul.group-members-large > li {
 	display: block;
 	clear:both;
 	-webkit-box-shadow:  0px 0px 3px 0px rgba(0, 0, 0, 0.4);
@@ -562,22 +570,22 @@ ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1
 	margin-bottom: 5px;
 }
 
-.group-item ul.group-members-large li > img {
+.groups ul.group-members-large > li .picture {
 	float: left;
 }
 
-.group-item ul.group-members-large li .meta-data {
+.groups ul.group-members-large > li .meta-data {
 	margin-left: 60px;
 	position: relative;
 	min-height: 50px;
 }
 
-ul.group-members-large li .meta-data .name {
+.groups ul.group-members-large > li .meta-data .name {
 	font-size: 18px;
 	display: block;
 }
 
-ul.group-members-large li .meta-data .buttons {
+.groups ul.group-members-large > li .meta-data .buttons {
 	position: absolute;
 	top: 0;
 	right: 10px;
@@ -587,14 +595,16 @@ ul.group-members-large li .meta-data .buttons {
 	color: #63a0c7;
 }
 
-ul.group-members-large li .actions {
-	display: none;
+.groups ul.group-members-large > li .actions {
+	display: block;
 	position: relative;
-	margin-top: 10px;
+	padding: 10px 0 0 0;
+	margin: 10px 0 0 0;
+	border-top: 1px solid #C7DDEB;
+	display: block;
 }
 
-ul.group-members-large li .actions ul { display: block; padding: 0; margin: 0; }
-ul.group-members-large li .actions ul li { 
+.groups ul.group-members-large > li .actions li { 
 	display: inline-block;
 	height: 100%;
 	background: #c7ddeb;
