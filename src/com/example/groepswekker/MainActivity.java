@@ -59,7 +59,7 @@ public class MainActivity extends DroidGap {
     	System.out.println("hour" + hour);
     	int inthour = Integer.parseInt(hour);
     	int intmin = Integer.parseInt(min);
-    	
+    	 
     	Calendar now = Calendar.getInstance();
     	
     	int nowhour = now.get(Calendar.HOUR_OF_DAY);

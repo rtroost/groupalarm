@@ -7,13 +7,10 @@ var jsalarm = {
 		this.minuteselect = $('select#min');
 		this.divresult = $('#personal-alarms');
 
-		// gjiojfgoijgifo
 		this.activation_button_html = [
 			'<span data-icon="\'" aria-hidden="true"></span> Inactive',
 			'<span data-icon="/" aria-hidden="true"></span> Active',
 		];
-
-
 		
 		this.alarms = {};
 		
@@ -44,8 +41,8 @@ var jsalarm = {
 		self.submitbutton.on('click', self.savealarm);
 		self.divresult.on('click', 'li.set-alarm', self.setalarm);
 		self.divresult.on('click', 'li.delete-alarm', self.removealarm);
-		self.divresult.on('click', 'img.alarmPijl', self.showSettings);
-		self.divresult.on('click', 'a.day', self.setDays);
+		self.divresult.on('click', 'li', self.showSettings);
+		self.divresult.on('click', 'li.day', self.setDays);
 	},
 	
 	getTemplates: function(){
@@ -53,14 +50,16 @@ var jsalarm = {
 		Handlebars.registerHelper('frepDays', function( repDay ) {
 			var html = '';
 			var daynr = 0;
-			for (var i=0; i < repDay.length; i++) {
+			for (var i=1; i < repDay.length; i++) {
 				var text;
 				switch(i){case 0:text='No-repeat';break;case 1:text='Mon';daynr=1;break;case 2:text='Tue';daynr=2;break;case 3:text='Wen';daynr=4;break;case 4:text='Thu';daynr=8;break;
 					case 5:text='Fri';daynr=16;break;case 6:text='Sat';daynr=32;break;case 7:text='Sun';daynr=64;break;};
 				if(repDay[i] == 1){
-					html +=	'<a class="statusOnA day" data-toggle="on" data-daynr="' + daynr + '">' + text + '</a>';
+					html +=	'<li class="day" data-toggle="on" data-daynr="' + daynr + '">' + text + ' <span data-icon="/" aria-hidden="true"></span></li>';
+					//html +=	'<a class="statusOnA day" data-toggle="on" data-daynr="' + daynr + '">' + text + '</a>';
 				} else {
-					html +=	'<a class="statusOffA day" data-toggle="off" data-daynr="' + daynr + '">' + text + '</a>';
+					html +=	'<li class="day" data-toggle="off" data-daynr="' + daynr + '">' + text + ' <span data-icon="-" aria-hidden="true"></span></li>';
+					//html +=	'<a class="statusOffA day" data-toggle="off" data-daynr="' + daynr + '">' + text + '</a>';
 				}
 			};
 			return new Handlebars.SafeString( html );
@@ -158,13 +157,15 @@ var jsalarm = {
 		
 		console.log("uur = " + parseInt(hour));
 		console.log("min = " + parseInt(min));
+		
+		console.log((self.alarms[id].set) ? 0 : 1);
 			
 		$.ajax({
 			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
 			type : 'POST',
 			data : {
 				action : 'active',
-				set : + ! self.alarms[id].set,
+				set : (self.alarms[id].set) ? 0 : 1,
 				idwekker : id,
 				imei : window.imei
 			},
@@ -209,38 +210,21 @@ var jsalarm = {
 	},
 	
 	setDays: function(){
-		console.log("doet het");
 		var self = jsalarm,
 			$this = $(this),
-			id = $this.parents('div.alarm').attr('id');
+			id = $this.parents('li.alarm').attr('id');
 			console.log(id);
-			
-		if($this.data('daynr') == 0 && $this.data('toggle') == 'off'){
-			$this.siblings('a').removeClass('statusOnA').addClass('statusOffA').attr('data-toggle', 'off');
-			$this.removeClass('statusOffA').addClass('statusOnA');
-			$this.attr('data-toggle', 'on');
-			
-			self.alarms[id].repDay = [1, 0, 0, 0, 0, 0, 0, 0];
-			self.alarms[id].repDayInt = 0;
-			self.changeDbRepDay(id, function(id){
-				var self = jsalarm;
-				if(self.alarms[id].set == '1'){
-					for(var i = 1; i < 8; i++){
-						self.removeAppAlarm('-' + id + i);
-					}
-					self.setAppAlarm(self.alarms[id].hour, self.alarms[id].min, id);
-				}
-			});
-		} else if($this.attr('data-toggle') == 'on'){
-			console.log('hallo');
-			$this.removeClass('statusOnA').addClass('statusOffA');
+		
+		if($this.attr('data-toggle') == 'on'){
+			$this.children('span').attr('data-icon', '-');
 			$this.attr('data-toggle', 'off');
-			var index = $this.parent('div').children('a').index($this);
+			console.log($this.parent('ul').children('li'));
+			var index = $this.parent('ul').children('li').index($this) + 1;
 			console.log(index);
 			self.alarms[id].repDay[index] = 0;
 			self.alarms[id].repDayInt -= $this.data('daynr');
 
-			var children = $this.parent('div').children('a'), count = 0;
+			var children = $this.parent('ul').children('li'), count = 0;
 			for(var i = 0; i < children.length; i++){
 				if(children.eq(i).attr('data-toggle') == 'on'){
 					count++;
@@ -248,8 +232,16 @@ var jsalarm = {
 			}
 			console.log(count);
 			if(count < 1){
-				console.log('reset');
-				children.eq(0).trigger('click');
+				console.log('reset'); // reset
+				self.alarms[id].repDay = [1, 0, 0, 0, 0, 0, 0, 0];
+				self.alarms[id].repDayInt = 0;
+				self.changeDbRepDay(id, function(id){
+					var self = jsalarm;
+					if(self.alarms[id].set == '1'){
+						self.setAppAlarm(self.alarms[id].hour, self.alarms[id].min, id);
+					}
+				});
+				return;
 			}
 			self.changeDbRepDay(id, function(){
 				var self = jsalarm;
@@ -260,11 +252,10 @@ var jsalarm = {
 			});
 
 		} else { //knop staat uit
-			$this.siblings('a').eq(0).removeClass('statusOnA').addClass('statusOffA').attr('data-toggle', 'off');
-			$this.removeClass('statusOffA').addClass('statusOnA');
 			$this.attr('data-toggle', 'on');
+			$this.children('span').attr('data-icon', '/');
 			
-			var index = $this.parent('div').children('a').index($this);
+			var index = $this.parent('ul').children('li').index($this) + 1;
 			console.log(index);
 			self.alarms[id].repDay[0] = 0;
 			self.alarms[id].repDay[index] = 1;
@@ -395,17 +386,13 @@ var jsalarm = {
 		});
 	},
 		
-	showSettings: function(){
-		$this = $(this);
-		var alarmhidden = $this.parent('div.alarmRight').siblings('div.alarmhidden');
-		if(alarmhidden.is(":visible")){
-			alarmhidden.slideToggle();
-			$this.css('transform', '');
-		} else {
-			alarmhidden.slideToggle();
-			$this.css('transform', 'rotate(90deg)');
+	showSettings: function(e) {
+		var self = jsalarm;
+		var etarget = $(e.target);
+		if(e.target == this || etarget.hasClass('visible') || etarget.hasClass('buttons') || etarget.hasClass('icon')
+			 || etarget.hasClass('time') || etarget.hasClass('config') || etarget.hasClass('days') || etarget.hasClass('newalarm')){
+			$(this).children('.hidden').slideToggle('normal');
 		}
-		
 	},
 }
 

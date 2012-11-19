@@ -16,7 +16,7 @@
 			<ul class="blocks personal-alarms" id="personal-alarms">
 				<li id="new-personal-alarm">
 					<div class="visible">
-						<h1><span data-icon="+" aria-hidden="true"></span> Create a new alarm</h1>
+						<h1 class="newalarm"><span data-icon="+" aria-hidden="true"></span> Create a new alarm</h1>
 					</div>
 					<div class="hidden">
 						<div class="new-alarm-block">
@@ -32,13 +32,14 @@
 						<span class="time">{{hour}}:{{min}}</span>
 						<span data-icon="S" aria-hidden="true" class="config"></span>
 						<ul class="days">
-							<li>Mon <span data-icon="-" aria-hidden="true"></span></li>
+							{{frepDays repDay}}
+							<!--<li>Mon <span data-icon="-" aria-hidden="true"></span></li>
 							<li>Tue <span data-icon="-" aria-hidden="true"></span></li>
 							<li>Wed <span data-icon="-" aria-hidden="true"></span></li>
 							<li>Thu <span data-icon="/" aria-hidden="true"></span></li>
 							<li>Fri <span data-icon="/" aria-hidden="true"></span></li>
 							<li>Sat <span data-icon="/" aria-hidden="true"></span></li>
-							<li>Sun <span data-icon="/" aria-hidden="true"></span></li>
+							<li>Sun <span data-icon="/" aria-hidden="true"></span></li>-->
 						</ul>						
 					</div>
 					<div class="hidden">
@@ -102,10 +103,5 @@
 	<script src="js/imei.js"></script>
 	<script src="js/alarm.js"></script>
 
-	<script>
-		$('#personal-alarms').on('click', '.visible', function() {
-			$(this).parent('li').children('.hidden').slideToggle('normal');
-		});
-	</script>
 </body>
 </html>
