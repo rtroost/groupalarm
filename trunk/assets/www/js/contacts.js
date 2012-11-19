@@ -22,7 +22,12 @@ var jscontacts = {
         }).done(function(msg) {
             var self = jscontacts;
             for(var item in msg){
-                self.createRow({naam: msg[item][0], hasApp: msg[item]['hasApp'], tel : msg[item][1], idgebruiker : msg[item]['idgebruiker']})
+                self.createRow({
+                    naam: msg[item][0], 
+                    hasApp: msg[item]['hasApp'], 
+                    tel : msg[item][1], 
+                    idgebruiker : msg[item]['idgebruiker']
+                })
             }
         }).fail(function(msg) {
             console.log('kan geen verbinding maken');

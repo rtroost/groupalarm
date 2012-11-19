@@ -164,7 +164,7 @@ var jsalarm = {
 			type : 'POST',
 			data : {
 				action : 'active',
-				set : ! self.alarms[id].set,
+				set : + ! self.alarms[id].set,
 				idwekker : id,
 				imei : window.imei
 			},
