@@ -1,7 +1,7 @@
-var jsinvites = {
+var jsgroups = {
 
 	init : function() {
-		this.divinvites = $('#invites');
+		this.groups = $('#groups');
 		//this.acceptbutton = $('#acceptButton');
 		//this.rejectbutton = $('#rejectButton');
 
@@ -12,18 +12,23 @@ var jsinvites = {
 
 	getAll : function(){
 		$.ajax({
-			url : 'http://www.remcovdk.com/groupalarm/invites.php',
+			url : 'http://www.remcovdk.com/groupalarm/groups.php',
 			type : 'POST',
 			data : {
-				action : 'getInvites',
+				action : 'getAllGroups',
 				imei : window.imei
 			},
 			dataType : 'json',
 	
 		}).done(function(msg) {
-			var self = jsinvites;
+
+			var self = jsgroups;
+
 			for(var item in msg){
-				self.createRow({id : msg[item].idgroep, beheerder : msg[item].beheerder, groepsnaam : msg[item].groepsnaam, idgroep : msg[item].idgroep})
+				self.createRow({
+					id : msg[item].idgroep,
+					groupname : msg[item].naam					
+				})
 			}
 		}).fail(function(msg) {
 			console.log('kan geen verbinding maken');
@@ -31,61 +36,19 @@ var jsinvites = {
 	},
 
 	bindEvents: function(){
-		var self = jsinvites;
-		self.divinvites.on('click', 'button.acceptbutton', self.acceptInvite);
-		self.divinvites.on('click', 'button.rejectbutton', self.rejectInvite);
-	},
-
-	acceptInvite : function(){
-		var self = jsinvites,
-		$this = $(this);
-		var id = $this.parents('div.invite').attr('id');
-
-        $.ajax({
-            url : 'http://www.remcovdk.com/groupalarm/acceptGroup.php',
-            type : 'POST',
-            data : {
-                groep : id,
-                imei : window.imei,
-                action : 'accept'
-            },
-            dataType : 'html',
-    
-        }).done(function(msg) {
-                $this.parents('div.invite').css('display', 'none')
-                alert(msg);
-        }).fail(function(msg) {
-            console.log('kan geen verbinding maken');
-	    })
-	},
-
-	rejectInvite : function(){
-		var self = jsinvites,
-		$this = $(this);
-		var id = $this.parents('div.invite').attr('id');
-        $.ajax({
-            url : 'http://www.remcovdk.com/groupalarm/acceptGroup.php',
-            type : 'POST',
-            data : {
-                groep : id,
-                imei : window.imei,
-                action : 'reject'
-            },
-            dataType : 'html',
-    
-        }).done(function(msg) {
-                $this.parents('div.invite').css('display', 'none')
-                alert(msg);
-        }).fail(function(msg) {
-            console.log('kan geen verbinding maken');
-	    })
+		var self = jsgroups;
+		//self.divinvites.on('click', 'button.acceptbutton', self.acceptInvite);
+		//self.divinvites.on('click', 'button.rejectbutton', self.rejectInvite);
 	},
 
 	createRow : function(context){
-		jsinvites.divinvites.append( template(context) );
+		jsgroups.groups.append( template(context) );
 	},
 
 	getTemplates: function(){
-		template = Handlebars.compile( $('#invitesTemplate').html() );
+		template = Handlebars.compile( $('#groupsTemplate').html() );
 	},
 }
+
+//Start this shit
+jsgroups.init();
