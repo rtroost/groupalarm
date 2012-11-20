@@ -2,6 +2,7 @@ var jsinvites = {
 
 	init : function() {
 		this.divinvites = $('#invites');
+		console.log(this.divinvites);
 		//this.acceptbutton = $('#acceptButton');
 		//this.rejectbutton = $('#rejectButton');
 
@@ -32,8 +33,8 @@ var jsinvites = {
 
 	bindEvents: function(){
 		var self = jsinvites;
-		self.divinvites.on('click', 'span.acceptbutton', self.acceptInvite);
-		self.divinvites.on('click', 'span.rejectbutton', self.rejectInvite);
+		self.divinvites.on('click', 'div.acceptbutton', self.acceptInvite);
+		self.divinvites.on('click', 'div.rejectbutton', self.rejectInvite);
 	},
 
 	acceptInvite : function(){
