@@ -18,12 +18,12 @@
 					<div class="visible">
 						<h1 class="newalarm"><span data-icon="+" aria-hidden="true"></span> Create a new alarm</h1>
 					</div>
-					<div class="hidden">
+					<!--<div class="hidden">
 						<div class="new-alarm-block">
 							<span><select id="hour"></select> Hour</span><span><select id="min"></select> Minutes</span>
 							<input type="submit" value="Set new alarm" id="submitbutton" />
 						</div>
-					</div>
+					</div>-->
 				</li>
 				<script id="alarmtemplate" type="text/x-handlebars-template">
 				<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
@@ -38,7 +38,7 @@
 					<div class="hidden">
 						<div class="new-alarm-block">
 							<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
-							<input type="submit" value="Set new alarm" class="alarmsubmit" />
+							<input type="submit" value="Change alarm" class="alarmsubmit" />
 						</div>
 						<ul class="buttons">
 							{{#if set}}

@@ -1,7 +1,8 @@
 var jsalarm = {
 	
 	init : function() {
-		this.submitbutton = $('#submitbutton');
+		//this.submitbutton = $('#submitbutton');
+		this.submitbutton = $('#new-personal-alarm');
 		//this.selections = $('#jsalarmclock select');
 		this.hourselect = $('select#hour');
 		this.minuteselect = $('select#min');
@@ -131,14 +132,23 @@ var jsalarm = {
 		}
 	},
 	
-	createRow : function(context){
-		jsalarm.divresult.append( jsalarm.template(context) );
+	createRow : function(context, place){
+		if(place == 'prepend'){
+			jsalarm.divresult.children('li').eq(0).after( jsalarm.template(context) );
+			console.log(jsalarm.divresult.children('li').eq(1));
+			console.log(jsalarm.template(context));
+		} else {
+			jsalarm.divresult.append( jsalarm.template(context) );
+		}
+		
 	},
 	
 	savealarm : function(){
 		var self = jsalarm;
-		hour = self.hourselect.attr('value');
-		min = self.minuteselect.attr('value');
+		//hour = self.hourselect.attr('value');
+		//min = self.minuteselect.attr('value');
+		hour = '00';
+		min = '00';
 		
 		$.ajax({
 			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
@@ -160,7 +170,7 @@ var jsalarm = {
 				repDay: [1, 0, 0, 0, 0, 0, 0, 0],
 				repDayInt: 0
 			}
-			jsalarm.createRow({id: msg, hour: hour, min: min, set: false, repDay: [1, 0, 0, 0, 0, 0, 0, 0]});
+			jsalarm.createRow({id: msg, hour: hour, min: min, set: false, repDay: [1, 0, 0, 0, 0, 0, 0, 0]}, 'prepend');
 		}).fail(function(msg) {
 			console.log('kan geen verbinding maken');
 		});
@@ -461,8 +471,11 @@ var jsalarm = {
 	showSettings: function(e) {
 		var self = jsalarm;
 		var etarget = $(e.target);
+		if(etarget.hasClass('newalarm') || etarget.attr('id') == 'new-personal-alarm'){
+			return;
+		}
 		if(e.target == this || etarget.hasClass('visible') || etarget.hasClass('buttons') || etarget.hasClass('icon')
-			 || etarget.hasClass('time') || etarget.hasClass('config') || etarget.hasClass('days') || etarget.hasClass('newalarm')){
+			 || etarget.hasClass('time') || etarget.hasClass('config') || etarget.hasClass('days') ){ //|| etarget.hasClass('newalarm')
 			$(this).children('.hidden').slideToggle('normal');
 		}
 	},
