@@ -33,16 +33,13 @@
 						<span data-icon="S" aria-hidden="true" class="config"></span>
 						<ul class="days">
 							{{frepDays repDay}}
-							<!--<li>Mon <span data-icon="-" aria-hidden="true"></span></li>
-							<li>Tue <span data-icon="-" aria-hidden="true"></span></li>
-							<li>Wed <span data-icon="-" aria-hidden="true"></span></li>
-							<li>Thu <span data-icon="/" aria-hidden="true"></span></li>
-							<li>Fri <span data-icon="/" aria-hidden="true"></span></li>
-							<li>Sat <span data-icon="/" aria-hidden="true"></span></li>
-							<li>Sun <span data-icon="/" aria-hidden="true"></span></li>-->
 						</ul>						
 					</div>
 					<div class="hidden">
+						<div class="new-alarm-block">
+							<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
+							<input type="submit" value="Set new alarm" class="alarmsubmit" />
+						</div>
 						<ul class="buttons">
 							{{#if set}}
 							<li class="set-alarm" data-toggle="On">

@@ -43,6 +43,7 @@ var jsalarm = {
 		self.divresult.on('click', 'li.delete-alarm', self.removealarm);
 		self.divresult.on('click', 'li', self.showSettings);
 		self.divresult.on('click', 'li.day', self.setDays);
+		self.divresult.on('click', 'input.alarmsubmit', self.changeAlarm);
 	},
 	
 	getTemplates: function(){
@@ -62,6 +63,28 @@ var jsalarm = {
 					//html +=	'<a class="statusOffA day" data-toggle="off" data-daynr="' + daynr + '">' + text + '</a>';
 				}
 			};
+			return new Handlebars.SafeString( html );
+		});
+		Handlebars.registerHelper('setHours', function( hour ) {
+			var self = jsalarm;
+			var html = '';
+			for (var i = 0; i < 24; i++) {
+				if((+hour) == i){
+					html += '<option value="' + self.padfield(i) + '" selected="selected">' + self.padfield(i) + '</option>';
+				}
+				html += '<option value="' + self.padfield(i) + '">' + self.padfield(i) + '</option>';
+			}
+			return new Handlebars.SafeString( html );
+		});
+		Handlebars.registerHelper('setMins', function( min ) {
+			var self = jsalarm;
+			var html = '';
+			for (var i = 0; i < 60; i++) {
+				if((+min) == i){
+					html += '<option value="' + self.padfield(i) + '" selected="selected">' + self.padfield(i) + '</option>';
+				}
+				html += '<option value="' + self.padfield(i) + '">' + self.padfield(i) + '</option>';
+			}
 			return new Handlebars.SafeString( html );
 		});
 	},
@@ -131,8 +154,8 @@ var jsalarm = {
 	
 		}).done(function(msg) {
 			self.alarms[msg] = {
-				hour: hour,
-				min: min,
+				hour: (+hour)+'',
+				min: (+min)+'',
 				set: false,
 				repDay: [1, 0, 0, 0, 0, 0, 0, 0],
 				repDayInt: 0
@@ -210,6 +233,50 @@ var jsalarm = {
 
 	},
 	
+	changeAlarm: function(){
+		var self = jsalarm,
+			$this = $(this),
+			id = $this.parents('li.alarm').attr('id');
+			console.log(id);
+			
+		hour = $this.siblings('span').eq(0).children('select').attr('value');
+		min = $this.siblings('span').eq(1).children('select').attr('value');
+		
+		console.log(hour);
+		console.log(min);
+		
+		self.alarms[id].hour = (+hour)+'';
+		self.alarms[id].min = (+min)+'';
+		
+		$this.parents('li.alarm').find('span.time').text(hour + ':' + min);
+		
+		$.ajax({
+			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
+			type : 'POST',
+			data : {
+				action : 'changeAlarm',
+				idwekker : id,
+				imei : window.imei,
+				hour: self.padfield(hour),
+				min: self.padfield(min)
+			},
+			dataType : 'json',
+		}).done(function(msg) {
+			
+		}).fail(function(msg) {
+			console.log('kan geen verbinding maken');
+		});
+		
+		if(self.alarms[id].set){
+			self.removeAppAlarm(id);
+			if(self.alarms[id].repDayInt == 0){
+				self.setAppAlarm(self.alarms[id].hour, self.alarms[id].min, id);
+			} else {
+				self.setAppRepeatAlarm(self.alarms[id].hour, self.alarms[id].min, id, self.alarms[id].repDay);
+			}
+		}
+	},
+	
 	setDays: function(){
 		var self = jsalarm,
 			$this = $(this),
@@ -246,7 +313,7 @@ var jsalarm = {
 			}
 			self.changeDbRepDay(id, function(){
 				var self = jsalarm;
-				if(self.alarms[id].set == '1'){
+				if(self.alarms[id].set){
 					self.removeAppAlarm('-' + id + index);
 					// android regelen. // remove
 				}
