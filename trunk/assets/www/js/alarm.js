@@ -20,12 +20,12 @@ var jsalarm = {
 		this.bindEvents();
 		this.getTemplates();
 
-		for (var i = 0; i < 60; i++) {
-			if (i < 24) {//If still within range of hours field: 0-23
-				$('<option>', {value: this.padfield(i), text: this.padfield(i)}).appendTo(this.hourselect);
-			}
-			$('<option>', {value: this.padfield(i), text: this.padfield(i)}).appendTo(this.minuteselect);
-		}
+		// for (var i = 0; i < 60; i++) {
+			// if (i < 24) {//If still within range of hours field: 0-23
+				// $('<option>', {value: this.padfield(i), text: this.padfield(i)}).appendTo(this.hourselect);
+			// }
+			// $('<option>', {value: this.padfield(i), text: this.padfield(i)}).appendTo(this.minuteselect);
+		// }
 		
 		// deze 7 regels zijn tijdelijk om de tijd te kunnen zien. kan weg in productie
 		var dateobj = new Date();
@@ -135,8 +135,6 @@ var jsalarm = {
 	createRow : function(context, place){
 		if(place == 'prepend'){
 			jsalarm.divresult.children('li').eq(0).after( jsalarm.template(context) );
-			console.log(jsalarm.divresult.children('li').eq(1));
-			console.log(jsalarm.template(context));
 		} else {
 			jsalarm.divresult.append( jsalarm.template(context) );
 		}
@@ -150,7 +148,7 @@ var jsalarm = {
 		hour = '00';
 		min = '00';
 		
-		$.ajax({
+		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
 			type : 'POST',
 			data : {
@@ -161,19 +159,19 @@ var jsalarm = {
 				imei : window.imei
 			},
 			dataType : 'json',
-	
-		}).done(function(msg) {
+		}, function(msg) {
 			self.alarms[msg] = {
 				hour: (+hour)+'',
 				min: (+min)+'',
 				set: false,
 				repDay: [1, 0, 0, 0, 0, 0, 0, 0],
 				repDayInt: 0
-			}
+			};
 			jsalarm.createRow({id: msg, hour: hour, min: min, set: false, repDay: [1, 0, 0, 0, 0, 0, 0, 0]}, 'prepend');
-		}).fail(function(msg) {
+		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
+		
 	},
 	
 	setalarm : function() {
@@ -194,7 +192,7 @@ var jsalarm = {
 		
 		console.log((self.alarms[id].set) ? 0 : 1);
 			
-		$.ajax({
+		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
 			type : 'POST',
 			data : {
@@ -204,42 +202,39 @@ var jsalarm = {
 				imei : window.imei
 			},
 			dataType : 'json',
-	
-		}).done(function(msg) {
+		}, function(msg) {
 
-			var self = jsalarm;
-
-			// Verander SET
-			self.alarms[id].set = ! self.alarms[id].set;
-
-			if(self.alarms[id].set){
-
-				$this.parents('li.alarm').removeClass('inactive').addClass('active');
-
-				if(self.alarms[id].repDayInt == 0){
-					self.setAppAlarm(hour, min, id);
-				} else {
-					self.setAppRepeatAlarm(hour, min, id, self.alarms[id].repDay);
-				}
-			} else {
-
-				$this.parents('li.alarm').removeClass('active').addClass('inactive');
-
-				if(self.alarms[id].repDayInt == 0){
-					self.removeAppAlarm(id);
-				} else {
-					for(var i = 1; i < 8; i++){
-						self.removeAppAlarm('-' + id + i);
-					}
-				}
-			}
-
-			// Change (in)active button
-			$this.html(self.activation_button_html[+self.alarms[id].set]);
-
-		}).fail(function(msg) {
+		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
+		
+		// Verander SET
+		self.alarms[id].set = ! self.alarms[id].set;
+
+		if(self.alarms[id].set){
+
+			$this.parents('li.alarm').removeClass('inactive').addClass('active');
+
+			if(self.alarms[id].repDayInt == 0){
+				self.setAppAlarm(hour, min, id);
+			} else {
+				self.setAppRepeatAlarm(hour, min, id, self.alarms[id].repDay);
+			}
+		} else {
+
+			$this.parents('li.alarm').removeClass('active').addClass('inactive');
+
+			if(self.alarms[id].repDayInt == 0){
+				self.removeAppAlarm(id);
+			} else {
+				for(var i = 1; i < 8; i++){
+					self.removeAppAlarm('-' + id + i);
+				}
+			}
+		}
+
+		// Change (in)active button
+		$this.html(self.activation_button_html[+self.alarms[id].set]);
 
 	},
 	
@@ -260,20 +255,20 @@ var jsalarm = {
 		
 		$this.parents('li.alarm').find('span.time').text(hour + ':' + min);
 		
-		$.ajax({
+		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
 			type : 'POST',
 			data : {
 				action : 'changeAlarm',
 				idwekker : id,
 				imei : window.imei,
-				hour: self.padfield(hour),
-				min: self.padfield(min)
+				hour: hour,
+				min: min
 			},
 			dataType : 'json',
-		}).done(function(msg) {
+		}, function(msg) {
 			
-		}).fail(function(msg) {
+		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
 		
@@ -355,7 +350,7 @@ var jsalarm = {
 	
 	changeDbRepDay: function(id, callback){
 		var self = jsalarm;
-		$.ajax({
+		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
 			type : 'POST',
 			data : {
@@ -365,18 +360,17 @@ var jsalarm = {
 				repDay: self.alarms[id].repDayInt
 			},
 			dataType : 'json',
-		}).done(function(msg) {
-			//console.log('success');
+		}, function(msg) {
 			if(typeof(callback) == 'function'){
 				callback(id);
 			}
-		}).fail(function(msg) {
+		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
 	},
 	
 	getAll : function(){
-		$.ajax({
+		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
 			type : 'POST',
 			data : {
@@ -385,7 +379,7 @@ var jsalarm = {
 			},
 			dataType : 'json',
 	
-		}).done(function(msg) {
+		}, function(msg) {
 			var self = jsalarm;
 			for(var item in msg){
 				// loop door de rep_day heen
@@ -436,9 +430,10 @@ var jsalarm = {
 					});
 				}
 			}
-		}).fail(function(msg) {
+		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
+		
 	},
 	
 	removealarm : function(){
@@ -450,7 +445,7 @@ var jsalarm = {
 			self.removeAppAlarm(id);
 		}
 
-		$.ajax({
+		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
 			type : 'POST',
 			data : {
@@ -459,13 +454,13 @@ var jsalarm = {
 				imei : window.imei
 			},
 			dataType : 'json',
-		}).done(function(msg) {
+		}, function(msg) {
 			console.log('success');
-			$this.parents('li.alarm').remove();
-			delete self.alarms[id];
-		}).fail(function(msg) {
+		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
+		$this.parents('li.alarm').remove();
+		delete self.alarms[id];
 	},
 		
 	showSettings: function(e) {
