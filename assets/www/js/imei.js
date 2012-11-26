@@ -17,7 +17,7 @@ window.imei = 123; // NUMMER REMCO
 	}
 	
 	function checkregistered(){
-		$.ajax({
+		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/check_registerd.php',
 			type : 'POST',
 			data : {
@@ -25,11 +25,11 @@ window.imei = 123; // NUMMER REMCO
 			},
 			dataType : 'json',
 	
-		}).done(function(msg) {
+		}, function(msg) {
 			if(msg != 'success'){
 				window.location.replace('index.html');
 			}
-		}).fail(function(msg) {
+		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
 	}

@@ -12,7 +12,7 @@ var jsinvites = {
 	},
 
 	getAll : function(){
-		$.ajax({
+		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/invites.php',
 			type : 'POST',
 			data : {
@@ -21,12 +21,12 @@ var jsinvites = {
 			},
 			dataType : 'json',
 	
-		}).done(function(msg) {
+		}, function(msg) {
 			var self = jsinvites;
 			for(var item in msg){
 				self.createRow({id : msg[item].idgroep, beheerder : msg[item].beheerder, groepsnaam : msg[item].groepsnaam, idgroep : msg[item].idgroep})
 			}
-		}).fail(function(msg) {
+		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
 	},
@@ -43,7 +43,7 @@ var jsinvites = {
 		$this = $(this);
 		var id = $this.parents('li').attr('id');
 
-        $.ajax({
+        window.ajax.add({
             url : 'http://www.remcovdk.com/groupalarm/acceptGroup.php',
             type : 'POST',
             data : {
@@ -53,19 +53,19 @@ var jsinvites = {
             },
             dataType : 'html',
     
-        }).done(function(msg) {
-                $this.parents('li').css('display', 'none')
-                alert(msg);
-        }).fail(function(msg) {
+        }, function(msg) {
+            $this.parents('li').css('display', 'none')
+            alert(msg);
+        }, function(msg) {
             console.log('kan geen verbinding maken');
-	    })
+	    });
 	},
 
 	rejectInvite : function(){
 		var self = jsinvites,
 		$this = $(this);
 		var id = $this.parents('li').attr('id');
-        $.ajax({
+        window.ajax.add({
             url : 'http://www.remcovdk.com/groupalarm/acceptGroup.php',
             type : 'POST',
             data : {
@@ -75,12 +75,12 @@ var jsinvites = {
             },
             dataType : 'html',
     
-        }).done(function(msg) {
+        }, function(msg) {
                 $this.parents('li').css('display', 'none')
                 alert(msg);
-        }).fail(function(msg) {
+        }, function(msg) {
             console.log('kan geen verbinding maken');
-	    })
+	    });
 	},
 
 	createRow : function(context){
@@ -91,3 +91,4 @@ var jsinvites = {
 		jsinvites.template = Handlebars.compile( $('#invitesTemplate').html() );
 	},
 }
+jsinvites.init();

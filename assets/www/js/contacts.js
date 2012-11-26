@@ -10,7 +10,7 @@ var jscontacts = {
     },
 
     getAll : function(){
-        $.ajax({
+        window.ajax.add({
             url : 'http://www.remcovdk.com/groupalarm/contacts.php',
             type : 'POST',
             data : {
@@ -19,7 +19,7 @@ var jscontacts = {
             },
             dataType : 'json',
     
-        }).done(function(msg) {
+        }, function(msg) {
             var self = jscontacts;
             for(var item in msg){
                 self.createRow({
@@ -29,7 +29,7 @@ var jscontacts = {
                     idgebruiker : msg[item]['idgebruiker']
                 })
             }
-        }).fail(function(msg) {
+        }, function(msg) {
             console.log('kan geen verbinding maken');
         });
     },

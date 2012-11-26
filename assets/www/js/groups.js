@@ -12,7 +12,7 @@ var jsgroups = {
 	},
 
 	getAll : function(){
-		$.ajax({
+		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/groups.php',
 			type : 'POST',
 			data : {
@@ -21,7 +21,7 @@ var jsgroups = {
 			},
 			dataType : 'json',
 	
-		}).done(function(msg) {
+		}, function(msg) {
 
 			var self = jsgroups;
 
@@ -31,7 +31,7 @@ var jsgroups = {
 					groupname : msg[item].naam					
 				})
 			}
-		}).fail(function(msg) {
+		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
 	},

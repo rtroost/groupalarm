@@ -1,14 +1,23 @@
 var jsalarm = {
 
 	setAppAlarm : function(hour, min, idwekker){
-		var self = jsalarm;
+		console.log('set');
 		if(window.main != undefined){
+			console.log(parseInt(hour));
 			window.main.setAlarm(parseInt(idwekker), parseInt(hour), parseInt(min));
 		}
 	},
 	
+	setAppRepeatAlarm : function(hour, min, idwekker, repDays){
+		console.log('REPEAT');
+		if(window.main != undefined){
+			console.log(parseInt(hour));
+			window.main.setRepeatAlarm(parseInt(idwekker), parseInt(hour), parseInt(min), repDays.join());
+		}
+	},
+	
 	getAll : function(){
-		$.ajax({
+		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
 			type : 'POST',
 			data : {
@@ -17,17 +26,39 @@ var jsalarm = {
 			},
 			dataType : 'json',
 	
-		}).done(function(msg) {
+		}, function(msg) {
 			var self = jsalarm;
 			for(var item in msg){
+				// loop door de rep_day heen
+				if(msg[item].rep_days == 0){
+					var repDay = [1, 0, 0, 0, 0, 0, 0, 0];
+				} else {
+					var tempRepDays = msg[item].rep_days;
+					var repDay = [0, 0, 0, 0, 0, 0, 0, 0];
+					while(tempRepDays != 0){
+						if(tempRepDays >= 64 ){	repDay[7] = 1; tempRepDays -= 64; continue; }
+						if(tempRepDays >= 32 ){	repDay[6] = 1; tempRepDays -= 32; continue; }
+						if(tempRepDays >= 16 ){	repDay[5] = 1; tempRepDays -= 16; continue; }
+						if(tempRepDays >= 8 ){	repDay[4] = 1; tempRepDays -= 8; continue; }
+						if(tempRepDays >= 4 ){	repDay[3] = 1; tempRepDays -= 4; continue; }
+						if(tempRepDays >= 2 ){	repDay[2] = 1; tempRepDays -= 2; continue; }
+						if(tempRepDays >= 1 ){	repDay[1] = 1; tempRepDays -= 1; continue; }
+					}
+				}
 				if(msg[item].active == 1){
-					jsalarm.setAppAlarm(msg[item].hour, msg[item].min, msg[item].idwekker);
+					if(repDay[0] == 1){
+						self.setAppAlarm(msg[item].hour, msg[item].min, msg[item].idwekker);
+					} else {
+						self.setAppRepeatAlarm(msg[item].hour, msg[item].min, msg[item].idwekker, repDay);
+					}
 				}
 			}
-		}).fail(function(msg) {
+		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
+		
 	},
+
 }
 //document.addEventListener("deviceready", onDeviceReady, false);
 

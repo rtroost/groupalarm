@@ -11,7 +11,7 @@ var jscontacts = {
     },
 
     getAll : function(){
-        $.ajax({
+        window.ajax.add({
             url : 'http://www.remcovdk.com/groupalarm/contacts.php',
             type : 'POST',
             data : {
@@ -21,12 +21,12 @@ var jscontacts = {
             },
             dataType : 'json',
     
-        }).done(function(msg) {
+        }, function(msg) {
             var self = jscontacts;
             for(var item in msg){
                 self.createRow({id: msg[item]['idgebruiker'], naam: msg[item][0], hasApp: msg[item]['hasApp'], tel : msg[item][1], idgebruiker : msg[item]['idgebruiker'], self : msg[item]['self']})
             }
-        }).fail(function(msg) {
+        }, function(msg) {
             console.log('kan geen verbinding maken');
         });
     },
@@ -45,7 +45,7 @@ var jscontacts = {
             if(group.indexOf(id)){
                 group.push(id);
             }
-        }else{
+        } else {
             group.splice(group.indexOf(id), 1);  
         }
     },
