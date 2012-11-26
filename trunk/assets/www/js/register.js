@@ -21,7 +21,7 @@
 			
 		var activeDiv = 'logo';
 		
-		$.ajax({
+		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/check_registerd.php',
 			type : 'POST',
 			data : {
@@ -29,7 +29,7 @@
 			},
 			dataType : 'json',
 	
-		}).done(function(msg) {
+		}, function(msg) {
 			if(msg == 'success'){
 				window.location.replace('contact.html');
 			} else if(msg == 'mail') {
@@ -41,7 +41,7 @@
 				form.show();
 				activeDiv = 'form';
 			}
-		}).fail(function(msg) {
+		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
 	
@@ -58,7 +58,7 @@
 				input = forminput;
 				button = formbutton;
 			}
-			var ajax = $.ajax({
+			window.ajax.add({
 				url : 'http://www.remcovdk.com/groupalarm/register.php',
 				type : 'POST',
 				data : {
@@ -68,9 +68,7 @@
 				},
 				dataType : 'json',
 	
-			});
-	
-			ajax.done(function(msg) {
+			}, function(msg) {
 				data.empty();
 				if (msg == 'bezet') {
 					$('<p>', {
@@ -85,9 +83,7 @@
 					buttonaftermail.show();
 					paftermail.show();
 				}
-			});
-	
-			ajax.fail(function(msg) {
+			}, function(msg) {
 				console.log('ERROR= ' + msg);
 			});
 		});
@@ -97,7 +93,7 @@
 		});
 		
 		$('button.resend').on('click', function(){
-			var ajax = $.ajax({
+			window.ajax.add({
 				url : 'http://www.remcovdk.com/groupalarm/register.php',
 				type : 'POST',
 				data : {
@@ -107,14 +103,15 @@
 				},
 				dataType : 'json',
 	
-			});
-			ajax.done(function(msg) {
+			}, function(msg) {
 				emaildata.empty();
 				$('<p>', {
 					text : msg
 				}).appendTo(emaildata);
 				mailinput.hide().siblings('label').hide();
 				mailbutton.hide();
+			}, function(msg) {
+				console.log('ERROR= ' + msg);
 			});
 		});
 	}
