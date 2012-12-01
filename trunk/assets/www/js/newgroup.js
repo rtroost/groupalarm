@@ -135,7 +135,7 @@ function onSuccess(contacts){
 $(document).ready(function() {
     $('.saveGroup').click(function(){
         groupname = $('#groupname').val();
-        $.ajax({
+        window.ajax.add({
             url : 'http://www.remcovdk.com/groupalarm/newGroup.php',
             type : 'POST',
             data : {
@@ -145,11 +145,11 @@ $(document).ready(function() {
             },
             dataType : 'html',
     
-        }).done(function(msg) {
+        }, function(msg) {
                 alert(msg);
-        }).fail(function(msg) {
+        }, function(msg) {
             console.log('kan geen verbinding maken');
         });
-    })
+    });
 });
 
