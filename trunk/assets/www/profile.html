@@ -1,22 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Instellingen</title>
+	<title>Profile</title>
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 	<div class="header-container">
 		<header class="clearfix">
-			<h1 class="title">Settings</h1>
-			<div class="btn left">Change</div>
-   			<div class="btn right">New</div>
+			<h1 class="title">Profile</h1>
 		</header>
 	</div>
 	<div class="main-container">
-		<div class="wrapper clearfix">
-			<h2><a href="profile.html">Profile</a></h2>
-
+		<div class="wrapper clearfix" id="content">
+			<div id="profiles">
+				<script id="profileTemplate" type="text/x-handlebars-template">
+					<table>
+						<tr>
+							<td style="width:150px"><b>Naam:</b></td>
+							<td>{{fullname}}</td>
+						</tr>
+						<tr>
+							<td><b>Nickname:</b></td>
+							<td>{{nickname}}</td>
+						</tr>
+						<tr>
+							<td><b>Mobiel nummer:</b></td>
+							<td><a href="tel:{{mobile}}">{{mobile}}</a></td>
+						</tr>
+						<tr>
+							<td><b>Backup nummer:</b></td>
+							<td><a href="tel:{{backup}}">{{backup}}</a></td>
+						</tr> 
+					</table>
+				</script>
+				<img id="profilePic"></img>
+			</div>	
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
 
@@ -25,7 +44,7 @@
 			<nav id="footer-nav">
 				<ul>
 					<li>
-						<a href="index.html">
+						<a href="contact.html">
 							<img src="images/contacten.png" />
 							<span>Contacts</span>
 						</a>
@@ -61,8 +80,6 @@
 	<script src="js/ajax.js"></script>
 	<script src="js/imei.js"></script>
 	<script src="js/alarm_everywere.js"></script>
-
-	<!-- this is where we put our custom functions -->
-	<script src="js/script.js"></script>
+	<script src="js/profile.js"></script>
 </body>
 </html>
