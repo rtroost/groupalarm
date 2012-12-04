@@ -753,3 +753,34 @@ ul.blocks li.inactive { border-color: red; }
 	font-size: 28px;
 	float: right;
 }
+
+#profileLink{
+	display:block;
+	margin:0 auto;
+	width:200px;
+}
+
+#profilePic{
+	width:200px;
+	height:200px;
+}
+
+#profileLabel{
+	width:200px;
+	margin:0 auto;
+	height:20px;
+	background-color:#ccc;
+	opacity:0.6;
+	filter:alpha(opacity=60); /* For IE8 and earlier */
+	text-align:center;
+	color:000;
+	position:relative;
+	bottom:23px;
+}
+
+#profielinstellingen input, #profielinstellingen button{
+	margin: 0 auto;
+	display:block;
+	width:200px;
+	height:30px;
+}
