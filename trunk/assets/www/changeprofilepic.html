@@ -1,104 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Capture Photo</title>
+<head>
+  <title>Instellingen</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="header-container">
+    <header class="clearfix">
+      <h1 class="title">Settings</h1>
+      <div class="btn left">Change</div>
+        <div class="btn right">New</div>
+    </header>
+  </div>
+  <div class="main-container">
+    <div class="wrapper clearfix" id="content">
+      <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+      <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+      <img style="display:none;" id="largeImage" src="" />
+    </div> <!-- #main -->
+  </div> <!-- #main-container -->
 
-    <script type="text/javascript" charset="utf-8" src="js/cordova-2.2.0.js"></script>
-    <script type="text/javascript" charset="utf-8">
+  <div class="footer-container">
+    <footer>
+      <nav id="footer-nav">
+        <ul>
+          <li>
+            <a href="index.html">
+              <img src="images/contacten.png" />
+              <span>Contacts</span>
+            </a>
+          </li>
+          <li>
+            <a href="wekkers.html">
+              <img src="images/wekkers.png" />
+              <span>Alarms</span>
+            </a>
+          </li>
+          <li>
+            <a href="groepen.html">
+              <img src="images/groepen.png" />
+              <span>Groups</span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="instellingen.html">
+              <img src="images/instellingen_a.png" />
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </footer>
+  </div>
 
-    var pictureSource;   // picture source
-    var destinationType; // sets the format of returned value 
-
-    // Wait for Cordova to connect with the device
-    //
-    document.addEventListener("deviceready",onDeviceReady,false);
-
-    // Cordova is ready to be used!
-    //
-    function onDeviceReady() {
-        pictureSource=navigator.camera.PictureSourceType;
-        destinationType=navigator.camera.DestinationType;
-    }
-
-    // Called when a photo is successfully retrieved
-    //
-    function onPhotoDataSuccess(imageData) {
-      // Uncomment to view the base64 encoded image data
-      // console.log(imageData);
-
-      // Get image handle
-      //
-      var smallImage = document.getElementById('smallImage');
-
-      // Unhide image elements
-      //
-      smallImage.style.display = 'block';
-
-      // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      //
-      smallImage.src = "data:image/jpeg;base64," + imageData;
-    }
-
-    // Called when a photo is successfully retrieved
-    //
-    function onPhotoURISuccess(imageURI) {
-      // Uncomment to view the image file URI 
-      // console.log(imageURI);
-
-      // Get image handle
-      //
-      var largeImage = document.getElementById('largeImage');
-
-      // Unhide image elements
-      //
-      largeImage.style.display = 'block';
-
-      // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      //
-      largeImage.src = imageURI;
-    }
-
-    // A button will call this function
-    //
-    function capturePhoto() {
-      // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
-        destinationType: destinationType.DATA_URL });
-    }
-
-    // A button will call this function
-    //
-    function capturePhotoEdit() {
-      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
-        destinationType: destinationType.DATA_URL });
-    }
-
-    // A button will call this function
-    //
-    function getPhoto(source) {
-      // Retrieve image file location from specified source
-      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
-        destinationType: destinationType.FILE_URI,
-        sourceType: source });
-    }
-
-    // Called if something bad happens.
-    // 
-    function onFail(message) {
-      alert('Failed because: ' + message);
-    }
-
-    </script>
-  </head>
-  <body>
-    <button onclick="capturePhoto();">Capture Photo</button> <br>
-    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" />
-  </body>
+  <!-- here comes the javascript -->
+  <script src="js/jquery-min.js"></script>
+  <script src="js/cordova-2.0.0.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/handlebars.js"></script>
+  <script src="js/ajax.js"></script>
+  <script src="js/imei.js"></script>
+  <script src="js/alarm_everywere.js"></script>
+  <script src="js/pic.js"></script>
+</body>
 </html>
