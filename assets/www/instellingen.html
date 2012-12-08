@@ -9,21 +9,24 @@
 	<div class="header-container">
 		<header class="clearfix">
 			<h1 class="title">Settings</h1>
-			<div class="btn left">Change</div>
-   			<div class="btn right">New</div>
 		</header>
 	</div>
 	<div class="main-container">
 		<div class="wrapper clearfix" id="content">
-			<a id="profileLink" href="changeprofilepic.html">
-				<img id="profilePic" src="#" />
-			</a>
-			<div id="profileLabel">Wijzig</div>
+			<div class="profilePicture">
+				<a id="profileLink" href="changeprofilepic.html">
+					<img id="profilePic" src="#" />
+					<div class="profileLabel"><span data-icon="S" aria-hidden="true"></span></div>
+				</a>
+			</div>
+			
 			
 			<div id="profielinstellingen">
 				<script id="profielinstellingenTemplate" type="text/x-handlebars-template">
-					<input id="fullname" name="name" value="{{fullname}}" type="text" /><br/><br/>
-					<input id="backup" name="backup" value="{{backup}}" type="text" /><br/><br/>
+					<label for="name">Display name</label>
+					<input id="fullname" name="name" value="{{fullname}}" type="text" />
+					<label for="backup">Phone number</label>
+					<input id="backup" name="backup" value="{{backup}}" type="text" />
 					<button class="opslaan">Opslaan</button>
 				</script>
 			</div>
