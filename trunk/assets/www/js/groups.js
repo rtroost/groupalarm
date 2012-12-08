@@ -38,8 +38,6 @@ var jsgroups = {
 
 	bindEvents: function(){
 		var self = jsgroups;
-		//self.divinvites.on('click', 'button.acceptbutton', self.acceptInvite);
-		//self.divinvites.on('click', 'button.rejectbutton', self.rejectInvite);
 	},
 
 	createRow : function(context){
@@ -50,6 +48,10 @@ var jsgroups = {
 		jsgroups.template = Handlebars.compile( $('#groupsTemplate').html() );
 	},
 }
+
+$('#groups').on('click', '.visible', function() {
+	$(this).parent('li').children('.hidden').slideToggle('normal');
+});
 
 //Start this shit
 jsgroups.init();
