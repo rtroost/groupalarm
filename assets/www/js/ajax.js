@@ -8,6 +8,7 @@ window.ajax = {
 		this.counter = 0;
 		
 		this.timer();
+		this.setTimer;
 	},
 	
 	connection: function(){
@@ -38,7 +39,7 @@ window.ajax = {
 			return;
 		}
 		self.connection();
-		setTimeout(self.timer, 10000);
+		self.setTimer = setTimeout(self.timer, 10000);
 	},
 	
 	activate: function(id){
@@ -100,6 +101,16 @@ window.ajax = {
 	getconnected: function(){
 		var self = window.ajax;
 		return self.connected;
+	},
+	
+	stop: function(){
+		var self = window.ajax;
+		clearTimeout(self.setTimer);
+	},
+	
+	resume: function(){
+		var self = window.ajax;
+		self.setTimer();
 	},
 
 }

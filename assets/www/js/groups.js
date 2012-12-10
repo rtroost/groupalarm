@@ -24,13 +24,27 @@ var jsgroups = {
 		}, function(msg) {
 
 			var self = jsgroups;
-
+			window.groupids = [];
 			for(var item in msg){
-				self.createRow({
-					id : msg[item].idgroep,
-					groupname : msg[item].naam					
-				})
+				window.groupids.push(msg[item].idgroep);
+				if(msg[item].idgebruiker == window.idgebruiker){
+					var obj = {
+						id : msg[item].idgroep,
+						groupname : msg[item].naam,
+						leader : 'true'
+					}
+				} else {
+					var obj = {
+						id : msg[item].idgroep,
+						groupname : msg[item].naam,
+						member : 'true'
+					}
+				}
+				self.createRow(obj)
 			}
+			
+			jsgroupalarm.init();
+			
 		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
@@ -38,20 +52,30 @@ var jsgroups = {
 
 	bindEvents: function(){
 		var self = jsgroups;
+		self.groups.on('click', 'ul.buttons li', function(){
+			$this = $(this);
+			console.log('click');
+			if($this.children('span').data('icon') == 'U'){
+				$this.parents('div.visible').siblings('div.members').slideToggle();
+			} else {
+				$this.parents('div.visible').siblings('div.group-alarms').slideToggle();
+			}
+		});
+		
+		self.groups.on('click', 'li.alarm div.visible', function(){
+			$(this).parent('li').children('.hidden').slideToggle('normal');
+		});
 	},
 
 	createRow : function(context){
+		console.log(context);
 		jsgroups.groups.append( jsgroups.template(context) );
 	},
 
 	getTemplates: function(){
-		jsgroups.template = Handlebars.compile( $('#groupsTemplate').html() );
+		jsgroups.template = Handlebars.compile( $('#groupsTemplate').html() );		
 	},
 }
-
-$('#groups').on('click', '.visible', function() {
-	$(this).parent('li').children('.hidden').slideToggle('normal');
-});
 
 //Start this shit
 jsgroups.init();
