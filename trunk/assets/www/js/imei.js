@@ -1,6 +1,11 @@
 // PC VERSIE
 //window.imei = 123; NUMMER NICK
-window.imei = 123; // NUMMER REMCO
+
+// Groep id 1
+window.imei = 123; // NUMMER Stefan
+//window.imei = 351869050386591; // nummer remco
+// end group id 1
+
 // =========
 
 //document.addEventListener("deviceready", onDeviceReady, false);
@@ -26,8 +31,12 @@ window.imei = 123; // NUMMER REMCO
 			dataType : 'json',
 	
 		}, function(msg) {
-			if(msg != 'success'){
+			var temp = msg.split(':');
+			console.log(temp[0]);
+			if(temp[0] != 'success'){
 				window.location.replace('index.html');
+			} else {
+				window.idgebruiker = temp[1];
 			}
 		}, function(msg) {
 			console.log('kan geen verbinding maken');

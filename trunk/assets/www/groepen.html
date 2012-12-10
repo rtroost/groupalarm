@@ -121,9 +121,10 @@
 							</li>
 						</ul>
 					</div>
-					<div class="group-alarms">
+					<div class="group-alarms" style="display: none;">
 						<h2>Alarms</h2>
 						<ul class="blocks alarms">
+							{{#if member}}
 							<li class="alarm">
 								<div class="visible">
 									<span data-icon="P" aria-hidden="true" class="icon"></span>
@@ -144,12 +145,17 @@
 									</ul>
 								</div>
 							</li>
-							<li class="alarm active">
+							{{else}}
+							<li class="alarm">
 								<div class="visible">
 									<div class="save info finished">
+										<span data-icon="P" aria-hidden="true" class="icon" style="color: black;"></span>
+										<span class="time" style="float: left; margin-top: 0px; color: black;">13:07</span><span style="float: left; color: black;">&nbsp;on Mon Sep 17, 2012</span>
 										Saved
 										<span data-icon="/" aria-hidden="true"></span>
 									</div>
+								</div>
+								<div class="hidden">
 									<div class="remove">
 										<span data-icon="\" aria-hidden="true"></span>
 									</div>
@@ -172,6 +178,7 @@
 							<li class="new-alarm">
 								<h1><span data-icon="+" aria-hidden="true"></span> Add alarm</h1>
 							</li>
+							{{/if}}
 						</ul>
 					</div>
 				</li>
@@ -185,7 +192,7 @@
 						</h1>
 					</div>
 					<div class="hidden"></div>
-				</a>
+				</li>
 			</ul>			
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
@@ -232,6 +239,7 @@
 	<script src="js/imei.js"></script>
 	<!-- <script src="js/getGroups.js"></script> -->
 	<script src="js/alarm_everywere.js"></script>
+	<script src="js/groupalarm.js"></script>
 	<script src="js/groups.js"></script>
 	<script src="js/invites.js"></script>
 </body>
