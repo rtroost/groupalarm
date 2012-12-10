@@ -1,17 +1,18 @@
-var jsgroupalarm = {
+var jsgroepalarm = {
 	
 	init : function() {
 		//this.hourselect = $('select#hour');
 		//this.minuteselect = $('select#min');
-		this.ulAlarms = $('ul.alarms');
+		this.ulgroeps = $('ul#groups');
+		console.log(this.ulgroeps);
 		// this.activation_button_html = [
 			// '<span data-icon="\'" aria-hidden="true"></span> Inactive',
 			// '<span data-icon="/" aria-hidden="true"></span> Active',
 		// ];
-		console.log(window.groupids);
+		console.log(window.groepids);
 		
-		for(var i = 0; i < window.groupids.length; i++){
-			this.getAll(window.groupids[i]);
+		for(var i = 0; i < window.groepids.length; i++){
+			this.getAll(window.groepids[i]);
 		}
 
 		this.alarms = {};
@@ -21,7 +22,8 @@ var jsgroupalarm = {
 	},
 	
 	bindEvents: function(){
-		var self = jsgroupalarm;
+		var self = jsgroepalarm;
+		self.ulgroeps.find('li.new-alarm').on('click', self.savealarm);
 		// self.submitbutton.on('click', self.savealarm);
 		// self.divresult.on('click', 'li.set-alarm', self.setalarm);
 		// self.divresult.on('click', 'li.delete-alarm', self.removealarm);
@@ -31,7 +33,7 @@ var jsgroupalarm = {
 	},
 	
 	getTemplates: function(){
-		jsgroupalarm.template = Handlebars.compile( $('#groupsAlarmTemplate').html() );
+		jsgroepalarm.template = Handlebars.compile( $('#groepsAlarmTemplate').html() );
 		Handlebars.registerHelper('getDay', function( repDay ) {
 			var html = '';
 			var d = new Date();
@@ -74,7 +76,7 @@ var jsgroupalarm = {
 			return new Handlebars.SafeString( html );
 		});
 		Handlebars.registerHelper('setHours', function( hour ) {
-			var self = jsgroupalarm;
+			var self = jsgroepalarm;
 			var html = '';
 			for (var i = 0; i < 24; i++) {
 				if((+hour) == i){
@@ -85,7 +87,7 @@ var jsgroupalarm = {
 			return new Handlebars.SafeString( html );
 		});
 		Handlebars.registerHelper('setMins', function( min ) {
-			var self = jsgroupalarm;
+			var self = jsgroepalarm;
 			var html = '';
 			for (var i = 0; i < 60; i++) {
 				if((+min) == i){
@@ -105,46 +107,56 @@ var jsgroupalarm = {
 		return (f < 10) ? f.substr(1) : f;
 	},
 		
-	setAppAlarm : function(hour, min, idwekker){
+	setAppAlarm : function(hour, min, idevents){
 		console.log('set');
 		if(window.main != undefined){
 			console.log(parseInt(hour));
-			window.main.setAlarm(parseInt(idwekker), parseInt(hour), parseInt(min));
+			window.main.setAlarm(parseInt(idevents), parseInt(hour), parseInt(min));
 		}
 	},
 	
-	setAppRepeatAlarm : function(hour, min, idwekker, repDays){
+	setAppRepeatAlarm : function(hour, min, idevents, repDays){
 		console.log('REPEAT');
 		if(window.main != undefined){
 			console.log(parseInt(hour));
-			window.main.setRepeatAlarm(parseInt(idwekker), parseInt(hour), parseInt(min), repDays.join());
+			window.main.setRepeatAlarm(parseInt(idevents), parseInt(hour), parseInt(min), repDays.join());
 		}
 	},
 	
-	removeAppAlarm : function(idwekker){
+	removeAppAlarm : function(idevents){
 		console.log('remove');
 		if(window.main != undefined){
-			window.main.removeAlarm(parseInt(idwekker));
+			window.main.removeAlarm(parseInt(idevents));
 		}
 	},
 	
-	createRow : function(context){
-		console.log(context)
-		var self = jsgroupalarm;
-		self.ulAlarms.prepend(self.template(context));		
+	createRow : function(context, groepid){
+		console.log('=============================');
+		var self = jsgroepalarm;
+		console.log(context);
+		
+		self.ulgroeps.children('li#'+groepid).find('ul.alarms').prepend(self.template(context));
 	},
 	
 	savealarm : function(){
-		var self = jsgroupalarm;
-		//hour = self.hourselect.attr('value');
-		//min = self.minuteselect.attr('value');
+		console.log('doet het');
+		var self = jsgroepalarm;
+		$this = $(this);
+		
+		var groepid = $this.parents('li').attr('id');
+		console.log('groepid' + groepid);
+		
+		var leader = ($this.parents('li').attr('class') == 'leader') ? true : false;
+		console.log('leader' + leader);
+		
 		hour = '00';
 		min = '00';
 		
 		window.ajax.add({
-			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
+			url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
 			type : 'POST',
 			data : {
+				idgroep : groepid,
 				action : 'set',
 				hour : self.padfield(hour),
 				min : self.padfield(min),
@@ -154,13 +166,17 @@ var jsgroupalarm = {
 			dataType : 'json',
 		}, function(msg) {
 			self.alarms[msg] = {
+				groepid: groepid,
+				leader: leader,
 				hour: (+hour)+'',
 				min: (+min)+'',
 				set: false,
 				repDay: [1, 0, 0, 0, 0, 0, 0, 0],
-				repDayInt: 0
+				repDayInt: 0,
+				title : '',
+				description: ''
 			};
-			jsgroupalarm.createRow({id: msg, hour: hour, min: min, set: false, repDay: [1, 0, 0, 0, 0, 0, 0, 0]}, 'prepend');
+			jsgroepalarm.createRow({id: msg, hour: hour, min: min, set: false, repDay: [1, 0, 0, 0, 0, 0, 0, 0], leader: leader, title : '', description : ''}, groepid);
 		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
@@ -168,7 +184,7 @@ var jsgroupalarm = {
 	},
 	
 	setalarm : function() {
-		var self = jsgroupalarm,
+		var self = jsgroepalarm,
 			$this = $(this),
 			id = $this.parents('li.alarm').attr('id'),
 			hour = self.alarms[id].hour,
@@ -186,7 +202,7 @@ var jsgroupalarm = {
 		console.log((self.alarms[id].set) ? 0 : 1);
 			
 		window.ajax.add({
-			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
+			url : 'http://www.remcovdk.com/groepalarm/alarm.php',
 			type : 'POST',
 			data : {
 				action : 'active',
@@ -232,7 +248,7 @@ var jsgroupalarm = {
 	},
 	
 	changeAlarm: function(){
-		var self = jsgroupalarm,
+		var self = jsgroepalarm,
 			$this = $(this),
 			id = $this.parents('li.alarm').attr('id');
 			console.log(id);
@@ -249,7 +265,7 @@ var jsgroupalarm = {
 		$this.parents('li.alarm').find('span.time').text(hour + ':' + min);
 		
 		window.ajax.add({
-			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
+			url : 'http://www.remcovdk.com/groepalarm/alarm.php',
 			type : 'POST',
 			data : {
 				action : 'changeAlarm',
@@ -276,7 +292,7 @@ var jsgroupalarm = {
 	},
 	
 	setDays: function(){
-		var self = jsgroupalarm,
+		var self = jsgroepalarm,
 			$this = $(this),
 			id = $this.parents('li.alarm').attr('id');
 			console.log(id);
@@ -302,7 +318,7 @@ var jsgroupalarm = {
 				self.alarms[id].repDay = [1, 0, 0, 0, 0, 0, 0, 0];
 				self.alarms[id].repDayInt = 0;
 				self.changeDbRepDay(id, function(id){
-					var self = jsgroupalarm;
+					var self = jsgroepalarm;
 					if(self.alarms[id].set == '1'){
 						self.setAppAlarm(self.alarms[id].hour, self.alarms[id].min, id);
 					}
@@ -310,7 +326,7 @@ var jsgroupalarm = {
 				return;
 			}
 			self.changeDbRepDay(id, function(){
-				var self = jsgroupalarm;
+				var self = jsgroepalarm;
 				if(self.alarms[id].set){
 					self.removeAppAlarm('-' + id + index);
 					// android regelen. // remove
@@ -332,7 +348,7 @@ var jsgroupalarm = {
 			} 
 			
 			self.changeDbRepDay(id, function(){
-				var self = jsgroupalarm;
+				var self = jsgroepalarm;
 				if(self.alarms[id].set == '1'){
 					self.setAppRepeatAlarm(self.alarms[id].hour, self.alarms[id].min, id, self.alarms[id].repDay);
 					// android regelen.
@@ -342,9 +358,9 @@ var jsgroupalarm = {
 	},
 	
 	changeDbRepDay: function(id, callback){
-		var self = jsgroupalarm;
+		var self = jsgroepalarm;
 		window.ajax.add({
-			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
+			url : 'http://www.remcovdk.com/groepalarm/alarm.php',
 			type : 'POST',
 			data : {
 				action : 'repDay',
@@ -362,20 +378,20 @@ var jsgroupalarm = {
 		});
 	},
 	
-	getAll : function(groupid){
-		console.log(groupid);
+	getAll : function(groepid){
+		console.log(groepid);
 		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
 			type : 'POST',
 			data : {
 				action : 'getall',
 				imei : window.imei,
-				idgroup : groupid
+				idgroep : groepid
 			},
 			dataType : 'json',
 	
 		}, function(msg) {
-			var self = jsgroupalarm;
+			var self = jsgroepalarm;
 			for(var item in msg){
 				// loop door de rep_day heen
 				if(msg[item].rep_days == 0){
@@ -393,9 +409,10 @@ var jsgroupalarm = {
 						if(tempRepDays >= 1 ){	repDay[1] = 1; tempRepDays -= 1; continue; }
 					}
 				}
+				console.log('HIER');
 				self.alarms[msg[item].idevents] = {
 					leader : (msg[item].idgebruiker == window.idgebruiker) ? true : false,
-					groupid : msg[item].idgroep,
+					groepid : msg[item].idgroep,
 					hour: msg[item].hour,
 					min: msg[item].min,
 					set: (msg[item].active == 1) ? true : false,
@@ -404,35 +421,36 @@ var jsgroupalarm = {
 					title : msg[item].title,
 					description : msg[item].description
 				}
+				console.log('HIER');
 				//console.log(repDay);
 				if(msg[item].active == 1){
 					self.createRow({
 						leader : (msg[item].idgebruiker == window.idgebruiker) ? true : false,
-						id: msg[item].idwekker, 
+						id: msg[item].idevents, 
 						hour: self.padfield(msg[item].hour), 
 						min: self.padfield(msg[item].min), 
 						set: true, 
 						repDay: repDay,
 						title : msg[item].title,
 						description : msg[item].description
-					});
+					}, groepid);
 
 					if(repDay[0] == 1){
-						self.setAppAlarm(msg[item].hour, msg[item].min, msg[item].idwekker);
+						self.setAppAlarm(msg[item].hour, msg[item].min, msg[item].idevents);
 					} else {
-						self.setAppRepeatAlarm(msg[item].hour, msg[item].min, msg[item].idwekker, repDay);
+						self.setAppRepeatAlarm(msg[item].hour, msg[item].min, msg[item].idevents, repDay);
 					}
 				} else {
 					self.createRow({
-						leader : (msg[item].idgebruiker == window.isgebruiker) ? 'true' : 'false',
-						id: msg[item].idwekker, 
+						leader : (msg[item].idgebruiker == window.idgebruiker) ? true : false,
+						id: msg[item].idevents, 
 						hour: self.padfield(msg[item].hour), 
 						min: self.padfield(msg[item].min), 
 						set: false, 
 						repDay: repDay,
 						title : msg[item].title,
 						description : msg[item].description
-					});
+					}, groepid);
 				}
 			}
 		}, function(msg) {
@@ -442,7 +460,7 @@ var jsgroupalarm = {
 	},
 	
 	removealarm : function(){
-		var self = jsgroupalarm,
+		var self = jsgroepalarm,
 			$this = $(this),
 			id = $this.parents('li.alarm').attr('id');
 
@@ -451,7 +469,7 @@ var jsgroupalarm = {
 		}
 
 		window.ajax.add({
-			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
+			url : 'http://www.remcovdk.com/groepalarm/alarm.php',
 			type : 'POST',
 			data : {
 				action : 'remove',
@@ -469,7 +487,7 @@ var jsgroupalarm = {
 	},
 		
 	showSettings: function(e) {
-		var self = jsgroupalarm;
+		var self = jsgroepalarm;
 		var etarget = $(e.target);
 		if(etarget.hasClass('newalarm') || etarget.attr('id') == 'new-personal-alarm'){
 			return;

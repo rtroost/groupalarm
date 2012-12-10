@@ -21,26 +21,26 @@ var jsgroups = {
 		}, function(msg) {
 
 			var self = jsgroups;
-			window.groupids = [];
+			window.groepids = [];
 			for(var item in msg){
-				window.groupids.push(msg[item].idgroep);
+				window.groepids.push(msg[item].idgroep);
 				if(msg[item].idgebruiker == window.idgebruiker){
 					var obj = {
 						id : msg[item].idgroep,
 						groupname : msg[item].naam,
-						leader : 'true'
+						leader : true
 					}
 				} else {
 					var obj = {
 						id : msg[item].idgroep,
 						groupname : msg[item].naam,
-						member : 'true'
+						leader : false
 					}
 				}
 				self.createRow(obj)
 			}
 			
-			jsgroupalarm.init();
+			jsgroepalarm.init();
 			
 		}, function(msg) {
 			console.log('kan geen verbinding maken');
