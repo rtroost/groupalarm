@@ -3,8 +3,7 @@ var jsgroupalarm = {
 	init : function() {
 		//this.hourselect = $('select#hour');
 		//this.minuteselect = $('select#min');
-		//this.divresult = $('#personal-alarms');
-
+		this.ulAlarms = $('ul.alarms');
 		// this.activation_button_html = [
 			// '<span data-icon="\'" aria-hidden="true"></span> Inactive',
 			// '<span data-icon="/" aria-hidden="true"></span> Active',
@@ -32,7 +31,31 @@ var jsgroupalarm = {
 	},
 	
 	getTemplates: function(){
-		jsgroupalarm.template = Handlebars.compile( $('#alarmtemplate').html() );
+		jsgroupalarm.template = Handlebars.compile( $('#groupsAlarmTemplate').html() );
+		Handlebars.registerHelper('getDay', function( repDay ) {
+			var html = '';
+			var d = new Date();
+			var currday = d.getDay();
+			if(currday == 0){ currday = 7; }
+			var newday;
+			var weekday = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+			
+			for (var i=1; i < repDay.length; i++) {
+				if(repDay[i] == 1){
+					if(i >= currday){
+						newday = i;
+						break;
+					} else {
+						newday = currday;
+					}
+				}
+			};
+			
+			//Mon Sep 17, 2012
+			html +=	weekday[newday];
+			
+			return new Handlebars.SafeString( html );
+		});
 		Handlebars.registerHelper('frepDays', function( repDay ) {
 			var html = '';
 			var daynr = 0;
@@ -105,13 +128,10 @@ var jsgroupalarm = {
 		}
 	},
 	
-	createRow : function(context, place){
-		if(place == 'prepend'){
-			jsgroupalarm.divresult.children('li').eq(0).after( jsgroupalarm.template(context) );
-		} else {
-			jsgroupalarm.divresult.append( jsgroupalarm.template(context) );
-		}
-		
+	createRow : function(context){
+		console.log(context)
+		var self = jsgroupalarm;
+		self.ulAlarms.prepend(self.template(context));		
 	},
 	
 	savealarm : function(){
@@ -374,22 +394,28 @@ var jsgroupalarm = {
 					}
 				}
 				self.alarms[msg[item].idevents] = {
+					leader : (msg[item].idgebruiker == window.idgebruiker) ? true : false,
 					groupid : msg[item].idgroep,
 					hour: msg[item].hour,
 					min: msg[item].min,
 					set: (msg[item].active == 1) ? true : false,
 					repDay: repDay,
-					repDayInt: parseInt(msg[item].rep_days)
+					repDayInt: parseInt(msg[item].rep_days),
+					title : msg[item].title,
+					description : msg[item].description
 				}
 				//console.log(repDay);
 				if(msg[item].active == 1){
-					/*self.createRow({
+					self.createRow({
+						leader : (msg[item].idgebruiker == window.idgebruiker) ? true : false,
 						id: msg[item].idwekker, 
 						hour: self.padfield(msg[item].hour), 
 						min: self.padfield(msg[item].min), 
 						set: true, 
-						repDay: repDay
-					});*/
+						repDay: repDay,
+						title : msg[item].title,
+						description : msg[item].description
+					});
 
 					if(repDay[0] == 1){
 						self.setAppAlarm(msg[item].hour, msg[item].min, msg[item].idwekker);
@@ -397,13 +423,16 @@ var jsgroupalarm = {
 						self.setAppRepeatAlarm(msg[item].hour, msg[item].min, msg[item].idwekker, repDay);
 					}
 				} else {
-					/*self.createRow({
+					self.createRow({
+						leader : (msg[item].idgebruiker == window.isgebruiker) ? 'true' : 'false',
 						id: msg[item].idwekker, 
 						hour: self.padfield(msg[item].hour), 
 						min: self.padfield(msg[item].min), 
 						set: false, 
-						repDay: repDay
-					});*/
+						repDay: repDay,
+						title : msg[item].title,
+						description : msg[item].description
+					});
 				}
 			}
 		}, function(msg) {
