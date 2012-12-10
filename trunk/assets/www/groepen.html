@@ -124,61 +124,9 @@
 					<div class="group-alarms" style="display: none;">
 						<h2>Alarms</h2>
 						<ul class="blocks alarms">
-							{{#if member}}
-							<li class="alarm">
-								<div class="visible">
-									<span data-icon="P" aria-hidden="true" class="icon"></span>
-									<span class="time">13:07</span> on Mon Sep 17, 2012
-								</div>
-								<div class="hidden">
-									<div class="full-version">
-										<h2>Explained</h2>
-											On <span class="large-inline">September 13, 2012</span> at <span class="large-inline">13:37</span> you will be attending <span class="large-inline">-title-</span>. Your traveltime is set at <span class="large-inline">30 minutes</span> meaning you will be woken up at <span class="large-inline">13:07</span>.
-									</div>									
-									<div class="description">
-										<h2>Description</h2>
-										We're going to the zoo!
-									</div>
-									<ul class="group-alarm-actions-single">
-										<li>Deactivate my alarm</li>
-										<li><span data-icon="V" aria-hidden="true"></span> 30 minutes traveltime</li>
-									</ul>
-								</div>
-							</li>
-							{{else}}
-							<li class="alarm">
-								<div class="visible">
-									<div class="save info finished">
-										<span data-icon="P" aria-hidden="true" class="icon" style="color: black;"></span>
-										<span class="time" style="float: left; margin-top: 0px; color: black;">13:07</span><span style="float: left; color: black;">&nbsp;on Mon Sep 17, 2012</span>
-										Saved
-										<span data-icon="/" aria-hidden="true"></span>
-									</div>
-								</div>
-								<div class="hidden">
-									<div class="remove">
-										<span data-icon="\" aria-hidden="true"></span>
-									</div>
-									<h3>Title</h3>
-									<div class="title" contenteditable="true">
-										Enter your title here
-									</div>
-									<h3>Description</h3>									
-									<div class="description" contenteditable="true">
-										Enter your description here
-									</div>
-									<h3>When?</h3>
-									Monday, January 13, 2012 at 13:37
-									<h3>Repeat?</h3>
-									<ul class="days">
-										<li class="day" data-toggle="on" data-daynr="1">Mon <span data-icon="/" aria-hidden="true"></span></li><li class="day" data-toggle="on" data-daynr="2">Tue <span data-icon="/" aria-hidden="true"></span></li><li class="day" data-toggle="on" data-daynr="4">Wen <span data-icon="/" aria-hidden="true"></span></li><li class="day" data-toggle="on" data-daynr="8">Thu <span data-icon="/" aria-hidden="true"></span></li><li class="day" data-toggle="off" data-daynr="16">Fri <span data-icon="-" aria-hidden="true"></span></li><li class="day" data-toggle="on" data-daynr="32">Sat <span data-icon="/" aria-hidden="true"></span></li><li class="day" data-toggle="off" data-daynr="64">Sun <span data-icon="-" aria-hidden="true"></span></li>
-									</ul>
-								</div>
-							</li>
 							<li class="new-alarm">
 								<h1><span data-icon="+" aria-hidden="true"></span> Add alarm</h1>
 							</li>
-							{{/if}}
 						</ul>
 					</div>
 				</li>
@@ -229,6 +177,61 @@
 			</nav>
 		</footer>
 	</div>
+	
+	<script id="groupsAlarmTemplate" type="text/x-handlebars-template">
+		{{#if leader}}
+		<li class="alarm" {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
+			<div class="visible">
+				<div class="save info finished">
+					<span data-icon="P" aria-hidden="true" class="icon" style="color: black;"></span>
+					<span class="time" style="float: left; margin-top: 0px; color: black;">{{hour}}:{{min}}</span><span style="float: left; color: black;">&nbsp;on {{getDay repDay}}</span>
+					Saved
+					<span data-icon="/" aria-hidden="true"></span>
+				</div>
+			</div>
+			<div class="hidden">
+				<div class="remove">
+					<span data-icon="\" aria-hidden="true"></span>
+				</div>
+				<h3>Title</h3>
+				<div class="title" contenteditable="true">
+					{{title}}
+				</div>
+				<h3>Description</h3>									
+				<div class="description" contenteditable="true">
+					{{description}}
+				</div>
+				<h3>When?</h3>
+				{{hour}}:{{min}} on {{getDay repDay}}
+				<h3>Repeat?</h3>
+				<ul class="days">
+					{{frepDays repDay}}
+				</ul>
+			</div>
+		</li>
+		{{else}}
+		<li class="alarm" {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
+			<div class="visible">
+				<span data-icon="P" aria-hidden="true" class="icon"></span>
+				<span class="time">13:07</span>&nbsp;on {{getDay repDay}}
+			</div>
+			<div class="hidden">
+				<div class="full-version">
+					<h2>Explained</h2>
+						On <span class="large-inline">{{getDay repDay}}</span> at <span class="large-inline">{{hour}}:{{min}}</span> you will be attending <span class="large-inline">{{title}}</span>. Your traveltime is set at <span class="large-inline">30 minutes</span> meaning you will be woken up at <span class="large-inline">{{hour}}:{{min}}</span>.
+				</div>									
+				<div class="description">
+					<h2>Description</h2>
+					{{description}}
+				</div>
+				<ul class="group-alarm-actions-single">
+					<li>Deactivate my alarm</li>
+					<li><span data-icon="V" aria-hidden="true"></span> 30 minutes traveltime</li>
+				</ul>
+			</div>
+		</li>
+		{{/if}}
+	</script>
 
 	<!-- here comes the javascript -->
 	<script src="js/jquery-min.js"></script>

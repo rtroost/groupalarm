@@ -2,9 +2,6 @@ var jsgroups = {
 
 	init : function() {
 		this.groups = $('#groups');
-		console.log(groups);
-		//this.acceptbutton = $('#acceptButton');
-		//this.rejectbutton = $('#rejectButton');
 
 		this.getAll();
 		this.getTemplates();
