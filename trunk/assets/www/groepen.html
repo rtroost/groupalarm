@@ -34,7 +34,11 @@
 			</ul>
 			<ul class="blocks groups" id="groups">
 				<script id="groupsTemplate" type="text/x-handlebars-template">
-				<li id="{{id}}">
+				{{#if leader}}
+					<li id="{{id}}" class="leader">
+				{{else}}
+					<li id="{{id}}" class="member">
+				{{/if}}
 					<div class="visible">
 						<div class="group-name">{{groupname}}</div>
 						<img src="http://placehold.it/75x75" class="group-image" />						
@@ -124,9 +128,11 @@
 					<div class="group-alarms" style="display: none;">
 						<h2>Alarms</h2>
 						<ul class="blocks alarms">
+							{{#if leader}}
 							<li class="new-alarm">
 								<h1><span data-icon="+" aria-hidden="true"></span> Add alarm</h1>
 							</li>
+							{{/if}}
 						</ul>
 					</div>
 				</li>
@@ -178,9 +184,9 @@
 		</footer>
 	</div>
 	
-	<script id="groupsAlarmTemplate" type="text/x-handlebars-template">
+	<script id="groepsAlarmTemplate" type="text/x-handlebars-template">
 		{{#if leader}}
-		<li class="alarm" {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
+		<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
 			<div class="visible">
 				<div class="save info finished">
 					<span data-icon="P" aria-hidden="true" class="icon" style="color: black;"></span>
@@ -210,7 +216,7 @@
 			</div>
 		</li>
 		{{else}}
-		<li class="alarm" {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
+		<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
 			<div class="visible">
 				<span data-icon="P" aria-hidden="true" class="icon"></span>
 				<span class="time">{{hour}}:{{min}}</span>&nbsp;on {{getDay repDay}}
