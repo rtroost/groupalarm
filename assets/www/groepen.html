@@ -213,6 +213,22 @@
 				<ul class="days">
 					{{frepDays repDay}}
 				</ul>
+				<div class="new-alarm-block">
+					<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
+					<input type="submit" value="Change alarm" class="alarmsubmit" />
+				</div>
+				<ul class="buttons">
+					{{#if set}}
+					<li class="set-alarm" data-toggle="On">
+						<span data-icon="/" aria-hidden="true"></span> Active	
+					</li>									
+					{{else}}
+					<li class="set-alarm" data-toggle="Off">
+						<span data-icon="'" aria-hidden="true"></span> Inactive
+					</li>
+					{{/if}}
+					<li class="delete-alarm"><span data-icon="\" aria-hidden="true"></span> Remove</li>
+				</ul>
 			</div>
 		</li>
 		{{else}}

@@ -5,10 +5,10 @@ var jsgroepalarm = {
 		//this.minuteselect = $('select#min');
 		this.ulgroeps = $('ul#groups');
 		console.log(this.ulgroeps);
-		// this.activation_button_html = [
-			// '<span data-icon="\'" aria-hidden="true"></span> Inactive',
-			// '<span data-icon="/" aria-hidden="true"></span> Active',
-		// ];
+		this.activation_button_html = [
+			'<span data-icon="\'" aria-hidden="true"></span> Inactive',
+			'<span data-icon="/" aria-hidden="true"></span> Active',
+		];
 		console.log(window.groepids);
 		
 		for(var i = 0; i < window.groepids.length; i++){
@@ -24,6 +24,8 @@ var jsgroepalarm = {
 	bindEvents: function(){
 		var self = jsgroepalarm;
 		self.ulgroeps.find('li.new-alarm').on('click', self.savealarm);
+		self.ulgroeps.on('click', 'li.set-alarm', self.setalarm);
+		self.ulgroeps.on('click', 'li.delete-alarm', self.removealarm);
 		// self.submitbutton.on('click', self.savealarm);
 		// self.divresult.on('click', 'li.set-alarm', self.setalarm);
 		// self.divresult.on('click', 'li.delete-alarm', self.removealarm);
@@ -139,7 +141,6 @@ var jsgroepalarm = {
 	},
 	
 	savealarm : function(){
-		console.log('doet het');
 		var self = jsgroepalarm;
 		$this = $(this);
 		
@@ -189,6 +190,8 @@ var jsgroepalarm = {
 			id = $this.parents('li.alarm').attr('id'),
 			hour = self.alarms[id].hour,
 			min = self.alarms[id].min;
+			
+		console.log('eventid' + id);
 
 		console.log(self.alarms[id].hour);
 		console.log(self.alarms[id].min);
@@ -202,12 +205,12 @@ var jsgroepalarm = {
 		console.log((self.alarms[id].set) ? 0 : 1);
 			
 		window.ajax.add({
-			url : 'http://www.remcovdk.com/groepalarm/alarm.php',
+			url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
 			type : 'POST',
 			data : {
 				action : 'active',
 				set : (self.alarms[id].set) ? 0 : 1,
-				idwekker : id,
+				idevents : id,
 				imei : window.imei
 			},
 			dataType : 'json',
@@ -217,7 +220,7 @@ var jsgroepalarm = {
 			console.log('kan geen verbinding maken');
 		});
 		
-		// Verander SET
+
 		self.alarms[id].set = ! self.alarms[id].set;
 
 		if(self.alarms[id].set){
@@ -242,9 +245,9 @@ var jsgroepalarm = {
 			}
 		}
 
-		// Change (in)active button
-		$this.html(self.activation_button_html[+self.alarms[id].set]);
 
+		$this.html(self.activation_button_html[+self.alarms[id].set]);
+		
 	},
 	
 	changeAlarm: function(){
@@ -469,11 +472,11 @@ var jsgroepalarm = {
 		}
 
 		window.ajax.add({
-			url : 'http://www.remcovdk.com/groepalarm/alarm.php',
+			url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
 			type : 'POST',
 			data : {
 				action : 'remove',
-				idwekker : id,
+				idevents : id,
 				imei : window.imei
 			},
 			dataType : 'json',
