@@ -29,6 +29,7 @@ var jsgroepalarm = {
 		self.ulgroeps.on('click', 'input.alarmsubmit', self.changeAlarm);
 		self.ulgroeps.on('click', 'li.day', self.setDays);
 		self.ulgroeps.on('click', 'li.myAlarmSet', self.setMyAlarm);
+		self.ulgroeps.on('click', 'input.preptimebutton', self.changeMyPreptime);
 
 	},
 	
@@ -297,7 +298,10 @@ var jsgroepalarm = {
 			} else {
 				self.setAppRepeatAlarm(self.alarms[id].hour, self.alarms[id].min, id, self.alarms[id].repDay);
 			}
+			
 		}
+		
+		self.displayTimePrep(id, self.alarms[id].preptime);
 	},
 	
 	setDays: function(){
@@ -405,7 +409,6 @@ var jsgroepalarm = {
 		}, function(msg) {
 			var self = jsgroepalarm;
 			for(var item in msg){
-				// loop door de rep_day heen
 				if(msg[item].rep_days == 0){
 					var repDay = [1, 0, 0, 0, 0, 0, 0, 0];
 				} else {
@@ -422,9 +425,9 @@ var jsgroepalarm = {
 					}
 				}
 				
-				if(msg[item].idgebruiker != window.idgebruiker && msg[item].active == 1){
+				//if(msg[item].active == 1){ // msg[item].idgebruiker != window.idgebruiker && 
 					self.getMyAlarms(msg[item].idevents, window.idgebruiker);
-				}
+				//}
 				
 				self.alarms[msg[item].idevents] = {
 					leader : (msg[item].idgebruiker == window.idgebruiker) ? true : false,
@@ -450,12 +453,14 @@ var jsgroepalarm = {
 						title : msg[item].title,
 						description : msg[item].description
 					}, groepid);
-
-					if(repDay[0] == 1 && msg[item].idgebruiker == window.idgebruiker){ // hiernaar kijken
-						self.setAppAlarm(msg[item].hour, msg[item].min, msg[item].idevents);
-					} else if(msg[item].idgebruiker == window.idgebruiker) {
-						self.setAppRepeatAlarm(msg[item].hour, msg[item].min, msg[item].idevents, repDay);
-					}
+					
+					
+					// functie maken een aanroepen die de normale tijd - de preptijd doet.
+					//if(repDay[0] == 1 && msg[item].idgebruiker == window.idgebruiker){ // hiernaar kijken
+					//	self.setAppAlarm(msg[item].hour, msg[item].min, msg[item].idevents);
+					//} else if(msg[item].idgebruiker == window.idgebruiker) {
+					//	self.setAppRepeatAlarm(msg[item].hour, msg[item].min, msg[item].idevents, repDay);
+					//}
 				} else {
 					self.createRow({
 						leader : (msg[item].idgebruiker == window.idgebruiker) ? true : false,
@@ -492,8 +497,20 @@ var jsgroepalarm = {
 			dataType : 'json',
 		}, function(msg) {
 			var self = jsgroepalarm;
+			self.alarms[idevents].preptime = msg[0].preptime;
 			if(msg[0].active == 1){
 				self.alarms[idevents].set = true;
+				// functie maken een aanroepen die de normale tijd - de preptijd doet.
+				
+				if(msg[0].preptime == 0){
+					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('');
+				} else {
+					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('voorbereidingstijd is ' + msg[0].preptime + ' min');	
+				}
+				
+				self.displayTimePrep(idevents, msg[0].preptime);
+				
+				
 				if(self.alarms[idevents].repDay[0] == 1){
 					self.setAppAlarm(self.alarms[idevents].hour, self.alarms[idevents].min, idevents);
 				} else {
@@ -576,6 +593,42 @@ var jsgroepalarm = {
 		}
 	},
 	
+	changeMyPreptime : function(){
+		var self = jsgroepalarm,
+			$this = $(this),
+			id = $this.parents('li.alarm').attr('id');
+		
+		var value = +self.ulgroeps.find('li#'+id+'.alarm').find('input.preptime').attr('value');
+		//console.log(value);
+		if(value == 0){
+			self.ulgroeps.find('li#'+id+'.alarm').find('span.preptimevis').text('');
+		} else {
+			self.ulgroeps.find('li#'+id+'.alarm').find('span.preptimevis').text('voorbereidingstijd is ' + value + ' min');
+		}
+		
+		
+		self.displayTimePrep(id, value);
+		
+		
+		// ajax
+		window.ajax.add({
+			url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
+			type : 'POST',
+			data : {
+				action : 'changeMyPreptime',
+				idevents : id,
+				newtime : value,
+				imei : window.imei
+			},
+			dataType : 'json',
+		}, function(msg) {
+			console.log('success');
+		}, function(msg) {
+			console.log('kan geen verbinding maken');
+		});
+		
+	},
+	
 	removealarm : function(){
 		var self = jsgroepalarm,
 			$this = $(this),
@@ -619,5 +672,59 @@ var jsgroepalarm = {
 			 || etarget.hasClass('time') || etarget.hasClass('config') || etarget.hasClass('days') ){ //|| etarget.hasClass('newalarm')
 			$(this).children('.hidden').slideToggle('normal');
 		}
+	},
+	
+	calcTimeAndPrep: function(id, preptime){
+		var self = jsgroepalarm,
+			hour = self.alarms[id].hour,
+			min = self.alarms[id].min,
+			prepmin = preptime % 60,
+			prephour = Math.floor(preptime / 60),
+			hoursub = false;
+			
+		console.log(hour);
+		console.log(min);
+		
+		console.log(prephour);
+		console.log(prepmin);
+		
+		if(min - prepmin < 0){
+			var hoursub = true;
+			var newmin = (min - prepmin) + 60;
+		} else {
+			var newmin = min - prepmin;
+		}
+		if(newmin >= 60){
+			newmin = 0;
+			prephour++;
+		}
+		
+		if(hour - prephour < 0){
+			var newhour = (hour - prephour) + 24;
+		} else {
+			var newhour = hour - prephour;
+		}
+		if(hoursub){
+			newhour--;
+			if(newhour < 0){
+				newhour += 24;
+			}
+		}
+		
+		return [newhour, newmin];
+		
+	},
+	
+	displayTimePrep: function(id, preptime){
+		var self = jsgroepalarm;
+		
+		var newtimearray = self.calcTimeAndPrep(id, preptime);
+		
+		console.log('Nieuwe tijd = ' + self.padfield(newtimearray[0]) + ':' + self.padfield(newtimearray[1]));
+		self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuptime').text(self.padfield(newtimearray[0]) + ':' + self.padfield(newtimearray[1]));
+		self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuppreptime').text(preptime + ' minuten');
+		
+		
+
 	},
 }
