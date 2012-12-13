@@ -190,7 +190,7 @@
 			<div class="visible">
 				<div class="save info finished">
 					<span data-icon="P" aria-hidden="true" class="icon" style="color: black;"></span>
-					<span class="time" style="float: left; margin-top: 0px; color: black;">{{hour}}:{{min}}</span><span style="float: left; color: black;">&nbsp; {{getDay repDay}}</span>
+					<span class="time" style="float: left; margin-top: 0px; color: black;">{{hour}}:{{min}}</span><span style="float: left; color: black;">&nbsp; {{getDay repDay}}</span> <span class="preptimevis"></span>
 					Saved
 					<span data-icon="/" aria-hidden="true"></span>
 				</div>
@@ -208,7 +208,7 @@
 					{{description}}
 				</div>
 				<h3>When?</h3>
-				{{hour}}:{{min}} {{getDay repDay}}
+				{{hour}}:{{min}} {{getDay repDay}} Your traveltime is set at <span class="large-inline wakeuppreptime">30 minutes</span> meaning you will be woken up at <span class="large-inline wakeuptime">{{hour}}:{{min}}</span>.
 				<h3>Repeat?</h3>
 				<ul class="days">
 					{{frepDays repDay}}
@@ -217,6 +217,8 @@
 					<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
 					<input type="submit" value="Change alarm" class="alarmsubmit" />
 				</div>
+				<input type="text" name="preptime" class="preptime" />
+				<input type="submit" value="Change preptime" class="preptimebutton" />
 				<ul class="buttons">
 					{{#if set}}
 					<li class="set-alarm" data-toggle="On">
@@ -235,12 +237,12 @@
 		<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
 			<div class="visible">
 				<span data-icon="P" aria-hidden="true" class="icon"></span>
-				<span class="time">{{hour}}:{{min}}</span>&nbsp; {{getDay repDay}}
+				<span class="time">{{hour}}:{{min}}</span>&nbsp; {{getDay repDay}}  <span class="preptimevis"></span>
 			</div>
 			<div class="hidden">
 				<div class="full-version">
 					<h2>Explained</h2>
-						{{getDay repDay}} at <span class="large-inline">{{hour}}:{{min}}</span> you will be attending <span class="large-inline">{{title}}</span>. Your traveltime is set at <span class="large-inline">30 minutes</span> meaning you will be woken up at <span class="large-inline">{{hour}}:{{min}}</span>.
+						{{getDay repDay}} at <span class="large-inline">{{hour}}:{{min}}</span> you will be attending <span class="large-inline">{{title}}</span>. Your traveltime is set at <span class="large-inline wakeuppreptime">30 minutes</span> meaning you will be woken up at <span class="large-inline wakeuptime">{{hour}}:{{min}}</span>.
 				</div>									
 				<div class="description">
 					<h2>Description</h2>
@@ -252,6 +254,8 @@
 					<li class="myAlarmSet">Deactivate my alarm</li>
 					<li class="myAlarmTimeSet"><span data-icon="V" aria-hidden="true"></span> 30 minutes traveltime</li>
 				</ul>
+				<input type="text" name="preptime" class="preptime" />
+				<input type="submit" value="Change preptime" class="preptimebutton" />
 				{{else}}
 				<p style="color: red;">deze wekker is niet actief</p>
 				{{/if}}
