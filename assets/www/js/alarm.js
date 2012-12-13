@@ -273,7 +273,13 @@ var jsalarm = {
 		});
 		
 		if(self.alarms[id].set){
-			self.removeAppAlarm(id);
+			if(self.alarms[id].repDayInt == 0){
+				self.removeAppAlarm(id);
+			} else {
+				for(var i = 1; i < 8; i++){
+					self.removeAppAlarm('-' + id + i);
+				}
+			}
 			if(self.alarms[id].repDayInt == 0){
 				self.setAppAlarm(self.alarms[id].hour, self.alarms[id].min, id);
 			} else {
@@ -310,7 +316,7 @@ var jsalarm = {
 				self.alarms[id].repDayInt = 0;
 				self.changeDbRepDay(id, function(id){
 					var self = jsalarm;
-					if(self.alarms[id].set == '1'){
+					if(self.alarms[id].set){
 						self.setAppAlarm(self.alarms[id].hour, self.alarms[id].min, id);
 					}
 				});
@@ -340,7 +346,7 @@ var jsalarm = {
 			
 			self.changeDbRepDay(id, function(){
 				var self = jsalarm;
-				if(self.alarms[id].set == '1'){
+				if(self.alarms[id].set){
 					self.setAppRepeatAlarm(self.alarms[id].hour, self.alarms[id].min, id, self.alarms[id].repDay);
 					// android regelen.
 				}
@@ -442,7 +448,13 @@ var jsalarm = {
 			id = $this.parents('li.alarm').attr('id');
 
 		if(self.alarms[id].set == 1){
-			self.removeAppAlarm(id);
+			if(self.alarms[id].repDayInt == 0){
+				self.removeAppAlarm(id);
+			} else {
+				for(var i = 1; i < 8; i++){
+					self.removeAppAlarm('-' + id + i);
+				}
+			}
 		}
 
 		window.ajax.add({
