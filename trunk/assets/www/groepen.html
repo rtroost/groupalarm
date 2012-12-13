@@ -190,7 +190,7 @@
 			<div class="visible">
 				<div class="save info finished">
 					<span data-icon="P" aria-hidden="true" class="icon" style="color: black;"></span>
-					<span class="time" style="float: left; margin-top: 0px; color: black;">{{hour}}:{{min}}</span><span style="float: left; color: black;">&nbsp;on {{getDay repDay}}</span>
+					<span class="time" style="float: left; margin-top: 0px; color: black;">{{hour}}:{{min}}</span><span style="float: left; color: black;">&nbsp; {{getDay repDay}}</span>
 					Saved
 					<span data-icon="/" aria-hidden="true"></span>
 				</div>
@@ -208,7 +208,7 @@
 					{{description}}
 				</div>
 				<h3>When?</h3>
-				{{hour}}:{{min}} on {{getDay repDay}}
+				{{hour}}:{{min}} {{getDay repDay}}
 				<h3>Repeat?</h3>
 				<ul class="days">
 					{{frepDays repDay}}
@@ -235,21 +235,26 @@
 		<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
 			<div class="visible">
 				<span data-icon="P" aria-hidden="true" class="icon"></span>
-				<span class="time">{{hour}}:{{min}}</span>&nbsp;on {{getDay repDay}}
+				<span class="time">{{hour}}:{{min}}</span>&nbsp; {{getDay repDay}}
 			</div>
 			<div class="hidden">
 				<div class="full-version">
 					<h2>Explained</h2>
-						On <span class="large-inline">{{getDay repDay}}</span> at <span class="large-inline">{{hour}}:{{min}}</span> you will be attending <span class="large-inline">{{title}}</span>. Your traveltime is set at <span class="large-inline">30 minutes</span> meaning you will be woken up at <span class="large-inline">{{hour}}:{{min}}</span>.
+						{{getDay repDay}} at <span class="large-inline">{{hour}}:{{min}}</span> you will be attending <span class="large-inline">{{title}}</span>. Your traveltime is set at <span class="large-inline">30 minutes</span> meaning you will be woken up at <span class="large-inline">{{hour}}:{{min}}</span>.
 				</div>									
 				<div class="description">
 					<h2>Description</h2>
 					{{description}}
 				</div>
+				{{#if set}}
+				<p style="color: green;">deze wekker is actief</p>
 				<ul class="group-alarm-actions-single">
-					<li>Deactivate my alarm</li>
-					<li><span data-icon="V" aria-hidden="true"></span> 30 minutes traveltime</li>
+					<li class="myAlarmSet">Deactivate my alarm</li>
+					<li class="myAlarmTimeSet"><span data-icon="V" aria-hidden="true"></span> 30 minutes traveltime</li>
 				</ul>
+				{{else}}
+				<p style="color: red;">deze wekker is niet actief</p>
+				{{/if}}
 			</div>
 		</li>
 		{{/if}}
