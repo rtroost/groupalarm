@@ -1,5 +1,5 @@
 $(document).ready(function() {
- $('#profilePic').attr("src",  "http://www.remcovdk.com/groupalarm/profilepic.php?user="+window.imei);
+	$('#profilePic').attr("src",  "http://www.remcovdk.com/groupalarm/profilepic.php?user="+window.imei);
 });
 
 var jsprofile = {
@@ -13,12 +13,15 @@ var jsprofile = {
 	},
 
 	getProfile : function(){
+		var url = document.URL;
+		var idgebruiker = url.split("=");
+
 		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/profile.php',
 			type : 'POST',
 			data : {
 				action : 'getbasis',
-				imei : window.imei
+				idgebruiker : idgebruiker[1]
 			},
 			dataType : 'json',
 	
