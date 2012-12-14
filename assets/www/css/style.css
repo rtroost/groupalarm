@@ -152,26 +152,33 @@ h3 { font-size: 1.2em; }
 }
 		
 .header-container{
-	background: #444;
-	border-bottom: solid 1px rgba(0,0,0,.15);
 	width:100%;
-	height: 50px;
+	height: 40px;
 	top:0;
 	left: 0;
-	margin-top:0;
 	position:fixed;
 	z-index:1000;
+	background: #111;	
+	background-image: -webkit-gradient(linear,left top,left bottom,from( #3C3C3C ),to( #111 ));
+	background-image: -webkit-linear-gradient( #3C3C3C,#111 );
+	background-image: -moz-linear-gradient( #3C3C3C,#111 );
+	background-image: -ms-linear-gradient( #3C3C3C,#111 );
+	background-image: -o-linear-gradient( #3C3C3C,#111 );
+	background-image: linear-gradient( #3C3C3C,#111 );
 }
 
 .header-container h1.title {
 	text-align: center;
 	margin-top: 6px;
-	font-size: 2.15em;
+	font-size: 2em;
+	line-height: 26px;
 	color: #fff;
+	font-weight: 800;
+	text-shadow: 0 -1px 1px black;
 }
 
 .main-container{
-	padding-top: 60px;
+	padding-top: 50px;
 	padding-bottom: 50px;
 }
 
@@ -757,7 +764,7 @@ div.info.finished {
 	width: 80%;
 	background: #C7DDEB;
 	border: 1px solid #a1c6de;
-	border-radius:5px 5px 0 0;
+	border-radius:3px;
 	z-index:9999;
 }
 
@@ -770,7 +777,7 @@ div.info.finished {
 }
 
 .popoutElement .content {
-	padding: 10px 0;
+	padding: 14px 0;
 	display: block;
 }
 
@@ -783,10 +790,10 @@ div.info.finished {
 .popoutElement .lower a {
 	text-decoration:none;
 	color: #26506b;
-	font-size: 20px;
+	font-size: 18px;
 	display: inline-block;
 	width: 49%;
-	padding: 3px 0;
+	padding: 5px 0;
 }
 
 .popoutElement .btn {
