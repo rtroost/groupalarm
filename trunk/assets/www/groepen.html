@@ -208,7 +208,7 @@
 					{{description}}
 				</div>
 				<h3>When?</h3>
-				{{hour}}:{{min}} {{getDay repDay}} Your traveltime is set at <span class="large-inline wakeuppreptime">30 minutes</span> meaning you will be woken up at <span class="large-inline wakeuptime">{{hour}}:{{min}}</span>.
+				{{hour}}:{{min}} {{getDay repDay}} Your traveltime is set at <span class="large-inline wakeuppreptime"></span> meaning you will be woken up at <span class="large-inline wakeuptime">{{hour}}:{{min}}</span>.
 				<h3>Repeat?</h3>
 				<ul class="days">
 					{{frepDays repDay}}
@@ -220,6 +220,7 @@
 				<input type="text" name="preptime" class="preptime" />
 				<input type="submit" value="Change preptime" class="preptimebutton" />
 				<ul class="buttons">
+					<li class="myAlarmSet">Deactivate my alarm</li>
 					{{#if set}}
 					<li class="set-alarm" data-toggle="On">
 						<span data-icon="/" aria-hidden="true"></span> Active	

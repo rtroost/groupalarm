@@ -112,18 +112,22 @@ var jsgroepalarm = {
 	},
 		
 	setAppAlarm : function(hour, min, idevents){
-		console.log('Single alarm set: hour= ' + hour + ' min= ' + min + ' ========================= nummer : ' + idevents);
+		var self = jsgroepalarm;
+		var newtimearray = self.calcTimeAndPrep(idevents, self.alarms[idevents].preptime);
+		console.log('Single alarm set: hour= ' + newtimearray[0] + ' min= ' + newtimearray[1] + ' ========================= nummer : ' + idevents);
 		if(window.main != undefined){
-			console.log(parseInt(hour));
-			window.main.setAlarm(parseInt(idevents), parseInt(hour), parseInt(min));
+			//console.log(parseInt(hour));
+			window.main.setAlarm(parseInt(idevents), parseInt(newtimearray[0]), parseInt(newtimearray[1]));
 		}
 	},
 	
 	setAppRepeatAlarm : function(hour, min, idevents, repDays){
-		console.log('REPEAT alarm set ========================== nummer : ' + idevents);
+		var self = jsgroepalarm;
+		var newtimearray = self.calcTimeAndPrep(idevents, self.alarms[idevents].preptime);
+		console.log('REPEAT alarm set : hour= ' + newtimearray[0] + ' min= ' + newtimearray[1] + ' ========================== nummer : ' + idevents);
 		if(window.main != undefined){
-			console.log(parseInt(hour));
-			window.main.setRepeatAlarm(parseInt(idevents), parseInt(hour), parseInt(min), repDays.join());
+			//console.log(parseInt(hour));
+			window.main.setRepeatAlarm(parseInt(idevents), parseInt(newtimearray[0]), parseInt(newtimearray[1]), repDays.join());
 		}
 	},
 	
@@ -508,7 +512,7 @@ var jsgroepalarm = {
 					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('voorbereidingstijd is ' + msg[0].preptime + ' min');	
 				}
 				
-				self.displayTimePrep(idevents, msg[0].preptime);
+				
 				
 				
 				if(self.alarms[idevents].repDay[0] == 1){
@@ -523,6 +527,7 @@ var jsgroepalarm = {
 				self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').addClass('inactive').text('Activate my alarm');
 				
 			}
+			self.displayTimePrep(idevents, msg[0].preptime);
 			console.log('success');
 		}, function(msg) {
 			console.log('kan geen verbinding maken');
