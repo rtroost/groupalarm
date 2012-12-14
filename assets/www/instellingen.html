@@ -6,6 +6,16 @@
 	<link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+	<div class="popoutElement" id="profilePictureOptions">
+        <h1>Change profile picture</h1>
+        <div class="content">
+        	<a href="#" class="btn" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From photo album</a>
+        </div>
+        <div class="lower">
+        	<a href="#" onClick="popupClose(); return false;"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
+            <a href="#" onClick="popupAccept(); return false;"><span data-icon="/" aria-hidden="true"></span> Accept</a>
+        </div>
+    </div>	
 	<div class="header-container">
 		<header class="clearfix">
 			<h1 class="title">Settings</h1>
@@ -19,8 +29,7 @@
 					<div class="profileLabel"><span data-icon="S" aria-hidden="true"></span></div>
 				</a>
 			</div>
-			
-			
+            
 			<div id="profielinstellingen">
 				<script id="profielinstellingenTemplate" type="text/x-handlebars-template">
 					<label for="name">Display name</label>
