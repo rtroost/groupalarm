@@ -20,6 +20,7 @@ public class WekkerActivity extends DroidGap {
     private MediaPlayer mMediaPlayer;
     int wekkerid;
     String days;
+    Boolean groep;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class WekkerActivity extends DroidGap {
         Bundle b = getIntent().getExtras();
         this.wekkerid = b.getInt("id");
         this.days = b.getString("days");
+        this.groep = b.getBoolean("groep");
         
         System.out.println("wekker id " + this.wekkerid);
         
@@ -63,7 +65,7 @@ public class WekkerActivity extends DroidGap {
     }
     
     public String getData(){
-    	return this.wekkerid + "/" + this.days;
+    	return this.wekkerid + "/" + this.days + "/" + this.groep;
     }
     
     public boolean stopAlarm() {

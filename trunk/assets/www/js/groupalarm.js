@@ -116,8 +116,8 @@ var jsgroepalarm = {
 		var newtimearray = self.calcTimeAndPrep(idevents, self.alarms[idevents].preptime);
 		console.log('Single alarm set: hour= ' + newtimearray[0] + ' min= ' + newtimearray[1] + ' ========================= nummer : ' + idevents);
 		if(window.main != undefined){
-			//console.log(parseInt(hour));
-			window.main.setAlarm(parseInt(idevents), parseInt(newtimearray[0]), parseInt(newtimearray[1]));
+			console.log("doe je het ??????");
+			window.main.setAlarm(parseInt(idevents), parseInt(newtimearray[0]), parseInt(newtimearray[1]), 'true');
 		}
 	},
 	
@@ -127,14 +127,14 @@ var jsgroepalarm = {
 		console.log('REPEAT alarm set : hour= ' + newtimearray[0] + ' min= ' + newtimearray[1] + ' ========================== nummer : ' + idevents);
 		if(window.main != undefined){
 			//console.log(parseInt(hour));
-			window.main.setRepeatAlarm(parseInt(idevents), parseInt(newtimearray[0]), parseInt(newtimearray[1]), repDays.join());
+			window.main.setRepeatAlarm(parseInt(idevents), parseInt(newtimearray[0]), parseInt(newtimearray[1]), repDays.join(), 'true');
 		}
 	},
 	
 	removeAppAlarm : function(idevents){
 		console.log('remove alarm ============================== nummer : ' + idevents);
 		if(window.main != undefined){
-			window.main.removeAlarm(parseInt(idevents));
+			window.main.removeAlarm(parseInt(idevents), 'true');
 		}
 	},
 	
@@ -228,7 +228,7 @@ var jsgroepalarm = {
 
 		self.alarms[id].set = ! self.alarms[id].set;
 
-		if(self.alarms[id].set){
+		if(self.alarms[id].set){ // en persoonlijke set
 
 			$this.parents('li.alarm').removeClass('inactive').addClass('active');
 
@@ -502,7 +502,7 @@ var jsgroepalarm = {
 		}, function(msg) {
 			var self = jsgroepalarm;
 			self.alarms[idevents].preptime = msg[0].preptime;
-			if(msg[0].active == 1){
+			if(msg[0].active == 1 && self.alarms[idevents].set){
 				self.alarms[idevents].set = true;
 				// functie maken een aanroepen die de normale tijd - de preptijd doet.
 				
@@ -686,12 +686,6 @@ var jsgroepalarm = {
 			prepmin = preptime % 60,
 			prephour = Math.floor(preptime / 60),
 			hoursub = false;
-			
-		console.log(hour);
-		console.log(min);
-		
-		console.log(prephour);
-		console.log(prepmin);
 		
 		if(min - prepmin < 0){
 			var hoursub = true;

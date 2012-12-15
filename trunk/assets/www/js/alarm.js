@@ -113,7 +113,7 @@ var jsalarm = {
 		console.log('set');
 		if(window.main != undefined){
 			console.log(parseInt(hour));
-			window.main.setAlarm(parseInt(idwekker), parseInt(hour), parseInt(min));
+			window.main.setAlarm(parseInt(idwekker), parseInt(hour), parseInt(min), 'false');
 		}
 	},
 	
@@ -121,14 +121,14 @@ var jsalarm = {
 		console.log('REPEAT');
 		if(window.main != undefined){
 			console.log(parseInt(hour));
-			window.main.setRepeatAlarm(parseInt(idwekker), parseInt(hour), parseInt(min), repDays.join());
+			window.main.setRepeatAlarm(parseInt(idwekker), parseInt(hour), parseInt(min), repDays.join(), 'false');
 		}
 	},
 	
 	removeAppAlarm : function(idwekker){
 		console.log('remove');
 		if(window.main != undefined){
-			window.main.removeAlarm(parseInt(idwekker));
+			window.main.removeAlarm(parseInt(idwekker), 'false');
 		}
 	},
 	

@@ -18,6 +18,10 @@ public class MainActivity extends DroidGap {
 	HashMap<Integer, PendingIntent> alarmintents;
 	HashMap<Integer, Intent> intents;
     AlarmManager am;
+    
+    HashMap<Integer, PendingIntent> alarmintentsG;
+	HashMap<Integer, Intent> intentsG;
+    AlarmManager amG;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,10 @@ public class MainActivity extends DroidGap {
         this.alarmintents = new HashMap<Integer, PendingIntent>();
         this.intents = new HashMap<Integer, Intent>();
         this.am = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
+        
+        this.alarmintentsG = new HashMap<Integer, PendingIntent>();
+        this.intentsG = new HashMap<Integer, Intent>();
+        this.amG = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
         
         appView.addJavascriptInterface(this, "main");
         
@@ -55,8 +63,9 @@ public class MainActivity extends DroidGap {
     	return telephonyManager.getDeviceId();
     }
     
-    public void setAlarm(int id, String hour, String min){
+    public void setAlarm(int id, String hour, String min, String groep){
     	System.out.println("hour" + hour);
+    	System.out.println("groep" + groep);
     	int inthour = Integer.parseInt(hour);
     	int intmin = Integer.parseInt(min);
     	 
@@ -95,17 +104,30 @@ public class MainActivity extends DroidGap {
 
     	tmp.set(Calendar.SECOND, 00);
     	
-        this.intents.put(id, new Intent(this, WekkerActivity.class));
-        this.intents.get(id).putExtra("id", id);
-        this.intents.get(id).putExtra("days", "no-repeat");
-        this.alarmintents.put(id, PendingIntent.getActivity(this, id, this.intents.get(id), PendingIntent.FLAG_CANCEL_CURRENT));
-        this.am.set(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), this.alarmintents.get(id));
+    	if(groep.equals("true")){
+    		System.out.println("GROEP IS TRUE !!!!!!!");
+    		 this.intentsG.put(id, new Intent(this, WekkerActivity.class));
+    	     this.intentsG.get(id).putExtra("id", id);
+    	     this.intentsG.get(id).putExtra("days", "no-repeat");
+    	     this.intentsG.get(id).putExtra("groep", true);
+    	     this.alarmintentsG.put(id, PendingIntent.getActivity(this, id, this.intentsG.get(id), PendingIntent.FLAG_CANCEL_CURRENT));
+    	     this.amG.set(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), this.alarmintentsG.get(id));
+    	} else {
+    		System.out.println("GROEP IS FALSE !!!!!!!");
+    		this.intents.put(id, new Intent(this, WekkerActivity.class));
+            this.intents.get(id).putExtra("id", id);
+            this.intents.get(id).putExtra("days", "no-repeat");
+            this.intents.get(id).putExtra("groep", false);
+            this.alarmintents.put(id, PendingIntent.getActivity(this, id, this.intents.get(id), PendingIntent.FLAG_CANCEL_CURRENT));
+            this.am.set(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), this.alarmintents.get(id));	
+    	}
     }
     
-    public void setRepeatAlarm(int id, String hour, String min, String days){
+    public void setRepeatAlarm(int id, String hour, String min, String days, String groep){
     	System.out.println("REPEAT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     	int inthour = Integer.parseInt(hour);
     	int intmin = Integer.parseInt(min);
+    	System.out.println("groep" + groep);
     	String[] repDays = days.split(",");
     	
     	System.out.println("hour" + inthour);
@@ -154,21 +176,40 @@ public class MainActivity extends DroidGap {
     	    	int id3 = Integer.parseInt(id2);
     	    	System.out.println(id3);
     	    	
-    	    	this.intents.put(id3, new Intent(this, WekkerActivity.class));
-    	        this.intents.get(id3).putExtra("id", id3);
-    	        this.intents.get(id3).putExtra("days", days);
-    	        this.alarmintents.put(id3, PendingIntent.getActivity(this, id3, this.intents.get(id3), PendingIntent.FLAG_CANCEL_CURRENT));
-    	        this.am.setRepeating(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), 604800000, this.alarmintents.get(id3)); // 1 week = 604800000 // 1 min = 60000
+    	    	if(groep.equals("true")){
+    	    		this.intentsG.put(id3, new Intent(this, WekkerActivity.class));
+    	    		this.intentsG.get(id3).putExtra("id", id3);
+    	    		this.intentsG.get(id3).putExtra("days", days);
+    	    		this.intentsG.get(id3).putExtra("groep", true);
+    	    		this.alarmintentsG.put(id3, PendingIntent.getActivity(this, id3, this.intentsG.get(id3), PendingIntent.FLAG_CANCEL_CURRENT));
+    	    		this.amG.setRepeating(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), 604800000, this.alarmintentsG.get(id3)); // 1 week = 604800000 // 1 min = 60000
+    	    	} else {
+    	    		this.intents.put(id3, new Intent(this, WekkerActivity.class));
+    	    		this.intents.get(id3).putExtra("id", id3);
+    	    		this.intents.get(id3).putExtra("days", days);
+    	    		this.intents.get(id3).putExtra("groep", false);
+    	    		this.alarmintents.put(id3, PendingIntent.getActivity(this, id3, this.intents.get(id3), PendingIntent.FLAG_CANCEL_CURRENT));
+    	    		this.am.setRepeating(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), 604800000, this.alarmintents.get(id3)); // 1 week = 604800000 // 1 min = 60000
+    	    	}
     		}
     	}
     }
     
-    public void removeAlarm(int id){
-    	if(this.alarmintents.containsKey(id) && this.intents.containsKey(id)){
-    		this.am.cancel(this.alarmintents.get(id));
-    		this.alarmintents.remove(id);
-    		this.intents.remove(id);
-    		// eventueel pending intents verwijderen
+    public void removeAlarm(int id, String groep){
+    	if(groep == "true"){
+    		if(this.alarmintentsG.containsKey(id) && this.intentsG.containsKey(id)){
+        		this.am.cancel(this.alarmintentsG.get(id));
+        		this.alarmintentsG.remove(id);
+        		this.intentsG.remove(id);
+        		// eventueel pending intents verwijderen
+        	}
+    	} else {
+    		if(this.alarmintents.containsKey(id) && this.intents.containsKey(id)){
+        		this.am.cancel(this.alarmintents.get(id));
+        		this.alarmintents.remove(id);
+        		this.intents.remove(id);
+        		// eventueel pending intents verwijderen
+        	}
     	}
     }
 }
