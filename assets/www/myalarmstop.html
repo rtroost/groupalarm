@@ -21,6 +21,7 @@
 
 	<div>
 		<h1></h1>
+		<p>groepswekker: <span></span></p>
 		<button id="stopalarm">
 			STOPALARM
 		</button>
@@ -38,10 +39,18 @@
 			console.log(data);
 			var id = data.split('/')[0];
 			var days = data.split('/')[1];
+			var groep = data.split('/')[2];
 			console.log('wekker id = ' + id);
 			console.log('days = ' + days);
+			console.log('groep = ' + groep);
 			
 		$('h1').text('Wekker id = ' + id);
+		if(groep == 'true'){
+			$('span').text('ja');
+		} else {
+			$('span').text('nee');
+		}
+		
 			
 		$('button#stopalarm').on('click', function(){
 
