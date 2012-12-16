@@ -27,7 +27,9 @@ var jsgroepalarm = {
 		self.ulgroeps.find('li.new-alarm').on('click', self.savealarm);
 		self.ulgroeps.on('click', 'a.set-alarm', self.setalarm);
 		self.ulgroeps.on('click', 'a.delete-alarm', self.removealarm);
-		self.ulgroeps.on('click', 'input.alarmsubmit', self.changeAlarm);
+		
+		//self.ulgroeps.on('click', 'input.alarmsubmit', self.changeAlarm);
+		self.ulgroeps.on('click', 'a.alarmsubmit', self.leaderAccept);
 		self.ulgroeps.on('click', 'li.day', self.setDays);
 		self.ulgroeps.on('click', 'a.myAlarmSet', self.setMyAlarm);
 		self.ulgroeps.on('click', 'input.myalarmsubmit', self.changeMyPreptime);
@@ -286,58 +288,63 @@ var jsgroepalarm = {
 		
 	},
 	
-	changeAlarm: function(){
-		var self = jsgroepalarm,
-			$this = $(this),
-			id = $this.parents('li.alarm').attr('id');
-			console.log(id);
+	changeAlarm: function(id, $thisbase){
+		var self = jsgroepalarm;
+		console.log(id);
+		var content = $thisbase.children('div.content');			
 			
-		hour = $this.siblings('span').eq(0).children('select').attr('value');
-		min = $this.siblings('span').eq(1).children('select').attr('value');
+		hour = content.children('div.ealarm').children('select#hour').attr('value');
+		min = content.children('div.ealarm').children('select#min').attr('value');
+		//hour = $this.siblings('span').eq(0).children('select').attr('value');
+		//min = $this.siblings('span').eq(1).children('select').attr('value');
 		
 		console.log(hour);
 		console.log(min);
 		
-		self.alarms[id].hour = (+hour)+'';
-		self.alarms[id].min = (+min)+'';
-		
-		$this.parents('li.alarm').find('span.time').text(hour + ':' + min);
-		
-		window.ajax.add({
-			url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
-			type : 'POST',
-			data : {
-				action : 'changeAlarm',
-				idevents : id,
-				imei : window.imei,
-				hour: hour,
-				min: min
-			},
-			dataType : 'json',
-		}, function(msg) {
+		if((+hour)+'' != self.alarms[id].hour || (+min)+'' != self.alarms[id].min){
 			
-		}, function(msg) {
-			console.log('kan geen verbinding maken');
-		});
-		
-		if(self.alarms[id].set){
-			if(self.alarms[id].repDayInt == 0){
-				self.removeAppAlarm(id);
-			} else {
-				for(var i = 1; i < 8; i++){
-					self.removeAppAlarm('-' + id + i);
+			self.alarms[id].hour = (+hour)+'';
+			self.alarms[id].min = (+min)+'';
+			
+			$thisbase.siblings('div.visible').find('span.time').text(hour + ':' + min);
+			//$this.parents('li.alarm').find('span.time').text(hour + ':' + min);
+			
+			window.ajax.add({
+				url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
+				type : 'POST',
+				data : {
+					action : 'changeAlarm',
+					idevents : id,
+					imei : window.imei,
+					hour: hour,
+					min: min
+				},
+				dataType : 'json',
+			}, function(msg) {
+				
+			}, function(msg) {
+				console.log('kan geen verbinding maken');
+			});
+			
+			if(self.alarms[id].set){
+				if(self.alarms[id].repDayInt == 0){
+					self.removeAppAlarm(id);
+				} else {
+					for(var i = 1; i < 8; i++){
+						self.removeAppAlarm('-' + id + i);
+					}
 				}
-			}
-			if(self.alarms[id].repDayInt == 0){
-				self.setAppAlarm(self.alarms[id].hour, self.alarms[id].min, id);
-			} else {
-				self.setAppRepeatAlarm(self.alarms[id].hour, self.alarms[id].min, id, self.alarms[id].repDay);
+				if(self.alarms[id].repDayInt == 0){
+					self.setAppAlarm(self.alarms[id].hour, self.alarms[id].min, id);
+				} else {
+					self.setAppRepeatAlarm(self.alarms[id].hour, self.alarms[id].min, id, self.alarms[id].repDay);
+				}
+				
 			}
 			
+			self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuppreptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
+			self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
 		}
-		
-		self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuppreptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
-		self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
 	},
 	
 	setDays: function(){
@@ -379,6 +386,7 @@ var jsgroepalarm = {
 					}
 				});
 				$this.parents('li.alarm').find('span.firstRepeatDay').html(self.getDay(self.alarms[id].repDay));
+				$this.parents('li.alarm').find('ul.showDates').empty().html(self.frepDaysFunc(self.alarms[id].repDay));
 				return;
 			}
 			self.changeDbRepDay(id, indexT, function(id, indexT){
@@ -414,6 +422,7 @@ var jsgroepalarm = {
 			});
 		}
 		$this.parents('li.alarm').find('span.firstRepeatDay').html(self.getDay(self.alarms[id].repDay));
+		$this.parents('li.alarm').find('ul.showDates').empty().html(self.frepDaysFunc(self.alarms[id].repDay));
 	},
 	
 	changeDbRepDay: function(id, indexT, callback){
@@ -664,60 +673,52 @@ var jsgroepalarm = {
 		}
 	},
 	
-	changeMyPreptime : function(){
-		var self = jsgroepalarm,
-			$this = $(this),
-			id = $this.parents('li.alarm').attr('id');
-			
-		hour = $this.siblings('span').eq(0).children('select').attr('value');
-		min = $this.siblings('span').eq(1).children('select').attr('value');
+	changeMyPreptime : function(id, $thisbase){
+		var self = jsgroepalarm;
+		var content = $thisbase.children('div.content');
+		
+		hour = content.children('div.palarm').children('select#hour').attr('value');
+		min = content.children('div.palarm').children('select#min').attr('value');
 		
 		console.log(hour);
 		console.log(min);
 		
-		self.alarms[id].phour = (+hour)+'';
-		self.alarms[id].pmin = (+min)+'';
-		
-		/*var value = +self.ulgroeps.find('li#'+id+'.alarm').find('input.preptime').attr('value');
-		//console.log(value);
-		if(value == 0){
-			self.ulgroeps.find('li#'+id+'.alarm').find('span.preptimevis').text('');
-		} else {
-			self.ulgroeps.find('li#'+id+'.alarm').find('span.preptimevis').text('voorbereidingstijd is ' + value + ' min');
-		}*/
-		
-		
-		self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuppreptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
-		self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
-		
-		
-		// ajax
-		window.ajax.add({
-			url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
-			type : 'POST',
-			data : {
-				action : 'changeMyPreptime',
-				idevents : id,
-				phour : self.alarms[id].phour,
-				pmin : self.alarms[id].pmin,
-				imei : window.imei
-			},
-			dataType : 'json',
-		}, function(msg) {
-			console.log('success');
-		}, function(msg) {
-			console.log('kan geen verbinding maken');
-		});
-		
-		if(self.alarms[id].pset && self.alarms[id].set){
-
-			if(self.alarms[id].repDayInt == 0){
-				self.setAppAlarm(hour, min, id);
-			} else {
-				self.setAppRepeatAlarm(hour, min, id, self.alarms[id].repDay);
+		if((+hour)+'' != self.alarms[id].phour || (+min)+'' != self.alarms[id].pmin){
+			
+			self.alarms[id].phour = (+hour)+'';
+			self.alarms[id].pmin = (+min)+'';
+			
+			self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuppreptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
+			self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
+			
+			
+			// ajax
+			window.ajax.add({
+				url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
+				type : 'POST',
+				data : {
+					action : 'changeMyPreptime',
+					idevents : id,
+					phour : self.alarms[id].phour,
+					pmin : self.alarms[id].pmin,
+					imei : window.imei
+				},
+				dataType : 'json',
+			}, function(msg) {
+				console.log('success');
+			}, function(msg) {
+				console.log('kan geen verbinding maken');
+			});
+			
+			if(self.alarms[id].pset && self.alarms[id].set){
+	
+				if(self.alarms[id].repDayInt == 0){
+					self.setAppAlarm(hour, min, id);
+				} else {
+					self.setAppRepeatAlarm(hour, min, id, self.alarms[id].repDay);
+				}
 			}
 		}
-		
 	},
 	
 	removealarm : function(){
@@ -751,6 +752,18 @@ var jsgroepalarm = {
 		});
 		$this.parents('li.alarm').remove();
 		delete self.alarms[id];
+	},
+	
+	leaderAccept : function(){
+		var self = jsgroepalarm,
+			$this = $(this),
+			id = $this.parents('li.alarm').attr('id');
+		
+		self.changeAlarm(id, $this.parents('div.popoutElement'));
+		self.changeMyPreptime(id, $this.parents('div.popoutElement'));
+		// title descrition chagne
+		
+		self.ulgroeps.find('li#'+id+'.alarm').children('div.popoutElement').fadeOut('fast');
 	},
 		
 	/*showSettings: function(e) {
