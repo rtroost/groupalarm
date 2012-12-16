@@ -32,7 +32,7 @@ var jsgroepalarm = {
 		self.ulgroeps.on('click', 'a.alarmsubmit', self.leaderAccept);
 		self.ulgroeps.on('click', 'li.day', self.setDays);
 		self.ulgroeps.on('click', 'a.myAlarmSet', self.setMyAlarm);
-		self.ulgroeps.on('click', 'input.myalarmsubmit', self.changeMyPreptime);
+		self.ulgroeps.on('click', 'a.myalarmsubmit', self.memberAccept);
 		self.ulgroeps.on('click', 'a.alarm-settings', self.toggle_alarm_settings);
 
 	},
@@ -786,6 +786,16 @@ var jsgroepalarm = {
 		
 		self.changeEventText(id, $this);
 		
+		self.ulgroeps.find('li#'+id+'.alarm').children('div.popoutElement').fadeOut('fast');
+	},
+	
+	memberAccept : function(){
+		var self = jsgroepalarm,
+			$this = $(this),
+			id = $this.parents('li.alarm').attr('id');
+		
+		self.changeMyPreptime(id, $this.parents('div.popoutElement'));
+				
 		self.ulgroeps.find('li#'+id+'.alarm').children('div.popoutElement').fadeOut('fast');
 	},
 		
