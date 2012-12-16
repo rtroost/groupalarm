@@ -25,7 +25,8 @@ var jsalarm = {
 				// $('<option>', {value: this.padfield(i), text: this.padfield(i)}).appendTo(this.hourselect);
 			// }
 			// $('<option>', {value: this.padfield(i), text: this.padfield(i)}).appendTo(this.minuteselect);
-		// }
+		// }
+
 		
 		// deze 7 regels zijn tijdelijk om de tijd te kunnen zien. kan weg in productie
 		var dateobj = new Date();
@@ -485,6 +486,19 @@ var jsalarm = {
 			 || etarget.hasClass('time') || etarget.hasClass('config') || etarget.hasClass('days') ){ //|| etarget.hasClass('newalarm')
 			$(this).children('.hidden').slideToggle('normal');
 		}
+	},
+	
+	remove_alarm : function(id) {
+		// Remove the alarm
+	},
+	
+	pop_alarm_settings : function(id) {
+		// Open the settings popup for the alarm
+		$('#pop_alarm_settings-' + id).fadeIn('fast');
+	},
+	
+	toggle_alarm : function(id) {
+		// Toggle the alarm on and off
 	},
 }
 

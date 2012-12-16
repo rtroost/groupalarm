@@ -12,8 +12,8 @@
         	<a href="#" class="btn" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From photo album</a>
         </div>
         <div class="lower">
-        	<a href="#" onClick="popupClose();"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
-            <a href="#" onClick="popupAccept();"><span data-icon="/" aria-hidden="true"></span> Accept</a>
+        	<a href="#" onClick="jspi.pop_profile_pic_close();"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
+            <a href="#" onClick="jspi.pop_profile_pic_accept();"><span data-icon="/" aria-hidden="true"></span> Accept</a>
         </div>
     </div>	
 	<div class="header-container">
@@ -24,7 +24,7 @@
 	<div class="main-container">
 		<div class="wrapper clearfix" id="content">
 			<div class="profilePicture">
-				<a id="profileLink" href="changeprofilepic.html">
+				<a id="profileLink" onClick="jspi.pop_profile_pic_open();">
 					<img id="profilePic" src="#" />
 					<div class="profileLabel"><span data-icon="S" aria-hidden="true"></span></div>
 				</a>
@@ -36,7 +36,7 @@
 					<input id="fullname" name="name" value="{{fullname}}" type="text" />
 					<label for="backup">Phone number</label>
 					<input id="backup" name="backup" value="{{backup}}" type="text" />
-					<button class="opslaan">Opslaan</button>
+					<button onClick="profileSave();">Opslaan</button>
 				</script>
 			</div>
 		</div> <!-- #main -->

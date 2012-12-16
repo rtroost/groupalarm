@@ -18,40 +18,44 @@
 					<div class="visible">
 						<h1><span data-icon="+" aria-hidden="true"></span> Create a new alarm</h1>
 					</div>
-					<!--<div class="hidden">
-						<div class="new-alarm-block">
-							<span><select id="hour"></select> Hour</span><span><select id="min"></select> Minutes</span>
-							<input type="submit" value="Set new alarm" id="submitbutton" />
-						</div>
-					</div>-->
 				</li>
 				<script id="alarmtemplate" type="text/x-handlebars-template">
 				<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
-					<div class="visible">
-						<span data-icon="P" aria-hidden="true" class="icon"></span>
-						<span class="time">{{hour}}:{{min}}</span>
-						<span data-icon="S" aria-hidden="true" class="config"></span>
-						<ul class="days">
-							{{frepDays repDay}}
-						</ul>						
-					</div>
-					<div class="hidden">
-						<div class="new-alarm-block">
-							<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
-							<input type="submit" value="Change alarm" class="alarmsubmit" />
+					<div class="popoutElement alarm_settings" id="pop_alarm_settings-{{id}}">
+						<h1>Alarm options</h1>
+						<div class="content">
+							<h2>When</h2>
+							<div class="setTime">
+								<select id="hour">{{setHours hour}}</select> : <select id="min">{{setMins min}}</select>
+							</div>
+							<h2>On which days should this alarm be active?</h2>
+							<ul class="days">
+								{{frepDays repDay}}
+							</ul>
 						</div>
-						<ul class="buttons">
-							{{#if set}}
-							<li class="set-alarm" data-toggle="On">
-								<span data-icon="/" aria-hidden="true"></span> Active	
-							</li>									
-							{{else}}
-							<li class="set-alarm" data-toggle="Off">
-								<span data-icon="'" aria-hidden="true"></span> Inactive
-							</li>
-							{{/if}}
-							<li class="delete-alarm"><span data-icon="\" aria-hidden="true"></span> Remove</li>
-						</ul>
+						<div class="lower">
+							<a href="#" onClick="jspi.pop_alarm_close();"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
+							<a href="#" onClick="jspi.pop_alarm_accept();"><span data-icon="/" aria-hidden="true"></span> Accept</a>
+						</div>
+					</div>
+					<div style="position:relative;">
+						<span data-icon="P" aria-hidden="true" class="icon"></span>
+						<div class="showTime">							
+							<span class="time">{{hour}}:{{min}}</span>
+							<ul class="showDates">
+								<li>Mon</li>
+								<li>Tue</li>
+								<li>Wed</li>
+								<li>Thu</li>
+								<li>Fri</li>
+							</ul>
+						</div>
+						
+						<div class="options">
+							<a href="#" onClick="jsalarm.remove_alarm();"><span data-icon="'" aria-hidden="true"></span></a>
+							<a href="#" onClick="jsalarm.pop_alarm_settings({{id}});"><span data-icon="S" aria-hidden="true"></span></a>
+							<a href="#" onClick="jsalarm.toggle_alarm();"><span data-icon="/" aria-hidden="true"></span></a>
+						</div>
 					</div>
 				</li>
 				</script>
