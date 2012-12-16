@@ -8,7 +8,8 @@ var jsgroepalarm = {
 		this.activation_button_html = [
 			'<span data-icon="-" aria-hidden="true"></span>',
 			'<span data-icon="/" aria-hidden="true"></span>',
-		];
+		];
+
 		console.log(window.groepids);
 		
 		for(var i = 0; i < window.groepids.length; i++){
