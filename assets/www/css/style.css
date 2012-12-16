@@ -504,9 +504,7 @@ ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1
 }
 
 .group-alarms .alarm {
-	padding: 10px;
-	background: #C7DDEB;
-	border-radius: 3px;
+	background: rgba(255, 255, 255, 0.1);
 }
 
 .group-alarms .alarm .large-inline {
@@ -592,8 +590,9 @@ ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1
 	top: 0;	
 }
 
-.alarms .alarm .options a.active {
-	color: green;
+.alarms .alarm .options a.inactive {
+	filter: alpha(opacity=60);
+	opacity: 0.6;
 }
 
 .alarms .alarm .options a {
