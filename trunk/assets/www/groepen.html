@@ -4,6 +4,7 @@
 	<title>Groepen</title>
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" href="css/style.css" />
+	<style>.active{ background: green;} .inactive{ background: red;}</style>
 </head>
 <body>
 	<div class="header-container">
@@ -188,17 +189,11 @@
 		{{#if leader}}
 		<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
 			<div class="visible">
-				<div class="save info finished">
-					<span data-icon="P" aria-hidden="true" class="icon" style="color: black;"></span>
-					<span class="time" style="float: left; margin-top: 0px; color: black;">{{hour}}:{{min}}</span><span style="float: left; color: black;">&nbsp; {{getDay repDay}}</span> <span class="preptimevis"></span>
-					Saved
-					<span data-icon="/" aria-hidden="true"></span>
-				</div>
+				<span data-icon="P" aria-hidden="true" class="icon"></span>
+				<span class="time">{{hour}}:{{min}}</span>&nbsp; <span class="firstRepeatDay">{{getDay repDay}}</span>  <span class="preptimevis"></span>
+				
 			</div>
 			<div class="hidden">
-				<div class="remove">
-					<span data-icon="\" aria-hidden="true"></span>
-				</div>
 				<h3>Title</h3>
 				<div class="title" contenteditable="true">
 					{{title}}
@@ -208,25 +203,29 @@
 					{{description}}
 				</div>
 				<h3>When?</h3>
-				{{hour}}:{{min}} {{getDay repDay}} Your traveltime is set at <span class="large-inline wakeuppreptime"></span> meaning you will be woken up at <span class="large-inline wakeuptime">{{hour}}:{{min}}</span>.
+				{{hour}}:{{min}} <span class="firstRepeatDay">{{getDay repDay}}</span> Your peronal wekker is set at <span class="large-inline wakeuppreptime"></span> meaning you will be woken up at <span class="large-inline wakeuptime"></span>.
 				<h3>Repeat?</h3>
 				<ul class="days">
 					{{frepDays repDay}}
 				</ul>
 				<div class="new-alarm-block">
 					<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
-					<input type="submit" value="Change alarm" class="alarmsubmit" />
+					<input type="submit" value="Change event" class="alarmsubmit" />
 				</div>
-				<input type="text" name="preptime" class="preptime" />
-				<input type="submit" value="Change preptime" class="preptimebutton" />
+				<div class="new-alarm-block palarm">
+					<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
+					<input type="submit" value="Change my alarm" class="myalarmsubmit" />
+				</div>
 				<ul class="buttons">
-					<li class="myAlarmSet">Deactivate my alarm</li>
+					
 					{{#if set}}
-					<li class="set-alarm" data-toggle="On">
-						<span data-icon="/" aria-hidden="true"></span> Active	
-					</li>									
+					<li class="myAlarmSet active" {{#if leader}}style="display: inline-block;" {{else}}style="display: none;" {{/if}}>Deactivate my alarm</li>
+					<li class="set-alarm active" data-toggle="On">
+						<span data-icon="/" aria-hidden="true"></span> Active
+					</li>
 					{{else}}
-					<li class="set-alarm" data-toggle="Off">
+					<li class="myAlarmSet inactive" {{#if leader}}style="display: inline-block;" {{else}}style="display: none;" {{/if}}>Deactivate my alarm</li>
+					<li class="set-alarm inactive" data-toggle="Off">
 						<span data-icon="'" aria-hidden="true"></span> Inactive
 					</li>
 					{{/if}}
@@ -238,12 +237,12 @@
 		<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
 			<div class="visible">
 				<span data-icon="P" aria-hidden="true" class="icon"></span>
-				<span class="time">{{hour}}:{{min}}</span>&nbsp; {{getDay repDay}}  <span class="preptimevis"></span>
+				<span class="time">{{hour}}:{{min}}</span>&nbsp; <span class="firstRepeatDay">{{getDay repDay}}</span>  <span class="preptimevis"></span>
 			</div>
 			<div class="hidden">
 				<div class="full-version">
 					<h2>Explained</h2>
-						{{getDay repDay}} at <span class="large-inline">{{hour}}:{{min}}</span> you will be attending <span class="large-inline">{{title}}</span>. Your traveltime is set at <span class="large-inline wakeuppreptime">30 minutes</span> meaning you will be woken up at <span class="large-inline wakeuptime">{{hour}}:{{min}}</span>.
+						<span class="firstRepeatDay">{{getDay repDay}}</span> at <span class="large-inline">{{hour}}:{{min}}</span> you will be attending <span class="large-inline">{{title}}</span>. Your wekker is set at <span class="large-inline wakeuppreptime"></span> meaning you will be woken up at <span class="large-inline wakeuptime"></span>.
 				</div>									
 				<div class="description">
 					<h2>Description</h2>
@@ -252,13 +251,23 @@
 				{{#if set}}
 				<p style="color: green;">deze wekker is actief</p>
 				<ul class="group-alarm-actions-single">
-					<li class="myAlarmSet">Deactivate my alarm</li>
+					<li class="myAlarmSet active">Deactivate my alarm</li>
 					<li class="myAlarmTimeSet"><span data-icon="V" aria-hidden="true"></span> 30 minutes traveltime</li>
 				</ul>
-				<input type="text" name="preptime" class="preptime" />
-				<input type="submit" value="Change preptime" class="preptimebutton" />
+				<div class="new-alarm-block palarm">
+					<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
+					<input type="submit" value="Change my alarm" class="myalarmsubmit" />
+				</div>
 				{{else}}
 				<p style="color: red;">deze wekker is niet actief</p>
+				<ul class="group-alarm-actions-single">
+					<li class="myAlarmSet active">Deactivate my alarm</li>
+					<li class="myAlarmTimeSet"><span data-icon="V" aria-hidden="true"></span> 30 minutes traveltime</li>
+				</ul>
+				<div class="new-alarm-block palarm">
+					<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
+					<input type="submit" value="Change my alarm" class="myalarmsubmit" />
+				</div>
 				{{/if}}
 			</div>
 		</li>
