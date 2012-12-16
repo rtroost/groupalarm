@@ -242,8 +242,7 @@
 					<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
 					<input type="submit" value="Change my alarm" class="myalarmsubmit" />
 				</div>
-				<ul class="buttons">
-					
+				<ul class="buttons">					
 					{{#if set}}
 					<li class="myAlarmSet active" {{#if leader}}style="display: inline-block;" {{else}}style="display: none;" {{/if}}>Deactivate my alarm</li>
 					<li class="set-alarm active" data-toggle="On">
@@ -260,10 +259,20 @@
 			</div>
 		</li>
 		{{else}}
-		<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
+		<li class="alarm {{#if pset}}active{{else}}inactive{{/if}}" id="{{id}}">
 			<div class="visible">
 				<span data-icon="P" aria-hidden="true" class="icon"></span>
-				<span class="time">{{hour}}:{{min}}</span>&nbsp; <span class="firstRepeatDay">{{getDay repDay}}</span>  <span class="preptimevis"></span>
+				<div class="showTime">							
+					<span class="time">{{hour}}:{{min}}</span>
+					<ul class="showDates">
+						{{frepDays2 repDay}}
+					</ul>
+				</div>
+				
+				<div class="options">
+					<a href="#" class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
+					<a href="#" class="set-alarm"><span data-icon="{{#if pset}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>
+				</div>
 			</div>
 			<div class="hidden">
 				<div class="full-version">
