@@ -145,10 +145,8 @@ h2 { font-size: 1.6em; }
 h3 { font-size: 1.2em; }
 
 .wrapper {
-	position: relative;
     width: 96%;
-    margin: 0 2%;
-  
+    margin: 0 2%;  
 }
 		
 .header-container{
@@ -307,15 +305,13 @@ nav#footer-nav a {
 }
 
 ul.blocks > li {
-	display:block; 
-	position: relative; 
+	display:block;
 	border-right: 5px solid rgba(0,0,0,0); 
 	padding: 5px 10px; 
 	background: #e0ecf4; 
 	margin: 10px 0;
 	box-shadow:  0px 0px 3px 0px rgba(0, 0, 0, 0.5);
 	border-radius: 3px;
-	position: relative;
 }
 
 ul.blocks .visible {
@@ -323,25 +319,8 @@ ul.blocks .visible {
 	display: block;
 }
 
-ul.blocks h1, ul.blocks h2, ul.blocks h3 {
-	font-size: 18px; 
-	font-weight: 600;
-	color: #1d3d52; 
-	letter-spacing: -1px;
-	display: block;
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
-	margin: 0 0 10px 0;	
-	border-bottom: 1px solid #a1c6de;
-}
-
-ul.blocks h1 { padding: 0 2px; }
-ul.blocks h2, h3 { padding: 10px 20px;}
-/*ul.blocks h3 {padding-top: 10px;}*/
-
-
-.active { border-color: green; }
-.inactive { border-color: red; }
+li.alarm.active { border-color: green !important; }
+li.alarm.active { border-color: red !important; }
 
 /************************/
 /*		GROUPLISTS		*/
@@ -570,32 +549,81 @@ ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1
 	text-align: center;
 	padding: 0;
 	margin: 0;
+	font-size: 20px;
+}
+.alarms .alarm {
+	min-height: 35px;
+}
+
+.alarms .alarm .showTime {
+	display: inline-block;
+	margin-left: 5px;
 }
 
 .alarms .alarm .icon {
-	float: left;
-	font-size: 24px;
-	margin: 0 10px 0 0;
+	font-size: 28px;
 	font-weight: 400;
+	float: left;
 }
 
 .alarms .alarm .time {
-	font-size: 24px;
-	font-weight: 600;
-	margin-top: 10px;
+	font-size: 28px;
+	font-weight: bold;
+	display: inline-block;
+	margin-bottom: 5px;
 }
 
-.alarms .alarm .config {
+.alarms .alarm .showDates {
+	display: block;
+	margin-left: 3px;
+	font-size: 11px;
+}
+.alarms .alarm .showDates li{
+	display: inline-block;
+	padding: 3px 5px;
+	background: #C7DDEB;
+	border: 1px solid #AECEE2;
+	border-radius: 1px;
+}
+
+.alarms .alarm .options {
 	position: absolute;
-	right: 10px;
-	top: 5px;
+	right: -5px;
+	top: 0;	
+}
+
+.alarms .alarm .options a {
+	display: inline-block;
 	font-size: 20px;
+	text-decoration: none;
+	color: #1D3D52;
+	background: #c7ddeb;
+	padding: 5px 10px;	
+	border: 1px solid #aecee2;
+	border-radius: 3px;
 }
 
 .alarms .alarm .save {
 	display: block;
 	text-align: center;
 	font-size: 20px;
+}
+
+.alarm_settings .setTime {
+	margin-bottom: 10px;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.alarm_settings .setTime select {
+	background: #AECEE2;
+	border: 1px solid #a1c6de;
+	width: 40%;
+	padding: 5px;
+	font-size: 16px;
+	font-weight: 600;	
+	height: 34px;
+	text-align: center;
 }
 
 div.info.clickable {
@@ -616,19 +644,20 @@ div.info.finished {
 .alarms .alarm ul.days li {
 	box-shadow:  0px 0px 2px 0px rgba(0, 0, 0, 0.5);
 	padding: 5px;
-	width: 29%;
+	width: 50px;
 	margin: 0 4% 5px 0;
 	display: inline-block;
 	position: relative;
 	   -moz-box-sizing:border-box; /* Firefox */
 	-webkit-box-sizing:border-box; /* Safari */
 			box-sizing:border-box;
+	text-align: left;
 
 }
 
 .alarms .alarm ul.days li > span {
 	position: absolute;
-	right: 10px;
+	right: 5px;
 	top: 20%;
 }
 
@@ -731,11 +760,6 @@ div.info.finished {
 	font-size: 14px;
 }
 
-#profilePictureOptions {
-	display: block;
-	text-align:center;
-}
-
 #profielinstellingen label {
 	padding: 0 20px;
 	margin: 10px 0;
@@ -766,6 +790,8 @@ div.info.finished {
 	border: 1px solid #a1c6de;
 	border-radius:3px;
 	z-index:9999;
+	display: none;
+	text-align:center;
 }
 
 .popoutElement h1 {
@@ -776,8 +802,12 @@ div.info.finished {
 	display: block;
 }
 
+.popoutElement h2 {
+	font-size: 1.25em;
+}
+
 .popoutElement .content {
-	padding: 14px 0;
+	padding: 14px 5px;;
 	display: block;
 }
 
@@ -796,7 +826,7 @@ div.info.finished {
 	padding: 5px 0;
 }
 
-.popoutElement .btn {
+.popoutElement .btn, button {
 	text-decoration:none;
 	background: #aecee2;
 	padding: 10px;

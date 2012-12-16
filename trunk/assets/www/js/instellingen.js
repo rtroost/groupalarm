@@ -38,13 +38,11 @@ var jspi = {
 		});
 	},
 
-	bindEvents: function(){
+	bindEvents : function(){
 		var self = jspi;
-		self.pi.on('click', 'button.opslaan', self.opslaan);
-		//self.divinvites.on('click', 'button.rejectbutton', self.rejectInvite);
 	},
 
-	opslaan: function(){
+	profileSave : function(){
 		fullname = $('#fullname').val();
 		backup = $('#backup').val();
 		window.ajax.add({
@@ -71,6 +69,19 @@ var jspi = {
 
 	getTemplates: function(){
 		jspi.template = Handlebars.compile( $('#profielinstellingenTemplate').html() );
+	},
+	
+	pop_profile_pic_open : function(){
+		// Open the popup window, load stuff
+		$('#profilePictureOptions').fadeIn('fast');
+	},
+	
+	pop_profile_pic_close : function() {
+		// Close the popup window without saving
+	},
+	
+	pop_profile_pic_accept : function() {
+		// Close the popup window with saving
 	},
 }
 
