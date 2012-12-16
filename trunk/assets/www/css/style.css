@@ -783,7 +783,7 @@ div.info.finished {
 
 .popoutElement {
 	position: absolute;
-	top: 25%;
+	top: 15%;
 	left: 10%;
 	width: 80%;
 	background: #C7DDEB;
@@ -804,6 +804,10 @@ div.info.finished {
 
 .popoutElement h2 {
 	font-size: 1.25em;
+}
+
+.popoutElement h3 {
+	margin: 10px 0;
 }
 
 .popoutElement .content {
@@ -834,4 +838,15 @@ div.info.finished {
 	color: #111;
 	display: inline-block;
 	border: 1px solid #a1c6de;
+}
+
+.popoutElement input[type='text'] {
+	background: #e0ecf4;
+	padding: 10px;
+	font-weight: 600;
+	color: #111;
+	display: block;
+	border: 1px solid #a1c6de;
+	width: 90%;
+	margin: 0 auto;
 }
