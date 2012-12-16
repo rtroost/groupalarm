@@ -9,8 +9,8 @@ var jsalarm = {
 		this.divresult = $('#personal-alarms');
 
 		this.activation_button_html = [
-			'<span data-icon="\'" aria-hidden="true"></span> Inactive',
-			'<span data-icon="/" aria-hidden="true"></span> Active',
+			'<span data-icon="\'" aria-hidden="true"></span>',
+			'<span data-icon="/" aria-hidden="true"></span>',
 		];
 		
 		this.alarms = {};
@@ -41,11 +41,12 @@ var jsalarm = {
 	bindEvents: function(){
 		var self = jsalarm;
 		self.submitbutton.on('click', self.savealarm);
-		self.divresult.on('click', 'li.set-alarm', self.setalarm);
-		self.divresult.on('click', 'li.delete-alarm', self.removealarm);
+		self.divresult.on('click', 'a.set-alarm', self.setalarm);
+		self.divresult.on('click', 'a.delete-alarm', self.removealarm);
 		self.divresult.on('click', 'li', self.showSettings);
 		self.divresult.on('click', 'li.day', self.setDays);
-		self.divresult.on('click', 'input.alarmsubmit', self.changeAlarm);
+		self.divresult.on('click', 'a.alarmsubmit', self.changeAlarm);
+		self.divresult.on('click', 'a.alarm-settings', self.toggle_alarm_settings);
 	},
 	
 	getTemplates: function(){
@@ -66,6 +67,9 @@ var jsalarm = {
 				}
 			};
 			return new Handlebars.SafeString( html );
+		});
+		Handlebars.registerHelper('frepDays2', function( repDay ) {
+			return new Handlebars.SafeString( jsalarm.frepDaysFunc(repDay) );
 		});
 		Handlebars.registerHelper('setHours', function( hour ) {
 			var self = jsalarm;
@@ -89,6 +93,20 @@ var jsalarm = {
 			}
 			return new Handlebars.SafeString( html );
 		});
+	},
+	
+	frepDaysFunc : function(repDay){
+		var html = '';
+		var daynr = 0;
+		for (var i=1; i < repDay.length; i++) {
+			var text;
+			switch(i){case 0:text='No-repeat';break;case 1:text='Mon';daynr=1;break;case 2:text='Tue';daynr=2;break;case 3:text='Wen';daynr=4;break;case 4:text='Thu';daynr=8;break;
+				case 5:text='Fri';daynr=16;break;case 6:text='Sat';daynr=32;break;case 7:text='Sun';daynr=64;break;};
+			if(repDay[i] == 1){
+				html +=	'<li>' + text + '</li>';
+			}
+		};
+		return html;
 	},
 	
 	padfield : function(f) {
@@ -245,48 +263,54 @@ var jsalarm = {
 			id = $this.parents('li.alarm').attr('id');
 			console.log(id);
 			
-		hour = $this.siblings('span').eq(0).children('select').attr('value');
-		min = $this.siblings('span').eq(1).children('select').attr('value');
+		$('#pop_alarm_settings-' + id).fadeOut('fast');
+		
+		hour = $this.parent('div.lower').siblings('div.content').find('select#hour').attr('value');
+		min = $this.parent('div.lower').siblings('div.content').find('select#min').attr('value');
 		
 		console.log(hour);
 		console.log(min);
 		
-		self.alarms[id].hour = (+hour)+'';
-		self.alarms[id].min = (+min)+'';
-		
-		$this.parents('li.alarm').find('span.time').text(hour + ':' + min);
-		
-		window.ajax.add({
-			url : 'http://www.remcovdk.com/groupalarm/alarm.php',
-			type : 'POST',
-			data : {
-				action : 'changeAlarm',
-				idwekker : id,
-				imei : window.imei,
-				hour: hour,
-				min: min
-			},
-			dataType : 'json',
-		}, function(msg) {
+		if((+hour)+'' != self.alarms[id].hour || (+min)+'' != self.alarms[id].min){
 			
-		}, function(msg) {
-			console.log('kan geen verbinding maken');
-		});
-		
-		if(self.alarms[id].set){
-			if(self.alarms[id].repDayInt == 0){
-				self.removeAppAlarm(id);
-			} else {
-				for(var i = 1; i < 8; i++){
-					self.removeAppAlarm('-' + id + i);
+			self.alarms[id].hour = (+hour)+'';
+			self.alarms[id].min = (+min)+'';
+			
+			$this.parents('li.alarm').find('span.time').text(hour + ':' + min);
+			
+			window.ajax.add({
+				url : 'http://www.remcovdk.com/groupalarm/alarm.php',
+				type : 'POST',
+				data : {
+					action : 'changeAlarm',
+					idwekker : id,
+					imei : window.imei,
+					hour: hour,
+					min: min
+				},
+				dataType : 'json',
+			}, function(msg) {
+				
+			}, function(msg) {
+				console.log('kan geen verbinding maken');
+			});
+			
+			if(self.alarms[id].set){
+				if(self.alarms[id].repDayInt == 0){
+					self.removeAppAlarm(id);
+				} else {
+					for(var i = 1; i < 8; i++){
+						self.removeAppAlarm('-' + id + i);
+					}
+				}
+				if(self.alarms[id].repDayInt == 0){
+					self.setAppAlarm(self.alarms[id].hour, self.alarms[id].min, id);
+				} else {
+					self.setAppRepeatAlarm(self.alarms[id].hour, self.alarms[id].min, id, self.alarms[id].repDay);
 				}
 			}
-			if(self.alarms[id].repDayInt == 0){
-				self.setAppAlarm(self.alarms[id].hour, self.alarms[id].min, id);
-			} else {
-				self.setAppRepeatAlarm(self.alarms[id].hour, self.alarms[id].min, id, self.alarms[id].repDay);
-			}
 		}
+		
 	},
 	
 	setDays: function(){
@@ -298,7 +322,6 @@ var jsalarm = {
 		if($this.attr('data-toggle') == 'on'){
 			$this.children('span').attr('data-icon', '-');
 			$this.attr('data-toggle', 'off');
-			console.log($this.parent('ul').children('li'));
 			var index = $this.parent('ul').children('li').index($this) + 1;
 			console.log(index);
 			self.alarms[id].repDay[index] = 0;
@@ -321,6 +344,7 @@ var jsalarm = {
 						self.setAppAlarm(self.alarms[id].hour, self.alarms[id].min, id);
 					}
 				});
+				$this.parents('li.alarm').find('ul.showDates').empty().html(self.frepDaysFunc(self.alarms[id].repDay));
 				return;
 			}
 			self.changeDbRepDay(id, function(){
@@ -353,6 +377,7 @@ var jsalarm = {
 				}
 			});
 		}
+		$this.parents('li.alarm').find('ul.showDates').empty().html(self.frepDaysFunc(self.alarms[id].repDay));
 	},
 	
 	changeDbRepDay: function(id, callback){
@@ -447,7 +472,7 @@ var jsalarm = {
 		var self = jsalarm,
 			$this = $(this),
 			id = $this.parents('li.alarm').attr('id');
-
+	
 		if(self.alarms[id].set == 1){
 			if(self.alarms[id].repDayInt == 0){
 				self.removeAppAlarm(id);
@@ -488,17 +513,12 @@ var jsalarm = {
 		}
 	},
 	
-	remove_alarm : function(id) {
-		// Remove the alarm
-	},
-	
-	pop_alarm_settings : function(id) {
-		// Open the settings popup for the alarm
-		$('#pop_alarm_settings-' + id).fadeIn('fast');
-	},
-	
-	toggle_alarm : function(id) {
-		// Toggle the alarm on and off
+	toggle_alarm_settings : function() {
+		var self = jsalarm,
+			$this = $(this),
+			id = $this.parents('li.alarm').attr('id');
+		console.log('hi');
+		$('#pop_alarm_settings-' + id).fadeToggle('fast');
 	},
 }
 
