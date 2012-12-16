@@ -271,14 +271,10 @@
 			<div class="popoutElement alarm_settings" id="pop_alarm_settings-{{id}}">
 				<h1>Alarm options</h1>
 				<div class="content">
-					<h2>When</h2>
-					<div class="setTime">
+					<h2>When do you want to wake up for this event?</h2>
+					<div class="new-alarm-block palarm setTime">
 						<select id="hour">{{setHours hour}}</select> : <select id="min">{{setMins min}}</select>
 					</div>
-					<h2>On which days should this alarm be active?</h2>
-					<ul class="days">
-						{{frepDays repDay}}
-					</ul>
 				</div>
 				<div class="lower">
 					<a href="#" class="alarm-settings"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
@@ -308,27 +304,10 @@
 					<h2>Description</h2>
 					{{description}}
 				</div>
-				{{#if set}}
-				<p style="color: green;">deze wekker is actief</p>
-				<ul class="group-alarm-actions-single">
-					<li class="myAlarmSet active">Deactivate my alarm</li>
-					<li class="myAlarmTimeSet"><span data-icon="V" aria-hidden="true"></span> 30 minutes traveltime</li>
-				</ul>
 				<div class="new-alarm-block palarm">
 					<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
 					<input type="submit" value="Change my alarm" class="myalarmsubmit" />
 				</div>
-				{{else}}
-				<p style="color: red;">deze wekker is niet actief</p>
-				<ul class="group-alarm-actions-single">
-					<li class="myAlarmSet active">Deactivate my alarm</li>
-					<li class="myAlarmTimeSet"><span data-icon="V" aria-hidden="true"></span> 30 minutes traveltime</li>
-				</ul>
-				<div class="new-alarm-block palarm">
-					<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
-					<input type="submit" value="Change my alarm" class="myalarmsubmit" />
-				</div>
-				{{/if}}
 			</div>
 		</li>
 		{{/if}}
