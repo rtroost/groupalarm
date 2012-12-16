@@ -9,7 +9,7 @@ var jsalarm = {
 		this.divresult = $('#personal-alarms');
 
 		this.activation_button_html = [
-			'<span data-icon="\'" aria-hidden="true"></span>',
+			'<span data-icon="-" aria-hidden="true"></span>',
 			'<span data-icon="/" aria-hidden="true"></span>',
 		];
 		
