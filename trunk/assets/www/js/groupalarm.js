@@ -6,8 +6,8 @@ var jsgroepalarm = {
 		this.ulgroeps = $('ul#groups');
 		console.log(this.ulgroeps);
 		this.activation_button_html = [
-			'<span data-icon="\'" aria-hidden="true"></span> Inactive',
-			'<span data-icon="/" aria-hidden="true"></span> Active',
+			'<span data-icon="-" aria-hidden="true"></span>',
+			'<span data-icon="/" aria-hidden="true"></span>',
 		];
 		console.log(window.groepids);
 		
@@ -24,8 +24,8 @@ var jsgroepalarm = {
 	bindEvents: function(){
 		var self = jsgroepalarm;
 		self.ulgroeps.find('li.new-alarm').on('click', self.savealarm);
-		self.ulgroeps.on('click', 'li.set-alarm', self.setalarm);
-		self.ulgroeps.on('click', 'li.delete-alarm', self.removealarm);
+		self.ulgroeps.on('click', 'a.set-alarm', self.setalarm);
+		self.ulgroeps.on('click', 'a.delete-alarm', self.removealarm);
 		self.ulgroeps.on('click', 'input.alarmsubmit', self.changeAlarm);
 		self.ulgroeps.on('click', 'li.day', self.setDays);
 		self.ulgroeps.on('click', 'li.myAlarmSet', self.setMyAlarm);
@@ -251,7 +251,7 @@ var jsgroepalarm = {
 
 		if(self.alarms[id].set){ // en persoonlijke set
 
-			$this.removeClass('inactive').addClass('active');
+			$this.parents('li.alarm').removeClass('inactive').addClass('active');
 
 			if(self.alarms[id].repDayInt == 0){
 				self.setAppAlarm(hour, min, id);
@@ -265,7 +265,7 @@ var jsgroepalarm = {
 			
 		} else {
 
-			$this.removeClass('active').addClass('inactive');
+			$this.parents('li.alarm').removeClass('active').addClass('inactive');
 
 			if(self.alarms[id].repDayInt == 0){
 				self.removeAppAlarm(id);
@@ -571,7 +571,7 @@ var jsgroepalarm = {
 			self.ulgroeps.find('li#'+idevents+'.alarm').find('span.wakeuptime').text(msg[0].hour + ':' + msg[0].min);
 			
 			var palarm = self.ulgroeps.find('li#'+idevents+'.alarm').find('div.palarm');
-			console.log(palarm.find('select#hour'));
+			//console.log(palarm.find('select#hour'));
 			palarm.find('select#hour').val(self.alarms[idevents].phour);
 			palarm.find('select#min').val(self.alarms[idevents].pmin);
 			
@@ -743,7 +743,8 @@ var jsgroepalarm = {
 		delete self.alarms[id];
 	},
 		
-	showSettings: function(e) {
+	/*showSettings: function(e) {
+		return;
 		var self = jsgroepalarm;
 		var etarget = $(e.target);
 		if(etarget.hasClass('newalarm') || etarget.attr('id') == 'new-personal-alarm'){
@@ -753,7 +754,7 @@ var jsgroepalarm = {
 			 || etarget.hasClass('time') || etarget.hasClass('config') || etarget.hasClass('days') ){ //|| etarget.hasClass('newalarm')
 			$(this).children('.hidden').slideToggle('normal');
 		}
-	},
+	},*/
 	
 	calcTimeAndPrep: function(id, preptime){
 		var self = jsgroepalarm,
