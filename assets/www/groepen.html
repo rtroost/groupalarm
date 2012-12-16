@@ -189,15 +189,43 @@
 		<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
 			<div class="popoutElement alarm_settings" id="pop_alarm_settings-{{id}}">
 				<h1>Alarm options</h1>
-				<div class="content">
-					<h2>When</h2>
-					<div class="setTime">
-						<select id="hour">{{setHours hour}}</select> : <select id="min">{{setMins min}}</select>
-					</div>
-					<h2>On which days should this alarm be active?</h2>
-					<ul class="days">
-						{{frepDays repDay}}
-					</ul>
+				<div class="content">								
+								<h3>Title</h3>
+								<div class="title" contenteditable="true">
+									{{title}}
+								</div>
+								<h3>Description</h3>									
+								<div class="description" contenteditable="true">
+									{{description}}
+								</div>
+								<h3>When?</h3>
+								{{hour}}:{{min}} <span class="firstRepeatDay">{{getDay repDay}}</span> Your peronal wekker is set at <span class="large-inline wakeuppreptime"></span> meaning you will be woken up at <span class="large-inline wakeuptime"></span>.
+								<h3>Repeat?</h3>
+								<ul class="days">
+									{{frepDays repDay}}
+								</ul>
+								<div class="new-alarm-block">
+									<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
+									<input type="submit" value="Change event" class="alarmsubmit" />
+								</div>
+								<div class="new-alarm-block palarm">
+									<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
+									<input type="submit" value="Change my alarm" class="myalarmsubmit" />
+								</div>
+								<ul class="buttons">					
+									{{#if set}}
+									<li class="myAlarmSet active" {{#if leader}}style="display: inline-block;" {{else}}style="display: none;" {{/if}}>Deactivate my alarm</li>
+									<li class="set-alarm active" data-toggle="On">
+										<span data-icon="/" aria-hidden="true"></span> Active
+									</li>
+									{{else}}
+									<li class="myAlarmSet inactive" {{#if leader}}style="display: inline-block;" {{else}}style="display: none;" {{/if}}>Deactivate my alarm</li>
+									<li class="set-alarm inactive" data-toggle="Off">
+										<span data-icon="'" aria-hidden="true"></span> Inactive
+									</li>
+									{{/if}}
+									<li class="delete-alarm"><span data-icon="\" aria-hidden="true"></span> Remove</li>
+								</ul>
 				</div>
 				<div class="lower">
 					<a href="#" class="alarm-settings"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
