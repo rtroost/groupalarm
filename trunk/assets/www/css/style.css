@@ -320,7 +320,7 @@ ul.blocks .visible {
 }
 
 li.alarm.active { border-color: green !important; }
-li.alarm.active { border-color: red !important; }
+li.alarm.inactive { border-color: red !important; }
 
 /************************/
 /*		GROUPLISTS		*/
