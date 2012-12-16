@@ -207,11 +207,11 @@
 					</div>
 				</div>
 				<div class="lower">
-					<a href="#" class="alarm-settings"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
-					<a href="#" class="alarmsubmit"><span data-icon="/" aria-hidden="true"></span> Accept</a>
+					<a class="alarm-settings"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
+					<a class="alarmsubmit"><span data-icon="/" aria-hidden="true"></span> Accept</a>
 				</div>
 			</div>
-			<div class="visible">
+			<div style="position:relative;">
 				<span data-icon="P" aria-hidden="true" class="icon"></span>
 				<div class="showTime">							
 					<span class="time">{{hour}}:{{min}}</span>
@@ -227,44 +227,6 @@
 					<a class="myAlarmSet"><span data-icon="{{#if pset}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>					
 				</div>
 			</div>
-			<div class="hidden">
-				<h3>Title</h3>
-				<div class="title" contenteditable="true">
-					{{title}}
-				</div>
-				<h3>Description</h3>									
-				<div class="description" contenteditable="true">
-					{{description}}
-				</div>
-				<h3>When?</h3>
-				{{hour}}:{{min}} <span class="firstRepeatDay">{{getDay repDay}}</span> Your peronal wekker is set at <span class="large-inline wakeuppreptime"></span> meaning you will be woken up at <span class="large-inline wakeuptime"></span>.
-				<h3>Repeat?</h3>
-				<ul class="days">
-					{{frepDays repDay}}
-				</ul>
-				<div class="new-alarm-block">
-					<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
-					<input type="submit" value="Change event" class="alarmsubmit" />
-				</div>
-				<div class="new-alarm-block palarm">
-					<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
-					<input type="submit" value="Change my alarm" class="myalarmsubmit" />
-				</div>
-				<ul class="buttons">					
-					{{#if set}}
-					<li class="myAlarmSet active" {{#if leader}}style="display: inline-block;" {{else}}style="display: none;" {{/if}}>Deactivate my alarm</li>
-					<li class="set-alarm active" data-toggle="On">
-						<span data-icon="/" aria-hidden="true"></span> Active
-					</li>
-					{{else}}
-					<li class="myAlarmSet inactive" {{#if leader}}style="display: inline-block;" {{else}}style="display: none;" {{/if}}>Deactivate my alarm</li>
-					<li class="set-alarm inactive" data-toggle="Off">
-						<span data-icon="'" aria-hidden="true"></span> Inactive
-					</li>
-					{{/if}}
-					<li class="delete-alarm"><span data-icon="\" aria-hidden="true"></span> Remove</li>
-				</ul>
-			</div>
 		</li>
 		{{else}}
 		<li class="alarm {{#if pset}}active{{else}}inactive{{/if}}" id="{{id}}">
@@ -277,13 +239,13 @@
 					</div>
 				</div>
 				<div class="lower">
-					<a href="#" class="alarm-settings"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
-					<a href="#" class="myalarmsubmit"><span data-icon="/" aria-hidden="true"></span> Accept</a>
+					<a class="alarm-settings"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
+					<a class="myalarmsubmit"><span data-icon="/" aria-hidden="true"></span> Accept</a>
 				</div>
 			</div>
-			<div class="visible">
+			<div style="position:relative;">
 				<span data-icon="P" aria-hidden="true" class="icon"></span>
-				<div class="showTime">							
+				<div class="showTime">
 					<span class="time">{{hour}}:{{min}}</span>
 					<ul class="showDates">
 						{{frepDays2 repDay}}
@@ -291,22 +253,8 @@
 				</div>
 				
 				<div class="options">
-					<a href="#" class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
-					<a href="#" class="myAlarmSet"><span data-icon="{{#if pset}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>
-				</div>
-			</div>
-			<div class="hidden">
-				<div class="full-version">
-					<h2>Explained</h2>
-						<span class="firstRepeatDay">{{getDay repDay}}</span> at <span class="large-inline">{{hour}}:{{min}}</span> you will be attending <span class="large-inline">{{title}}</span>. Your wekker is set at <span class="large-inline wakeuppreptime"></span> meaning you will be woken up at <span class="large-inline wakeuptime"></span>.
-				</div>									
-				<div class="description">
-					<h2>Description</h2>
-					{{description}}
-				</div>
-				<div class="new-alarm-block palarm">
-					<span><select id="hour">{{setHours hour}}</select> Hour</span><span><select id="min">{{setMins min}}</select> Minutes</span>
-					<input type="submit" value="Change my alarm" class="myalarmsubmit" />
+					<a class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
+					<a class="myAlarmSet"><span data-icon="{{#if pset}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>
 				</div>
 			</div>
 		</li>
