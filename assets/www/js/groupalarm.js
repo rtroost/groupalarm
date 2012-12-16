@@ -55,6 +55,9 @@ var jsgroepalarm = {
 			};
 			return new Handlebars.SafeString( html );
 		});
+		Handlebars.registerHelper('frepDays2', function( repDay ) {
+			return new Handlebars.SafeString( jsgroepalarm.frepDaysFunc(repDay) );
+		});
 		Handlebars.registerHelper('setHours', function( hour ) {
 			var self = jsgroepalarm;
 			var html = '';
@@ -104,6 +107,20 @@ var jsgroepalarm = {
 		//Mon Sep 17, 2012
 		html +=	'On <span class="large-inline">' + weekday[newday] + '</span>';
 		
+		return html;
+	},
+	
+	frepDaysFunc : function(repDay){
+		var html = '';
+		var daynr = 0;
+		for (var i=1; i < repDay.length; i++) {
+			var text;
+			switch(i){case 0:text='No-repeat';break;case 1:text='Mon';daynr=1;break;case 2:text='Tue';daynr=2;break;case 3:text='Wen';daynr=4;break;case 4:text='Thu';daynr=8;break;
+				case 5:text='Fri';daynr=16;break;case 6:text='Sat';daynr=32;break;case 7:text='Sun';daynr=64;break;};
+			if(repDay[i] == 1){
+				html +=	'<li>' + text + '</li>';
+			}
+		};
 		return html;
 	},
 	
