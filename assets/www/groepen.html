@@ -4,7 +4,6 @@
 	<title>Groepen</title>
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" href="css/style.css" />
-	<style>.active{ background: green;} .inactive{ background: red;}</style>
 </head>
 <body>
 	<div class="header-container">
@@ -222,9 +221,10 @@
 				</div>
 				
 				<div class="options">
-					<a href="#" class="delete-alarm"><span data-icon="'" aria-hidden="true"></span></a>
-					<a href="#" class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
-					<a href="#" class="set-alarm"><span data-icon="{{#if set}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>
+					<a class="delete-alarm"><span data-icon="'" aria-hidden="true"></span></a>
+					<a class="set-alarm {{#if set}}active{{else}}inactive{{/if}}"><span data-icon="J" aria-hidden="true"></span></a>
+					<a class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
+					<a class="myAlarmSet"><span data-icon="{{#if pset}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>					
 				</div>
 			</div>
 			<div class="hidden">
