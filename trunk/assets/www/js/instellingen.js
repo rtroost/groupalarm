@@ -27,7 +27,6 @@ var jspi = {
 		}, function(msg) {
 
 			var self = jspi;
-
 			for(var item in msg){
 				self.createRow({
 					fullname : msg[item].fullname,
