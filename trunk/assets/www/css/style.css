@@ -592,6 +592,10 @@ ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1
 	top: 0;	
 }
 
+.alarms .alarm .options a.active {
+	color: green;
+}
+
 .alarms .alarm .options a {
 	display: inline-block;
 	font-size: 20px;
@@ -624,6 +628,12 @@ ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1
 	font-weight: 600;	
 	height: 34px;
 	text-align: center;
+}
+
+.myAlarmSet span.leader {
+	position: absolute;
+	font-size: 8px;
+	
 }
 
 div.info.clickable {
