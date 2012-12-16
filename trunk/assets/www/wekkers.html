@@ -34,27 +34,23 @@
 							</ul>
 						</div>
 						<div class="lower">
-							<a href="#" onClick="jspi.pop_alarm_close();"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
-							<a href="#" onClick="jspi.pop_alarm_accept();"><span data-icon="/" aria-hidden="true"></span> Accept</a>
+							<a href="#" class="alarm-settings"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
+							<a href="#" class="alarmsubmit"><span data-icon="/" aria-hidden="true"></span> Accept</a>
 						</div>
 					</div>
-					<div style="position:relative;">
+					<div class="innerAlarm" style="position:relative;">
 						<span data-icon="P" aria-hidden="true" class="icon"></span>
 						<div class="showTime">							
 							<span class="time">{{hour}}:{{min}}</span>
 							<ul class="showDates">
-								<li>Mon</li>
-								<li>Tue</li>
-								<li>Wed</li>
-								<li>Thu</li>
-								<li>Fri</li>
+								{{frepDays2 repDay}}
 							</ul>
 						</div>
 						
 						<div class="options">
-							<a href="#" onClick="jsalarm.remove_alarm();"><span data-icon="'" aria-hidden="true"></span></a>
-							<a href="#" onClick="jsalarm.pop_alarm_settings({{id}});"><span data-icon="S" aria-hidden="true"></span></a>
-							<a href="#" onClick="jsalarm.toggle_alarm();"><span data-icon="/" aria-hidden="true"></span></a>
+							<a href="#" class="delete-alarm"><span data-icon="'" aria-hidden="true"></span></a>
+							<a href="#" class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
+							<a href="#" class="set-alarm"><span data-icon="/" aria-hidden="true"></span></a>
 						</div>
 					</div>
 				</li>
