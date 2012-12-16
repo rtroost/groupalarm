@@ -359,7 +359,7 @@ li.alarm.inactive { border-color: red !important; }
 }
 
 .groups .buttons > li {
-	/*background: #C7DDEB;*/
+	background: #C7DDEB;
 	display: inline-block;
 	padding: 6px 8px;
 	border: 1px solid #BAD5E7;
@@ -526,7 +526,7 @@ ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1
 	text-align: center;
 	margin-bottom: 5px;
 
-	/*background: #aecde2;*/
+	background: #aecde2;
 	border-radius: 3px;
 	padding: 8px 2%;
 }
@@ -681,7 +681,7 @@ div.info.finished {
 .alarms .alarm ul.buttons > li {
 	display: inline-block;
 	width: 45%;
-	/*background: #c7ddeb;*/
+	background: #c7ddeb;
 	border-radius: 3px;
 	padding: 8px 2%;
 	text-align: center;
