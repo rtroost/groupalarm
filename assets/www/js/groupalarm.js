@@ -29,38 +29,14 @@ var jsgroepalarm = {
 		self.ulgroeps.on('click', 'input.alarmsubmit', self.changeAlarm);
 		self.ulgroeps.on('click', 'li.day', self.setDays);
 		self.ulgroeps.on('click', 'li.myAlarmSet', self.setMyAlarm);
-		self.ulgroeps.on('click', 'input.preptimebutton', self.changeMyPreptime);
+		self.ulgroeps.on('click', 'input.myalarmsubmit', self.changeMyPreptime);
 
 	},
 	
 	getTemplates: function(){
 		jsgroepalarm.template = Handlebars.compile( $('#groepsAlarmTemplate').html() );
 		Handlebars.registerHelper('getDay', function( repDay ) {
-			if(repDay[0] == 1){
-				return new Handlebars.SafeString( '' );
-			}
-			var html = '';
-			var d = new Date();
-			var currday = d.getDay();
-			if(currday == 0){ currday = 7; }
-			var newday;
-			var weekday = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-			
-			for (var i=1; i < repDay.length; i++) {
-				if(repDay[i] == 1){
-					if(i >= currday){
-						newday = i;
-						break;
-					} else {
-						newday = currday;
-					}
-				}
-			};
-			
-			//Mon Sep 17, 2012
-			html +=	'On <span class="large-inline">' + weekday[newday] + '</span>';
-			
-			return new Handlebars.SafeString( html );
+			return new Handlebars.SafeString(jsgroepalarm.getDay( repDay ));
 		});
 		Handlebars.registerHelper('frepDays', function( repDay ) {
 			var html = '';
@@ -103,6 +79,34 @@ var jsgroepalarm = {
 		});
 	},
 	
+	getDay : function( repDay ){
+		if(repDay[0] == 1){
+			return '';
+		}
+		var html = '';
+		var d = new Date();
+		var currday = d.getDay();
+		if(currday == 0){ currday = 7; }
+		var newday;
+		var weekday = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+		
+		for (var i=1; i < repDay.length; i++) {
+			if(repDay[i] == 1){
+				newday = i;
+				if(newday >= currday){
+					break;
+				} else {
+					//newday = currday;
+				}
+			}
+		};
+		
+		//Mon Sep 17, 2012
+		html +=	'On <span class="large-inline">' + weekday[newday] + '</span>';
+		
+		return html;
+	},
+	
 	padfield : function(f) {
 		return (f < 10) ? "0" + f : f;
 	},
@@ -113,21 +117,21 @@ var jsgroepalarm = {
 		
 	setAppAlarm : function(hour, min, idevents){
 		var self = jsgroepalarm;
-		var newtimearray = self.calcTimeAndPrep(idevents, self.alarms[idevents].preptime);
-		console.log('Single alarm set: hour= ' + newtimearray[0] + ' min= ' + newtimearray[1] + ' ========================= nummer : ' + idevents);
+		//var newtimearray = self.calcTimeAndPrep(idevents, self.alarms[idevents].preptime);
+		console.log('Single alarm set: hour= ' + self.alarms[idevents].phour + ' min= ' + self.alarms[idevents].pmin + ' ========================= nummer : ' + idevents);
 		if(window.main != undefined){
 			console.log("doe je het ??????");
-			window.main.setAlarm(parseInt(idevents), parseInt(newtimearray[0]), parseInt(newtimearray[1]), 'true');
+			window.main.setAlarm(parseInt(idevents), parseInt(self.alarms[idevents].phour), parseInt(self.alarms[idevents].pmin), 'true');
 		}
 	},
 	
 	setAppRepeatAlarm : function(hour, min, idevents, repDays){
 		var self = jsgroepalarm;
-		var newtimearray = self.calcTimeAndPrep(idevents, self.alarms[idevents].preptime);
-		console.log('REPEAT alarm set : hour= ' + newtimearray[0] + ' min= ' + newtimearray[1] + ' ========================== nummer : ' + idevents);
+		//var newtimearray = self.calcTimeAndPrep(idevents, self.alarms[idevents].preptime);
+		console.log('REPEAT alarm set : hour= ' + self.alarms[idevents].phour + ' min= ' + self.alarms[idevents].pmin + ' ========================== nummer : ' + idevents);
 		if(window.main != undefined){
 			//console.log(parseInt(hour));
-			window.main.setRepeatAlarm(parseInt(idevents), parseInt(newtimearray[0]), parseInt(newtimearray[1]), repDays.join(), 'true');
+			window.main.setRepeatAlarm(parseInt(idevents), parseInt(self.alarms[idevents].phour), parseInt(self.alarms[idevents].pmin), repDays.join(), 'true');
 		}
 	},
 	
@@ -230,16 +234,21 @@ var jsgroepalarm = {
 
 		if(self.alarms[id].set){ // en persoonlijke set
 
-			$this.parents('li.alarm').removeClass('inactive').addClass('active');
+			$this.removeClass('inactive').addClass('active');
 
 			if(self.alarms[id].repDayInt == 0){
 				self.setAppAlarm(hour, min, id);
 			} else {
 				self.setAppRepeatAlarm(hour, min, id, self.alarms[id].repDay);
 			}
+			
+			if(self.alarms[id].leader){
+				$this.parent('ul.buttons').children('.myAlarmSet').show();
+			}
+			
 		} else {
 
-			$this.parents('li.alarm').removeClass('active').addClass('inactive');
+			$this.removeClass('active').addClass('inactive');
 
 			if(self.alarms[id].repDayInt == 0){
 				self.removeAppAlarm(id);
@@ -247,6 +256,9 @@ var jsgroepalarm = {
 				for(var i = 1; i < 8; i++){
 					self.removeAppAlarm('-' + id + i);
 				}
+			}
+			if(self.alarms[id].leader){
+				$this.parent('ul.buttons').children('.myAlarmSet').hide();
 			}
 		}
 
@@ -305,7 +317,8 @@ var jsgroepalarm = {
 			
 		}
 		
-		self.displayTimePrep(id, self.alarms[id].preptime);
+		self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuppreptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
+		self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
 	},
 	
 	setDays: function(){
@@ -316,13 +329,14 @@ var jsgroepalarm = {
 			
 		console.log($this.attr('data-toggle'));
 		
+		
 		if($this.attr('data-toggle') == 'on'){
 			$this.children('span').attr('data-icon', '-');
 			$this.attr('data-toggle', 'off');
 			console.log($this.parent('ul').children('li'));
-			var index = $this.parent('ul').children('li').index($this) + 1;
-			console.log(index);
-			self.alarms[id].repDay[index] = 0;
+			var indexT = $this.parent('ul').children('li').index($this) + 1;
+			console.log('index' + indexT);
+			self.alarms[id].repDay[indexT] = 0;
 			self.alarms[id].repDayInt -= $this.data('daynr');
 
 			var children = $this.parent('ul').children('li'), count = 0;
@@ -336,22 +350,27 @@ var jsgroepalarm = {
 				console.log('reset'); // reset
 				self.alarms[id].repDay = [1, 0, 0, 0, 0, 0, 0, 0];
 				self.alarms[id].repDayInt = 0;
-				self.changeDbRepDay(id, function(id, index){
+					console.log('index' + indexT);
+				self.changeDbRepDay(id, indexT, function(id, indexT){
+						console.log('index' + indexT);
 					var self = jsgroepalarm;
 					if(self.alarms[id].set){
-						self.removeAppAlarm('-' + id + index);
+						self.removeAppAlarm('-' + id + indexT);
 						self.setAppAlarm(self.alarms[id].hour, self.alarms[id].min, id);
 					}
 				});
+				$this.parents('li.alarm').find('span.firstRepeatDay').html(self.getDay(self.alarms[id].repDay));
 				return;
 			}
-			self.changeDbRepDay(id, function(id, index){
+			self.changeDbRepDay(id, indexT, function(id, indexT){
 				var self = jsgroepalarm;
 				if(self.alarms[id].set){
-					self.removeAppAlarm('-' + id + index);
+					console.log('test' + indexT);
+					self.removeAppAlarm('-' + id + indexT);
 					// android regelen. // remove
 				}
 			});
+			
 
 		} else { //knop staat uit
 			$this.attr('data-toggle', 'on');
@@ -367,7 +386,7 @@ var jsgroepalarm = {
 				self.removeAppAlarm(id);
 			} 
 			
-			self.changeDbRepDay(id, function(id){
+			self.changeDbRepDay(id, false, function(id){
 				var self = jsgroepalarm;
 				if(self.alarms[id].set){
 					self.setAppRepeatAlarm(self.alarms[id].hour, self.alarms[id].min, id, self.alarms[id].repDay);
@@ -375,9 +394,10 @@ var jsgroepalarm = {
 				}
 			});
 		}
+		$this.parents('li.alarm').find('span.firstRepeatDay').html(self.getDay(self.alarms[id].repDay));
 	},
 	
-	changeDbRepDay: function(id, callback){
+	changeDbRepDay: function(id, indexT, callback){
 		var self = jsgroepalarm;
 		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
@@ -391,7 +411,7 @@ var jsgroepalarm = {
 			dataType : 'json',
 		}, function(msg) {
 			if(typeof(callback) == 'function'){
-				callback(id);
+				callback(id, indexT);
 			}
 		}, function(msg) {
 			console.log('kan geen verbinding maken');
@@ -457,14 +477,6 @@ var jsgroepalarm = {
 						title : msg[item].title,
 						description : msg[item].description
 					}, groepid);
-					
-					
-					// functie maken een aanroepen die de normale tijd - de preptijd doet.
-					//if(repDay[0] == 1 && msg[item].idgebruiker == window.idgebruiker){ // hiernaar kijken
-					//	self.setAppAlarm(msg[item].hour, msg[item].min, msg[item].idevents);
-					//} else if(msg[item].idgebruiker == window.idgebruiker) {
-					//	self.setAppRepeatAlarm(msg[item].hour, msg[item].min, msg[item].idevents, repDay);
-					//}
 				} else {
 					self.createRow({
 						leader : (msg[item].idgebruiker == window.idgebruiker) ? true : false,
@@ -501,33 +513,53 @@ var jsgroepalarm = {
 			dataType : 'json',
 		}, function(msg) {
 			var self = jsgroepalarm;
-			self.alarms[idevents].preptime = msg[0].preptime;
-			if(msg[0].active == 1 && self.alarms[idevents].set){
-				self.alarms[idevents].set = true;
+			//self.alarms[idevents].preptime = msg[0].preptime;
+			self.alarms[idevents].phour = msg[0].hour;
+			self.alarms[idevents].pmin = msg[0].min;
+			
+			self.alarms[idevents].pset = (msg[0].active == 1) ? true : false;
+			if(self.alarms[idevents].pset && self.alarms[idevents].set){
 				// functie maken een aanroepen die de normale tijd - de preptijd doet.
-				
-				if(msg[0].preptime == 0){
+				if(msg[0].hour == 0 && msg[0].min == 0 ){
 					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('');
 				} else {
-					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('voorbereidingstijd is ' + msg[0].preptime + ' min');	
+					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('my wekker is at ' + msg[0].hour + ':' + msg[0].min + ' min');
 				}
-				
-				
-				
 				
 				if(self.alarms[idevents].repDay[0] == 1){
 					self.setAppAlarm(self.alarms[idevents].hour, self.alarms[idevents].min, idevents);
 				} else {
 					self.setAppRepeatAlarm(self.alarms[idevents].hour, self.alarms[idevents].min, idevents, self.alarms[idevents].repDay);
 				}
-				self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').addClass('active').text('Deactivate my alarm');
+				self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('inactive').addClass('active').text('Deactivate my alarm');
 				
+			} else if(self.alarms[idevents].pset && !self.alarms[idevents].set){
+				if(msg[0].hour == 0 && msg[0].min == 0 ){
+					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('');
+				} else {
+					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('my wekker is at ' + msg[0].hour + ':' + msg[0].min + ' min');	
+				}
+				self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('inactive').addClass('active').text('Deactivate my alarm');
+			} else if(self.alarms[idevents].set && !self.alarms[idevents].pset){
+				if(msg[0].hour == 0 && msg[0].min == 0 ){
+					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('');
+				} else {
+					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('my wekker is at ' + msg[0].hour + ':' + msg[0].min + ' min');	
+				}
+				self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('active').addClass('inactive').text('Activate my alarm');
 			} else {
-				self.alarms[idevents].set = false;
-				self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').addClass('inactive').text('Activate my alarm');
-				
+				self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('active').addClass('inactive').text('Activate my alarm');
 			}
-			self.displayTimePrep(idevents, msg[0].preptime);
+			self.ulgroeps.find('li#'+idevents+'.alarm').find('span.wakeuppreptime').text(msg[0].hour + ':' + msg[0].min);
+			self.ulgroeps.find('li#'+idevents+'.alarm').find('span.wakeuptime').text(msg[0].hour + ':' + msg[0].min);
+			
+			var palarm = self.ulgroeps.find('li#'+idevents+'.alarm').find('div.palarm');
+			console.log(palarm.find('select#hour'));
+			palarm.find('select#hour').val(self.alarms[idevents].phour);
+			palarm.find('select#min').val(self.alarms[idevents].pmin);
+			
+			
+			//self.displayTimePrep(idevents, msg[0].preptime);
 			console.log('success');
 		}, function(msg) {
 			console.log('kan geen verbinding maken');
@@ -559,7 +591,7 @@ var jsgroepalarm = {
 			type : 'POST',
 			data : {
 				action : 'setMyAlarm',
-				set : (self.alarms[id].set) ? 0 : 1,
+				set : (self.alarms[id].pset) ? 0 : 1,
 				idevents : id,
 				imei : window.imei
 			},
@@ -571,9 +603,9 @@ var jsgroepalarm = {
 		});
 		
 
-		self.alarms[id].set = ! self.alarms[id].set;
+		self.alarms[id].pset = ! self.alarms[id].pset;
 
-		if(self.alarms[id].set){
+		if(self.alarms[id].pset && self.alarms[id].set){
 
 			$this.removeClass('inactive').addClass('active');
 			$this.text('Deactivate my alarm');
@@ -583,18 +615,25 @@ var jsgroepalarm = {
 			} else {
 				self.setAppRepeatAlarm(hour, min, id, self.alarms[id].repDay);
 			}
-		} else {
+		} else if(!self.alarms[id].pset && self.alarms[id].set){
 
 			$this.removeClass('active').addClass('inactive');
 			$this.text('Activate my alarm');
-
-			if(self.alarms[id].repDayInt == 0){
-				self.removeAppAlarm(id);
-			} else {
-				for(var i = 1; i < 8; i++){
-					self.removeAppAlarm('-' + id + i);
+			if(self.alarms[id].set){
+				if(self.alarms[id].repDayInt == 0){
+					self.removeAppAlarm(id);
+				} else {
+					for(var i = 1; i < 8; i++){
+						self.removeAppAlarm('-' + id + i);
+					}
 				}
 			}
+		} else if(self.alarms[id].pset && !self.alarms[id].set){
+			$this.removeClass('inactive').addClass('active');
+			$this.text('Deactivate my alarm');
+		} else {
+			$this.removeClass('active').addClass('inactive');
+			$this.text('Activate my alarm');
 		}
 	},
 	
@@ -602,17 +641,27 @@ var jsgroepalarm = {
 		var self = jsgroepalarm,
 			$this = $(this),
 			id = $this.parents('li.alarm').attr('id');
+			
+		hour = $this.siblings('span').eq(0).children('select').attr('value');
+		min = $this.siblings('span').eq(1).children('select').attr('value');
 		
-		var value = +self.ulgroeps.find('li#'+id+'.alarm').find('input.preptime').attr('value');
+		console.log(hour);
+		console.log(min);
+		
+		self.alarms[id].phour = (+hour)+'';
+		self.alarms[id].pmin = (+min)+'';
+		
+		/*var value = +self.ulgroeps.find('li#'+id+'.alarm').find('input.preptime').attr('value');
 		//console.log(value);
 		if(value == 0){
 			self.ulgroeps.find('li#'+id+'.alarm').find('span.preptimevis').text('');
 		} else {
 			self.ulgroeps.find('li#'+id+'.alarm').find('span.preptimevis').text('voorbereidingstijd is ' + value + ' min');
-		}
+		}*/
 		
 		
-		self.displayTimePrep(id, value);
+		self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuppreptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
+		self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
 		
 		
 		// ajax
@@ -622,7 +671,8 @@ var jsgroepalarm = {
 			data : {
 				action : 'changeMyPreptime',
 				idevents : id,
-				newtime : value,
+				phour : self.alarms[id].phour,
+				pmin : self.alarms[id].pmin,
 				imei : window.imei
 			},
 			dataType : 'json',
@@ -631,6 +681,15 @@ var jsgroepalarm = {
 		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
+		
+		if(self.alarms[id].pset && self.alarms[id].set){
+
+			if(self.alarms[id].repDayInt == 0){
+				self.setAppAlarm(hour, min, id);
+			} else {
+				self.setAppRepeatAlarm(hour, min, id, self.alarms[id].repDay);
+			}
+		}
 		
 	},
 	
@@ -714,16 +773,16 @@ var jsgroepalarm = {
 		
 	},
 	
-	displayTimePrep: function(id, preptime){
-		var self = jsgroepalarm;
+	//displayTimePrep: function(id){
+		//var self = jsgroepalarm;
 		
-		var newtimearray = self.calcTimeAndPrep(id, preptime);
+		//var newtimearray = self.calcTimeAndPrep(id, preptime);
 		
-		console.log('Nieuwe tijd = ' + self.padfield(newtimearray[0]) + ':' + self.padfield(newtimearray[1]));
-		self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuptime').text(self.padfield(newtimearray[0]) + ':' + self.padfield(newtimearray[1]));
-		self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuppreptime').text(preptime + ' minuten');
+		//console.log('Nieuwe tijd = ' + self.padfield(newtimearray[0]) + ':' + self.padfield(newtimearray[1]));
+		//self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuptime').text(self.padfield(newtimearray[0]) + ':' + self.padfield(newtimearray[1]));
+		//self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuppreptime').text(preptime + ' minuten');
 		
 		
 
-	},
+	//},
 }
