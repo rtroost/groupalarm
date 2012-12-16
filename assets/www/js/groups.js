@@ -58,10 +58,7 @@ var jsgroups = {
 				$this.parents('div.visible').siblings('div.group-alarms').slideToggle();
 			}
 		});
-		
-		self.groups.on('click', 'li.alarm div.visible', function(){
-			$(this).parent('li').children('.hidden').slideToggle('normal');
-		});
+
 	},
 
 	createRow : function(context){
