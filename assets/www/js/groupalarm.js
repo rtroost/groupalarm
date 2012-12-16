@@ -255,7 +255,7 @@ var jsgroepalarm = {
 
 		if(self.alarms[id].set){ // en persoonlijke set
 
-			$this.parents('li.alarm').removeClass('inactive').addClass('active');
+			$this.removeClass('inactive').addClass('active');
 
 			if(self.alarms[id].repDayInt == 0){
 				self.setAppAlarm(hour, min, id);
@@ -263,13 +263,9 @@ var jsgroepalarm = {
 				self.setAppRepeatAlarm(hour, min, id, self.alarms[id].repDay);
 			}
 			
-			if(self.alarms[id].leader){
-				$this.parent('ul.buttons').children('.myAlarmSet').show();
-			}
-			
 		} else {
 
-			$this.parents('li.alarm').removeClass('active').addClass('inactive');
+			$this.removeClass('active').addClass('inactive');
 
 			if(self.alarms[id].repDayInt == 0){
 				self.removeAppAlarm(id);
@@ -278,13 +274,9 @@ var jsgroepalarm = {
 					self.removeAppAlarm('-' + id + i);
 				}
 			}
-			if(self.alarms[id].leader){
-				$this.parent('ul.buttons').children('.myAlarmSet').hide();
-			}
 		}
 
-
-		$this.html(self.activation_button_html[+self.alarms[id].set]);
+		//$this.html(self.activation_button_html[+self.alarms[id].set]);
 		
 	},
 	
@@ -754,6 +746,36 @@ var jsgroepalarm = {
 		delete self.alarms[id];
 	},
 	
+	changeEventText : function(id, $this){
+		var self = jsgroepalarm;
+		
+		var title = $this.parents('div.popoutElement').children('div.content').find('input.title').attr('value');
+		var description = $this.parents('div.popoutElement').children('div.content').find('input.description').attr('value');
+		
+		if(title != self.alarms[id].title || description != self.alarms[id].description){
+			
+			self.alarms[id].title = title;
+			self.alarms[id].description = description;
+			
+			window.ajax.add({
+				url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
+				type : 'POST',
+				data : {
+					action : 'changeEvent',
+					idevents : id,
+					title : title,
+					description : description,
+					imei : window.imei
+				},
+				dataType : 'json',
+			}, function(msg) {
+				console.log('success');
+			}, function(msg) {
+				console.log('kan geen verbinding maken');
+			});
+		}
+	},
+	
 	leaderAccept : function(){
 		var self = jsgroepalarm,
 			$this = $(this),
@@ -761,7 +783,8 @@ var jsgroepalarm = {
 		
 		self.changeAlarm(id, $this.parents('div.popoutElement'));
 		self.changeMyPreptime(id, $this.parents('div.popoutElement'));
-		// title descrition chagne
+		
+		self.changeEventText(id, $this);
 		
 		self.ulgroeps.find('li#'+id+'.alarm').children('div.popoutElement').fadeOut('fast');
 	},
