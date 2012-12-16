@@ -29,7 +29,7 @@ var jsgroepalarm = {
 		self.ulgroeps.on('click', 'a.delete-alarm', self.removealarm);
 		self.ulgroeps.on('click', 'input.alarmsubmit', self.changeAlarm);
 		self.ulgroeps.on('click', 'li.day', self.setDays);
-		self.ulgroeps.on('click', 'li.myAlarmSet', self.setMyAlarm);
+		self.ulgroeps.on('click', 'a.myAlarmSet', self.setMyAlarm);
 		self.ulgroeps.on('click', 'input.myalarmsubmit', self.changeMyPreptime);
 
 	},
@@ -549,7 +549,9 @@ var jsgroepalarm = {
 				} else {
 					self.setAppRepeatAlarm(self.alarms[idevents].hour, self.alarms[idevents].min, idevents, self.alarms[idevents].repDay);
 				}
-				self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('inactive').addClass('active').text('Deactivate my alarm');
+				self.ulgroeps.find('li#'+idevents+'.alarm').removeClass('inactive').addClass('active');
+				self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').children('span').attr('data-icon', '/');
+				//self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').removeClass('inactive').addClass('active').text('Deactivate my alarm');
 				
 			} else if(self.alarms[idevents].pset && !self.alarms[idevents].set){
 				if(msg[0].hour == 0 && msg[0].min == 0 ){
@@ -557,16 +559,22 @@ var jsgroepalarm = {
 				} else {
 					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('my wekker is at ' + msg[0].hour + ':' + msg[0].min + ' min');	
 				}
-				self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('inactive').addClass('active').text('Deactivate my alarm');
+				//self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('inactive').addClass('active').text('Deactivate my alarm');
+				self.ulgroeps.find('li#'+idevents+'.alarm').removeClass('inactive').addClass('active');
+				self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').children('span').attr('data-icon', '/');
 			} else if(self.alarms[idevents].set && !self.alarms[idevents].pset){
 				if(msg[0].hour == 0 && msg[0].min == 0 ){
 					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('');
 				} else {
 					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('my wekker is at ' + msg[0].hour + ':' + msg[0].min + ' min');	
 				}
-				self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('active').addClass('inactive').text('Activate my alarm');
+				//self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('active').addClass('inactive').text('Activate my alarm');
+				self.ulgroeps.find('li#'+idevents+'.alarm').removeClass('active').addClass('inactive');
+				self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').children('span').attr('data-icon', '-');
 			} else {
-				self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('active').addClass('inactive').text('Activate my alarm');
+				//self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('active').addClass('inactive').text('Activate my alarm');
+				self.ulgroeps.find('li#'+idevents+'.alarm').removeClass('active').addClass('inactive');
+				self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').children('span').attr('data-icon', '-');
 			}
 			self.ulgroeps.find('li#'+idevents+'.alarm').find('span.wakeuppreptime').text(msg[0].hour + ':' + msg[0].min);
 			self.ulgroeps.find('li#'+idevents+'.alarm').find('span.wakeuptime').text(msg[0].hour + ':' + msg[0].min);
@@ -625,8 +633,8 @@ var jsgroepalarm = {
 
 		if(self.alarms[id].pset && self.alarms[id].set){
 
-			$this.removeClass('inactive').addClass('active');
-			$this.text('Deactivate my alarm');
+			$this.parents('li.alarm').removeClass('inactive').addClass('active');
+			$this.children('span').attr('data-icon', '/');
 
 			if(self.alarms[id].repDayInt == 0){
 				self.setAppAlarm(hour, min, id);
@@ -635,8 +643,8 @@ var jsgroepalarm = {
 			}
 		} else if(!self.alarms[id].pset && self.alarms[id].set){
 
-			$this.removeClass('active').addClass('inactive');
-			$this.text('Activate my alarm');
+			$this.parents('li.alarm').removeClass('active').addClass('inactive');
+			$this.children('span').attr('data-icon', '-');
 			if(self.alarms[id].set){
 				if(self.alarms[id].repDayInt == 0){
 					self.removeAppAlarm(id);
@@ -647,11 +655,11 @@ var jsgroepalarm = {
 				}
 			}
 		} else if(self.alarms[id].pset && !self.alarms[id].set){
-			$this.removeClass('inactive').addClass('active');
-			$this.text('Deactivate my alarm');
+			$this.parents('li.alarm').removeClass('inactive').addClass('active');
+			$this.children('span').attr('data-icon', '/');
 		} else {
-			$this.removeClass('active').addClass('inactive');
-			$this.text('Activate my alarm');
+			$this.parents('li.alarm').removeClass('active').addClass('inactive');
+			$this.children('span').attr('data-icon', '-');
 		}
 	},
 	
