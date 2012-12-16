@@ -31,6 +31,7 @@ var jsgroepalarm = {
 		self.ulgroeps.on('click', 'li.day', self.setDays);
 		self.ulgroeps.on('click', 'a.myAlarmSet', self.setMyAlarm);
 		self.ulgroeps.on('click', 'input.myalarmsubmit', self.changeMyPreptime);
+		self.ulgroeps.on('click', 'a.alarm-settings', self.toggle_alarm_settings);
 
 	},
 	
@@ -798,6 +799,14 @@ var jsgroepalarm = {
 		
 		return [newhour, newmin];
 		
+	},
+	
+	toggle_alarm_settings : function() {
+		var self = jsgroepalarm,
+			$this = $(this),
+			id = $this.parents('li.alarm').attr('id');
+		console.log('hi');
+		$('#pop_alarm_settings-' + id).fadeToggle('fast');
 	},
 	
 	//displayTimePrep: function(id){
