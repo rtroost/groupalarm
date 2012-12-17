@@ -12,7 +12,7 @@
         	<a class="btn" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From photo album</a>
         </div>
         <div class="lower">
-        	<a onClick="jspi.pop_profile_pic_close();"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
+        	<a onClick="jspi.pop_tgl_profilePic_edit();"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
             <a onClick="jspi.pop_profile_pic_accept();"><span data-icon="/" aria-hidden="true"></span> Accept</a>
         </div>
     </div>	
@@ -24,7 +24,7 @@
 	<div class="main-container">
 		<div class="wrapper clearfix" id="content">
 			<div class="profilePicture">
-				<a id="profileLink" onClick="jspi.pop_profile_pic_open();">
+				<a id="profileLink" onClick="jspi.pop_tgl_profilePic_edit();">
 					<img id="profilePic" src="#" />
 					<div class="profileLabel"><span data-icon="S" aria-hidden="true"></span></div>
 				</a>
