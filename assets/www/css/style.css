@@ -573,6 +573,13 @@ ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1
 	margin-bottom: 5px;
 }
 
+.alarms .alarm .smallTime {
+	font-size: 14px;
+	font-weight: 600;
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
 .alarms .alarm .showDates {
 	display: block;
 	margin-left: 3px;
