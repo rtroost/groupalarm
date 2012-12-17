@@ -74,54 +74,7 @@
 					</div>
 					<div class="members" style="display: none;">
 						<ul class="group-members-large">
-							<li>
-								<div class="visible">
-									<img src="http://placehold.it/50x50" class="picture" />
-									<div class="meta-data">
-										<span class="name">Stefan Bayarri</span>
-										<span class="status">Sleeping as usual</span>
-									</div>
-								</div>
-								<div class="hidden">
-									<ul class="actions">
-										<li><span data-icon="U" aria-hidden="true"></span></li>	
-										<li><span data-icon="R" aria-hidden="true"></span></li>
-										<li><span data-icon="'" aria-hidden="true"></span></li>						
-									</ul>
-								</div>
-							</li>
-							<li>
-								<div class="visible">
-									<img src="http://placehold.it/50x50" class="picture" />
-									<div class="meta-data">
-										<span class="name">Stefan Bayarri</span>
-										<span class="status">Sleeping as usual</span>
-									</div>
-								</div>
-								<div class="hidden">
-									<ul class="actions">
-										<li><span data-icon="U" aria-hidden="true"></span></li>	
-										<li><span data-icon="R" aria-hidden="true"></span></li>
-										<li><span data-icon="'" aria-hidden="true"></span></li>						
-									</ul>
-								</div>
-							</li>
-							<li>
-								<div class="visible">
-									<img src="http://placehold.it/50x50" class="picture" />
-									<div class="meta-data">
-										<span class="name">Stefan Bayarri</span>
-										<span class="status">Sleeping as usual</span>
-									</div>
-								</div>
-								<div class="hidden">
-									<ul class="actions">
-										<li><span data-icon="U" aria-hidden="true"></span></li>	
-										<li><span data-icon="R" aria-hidden="true"></span></li>
-										<li><span data-icon="'" aria-hidden="true"></span></li>						
-									</ul>
-								</div>
-							</li>
+
 						</ul>
 					</div>
 					<div class="group-alarms" style="display: none;">
@@ -259,6 +212,26 @@
 			</div>
 		</li>
 		{{/if}}
+	</script>
+	
+	
+	<script id="groepsMembersTemplate" type="text/x-handlebars-template">
+		<li id="{{idgebruiker}}">
+			<div class="visible">
+				<img src="http://placehold.it/50x50" class="picture" />
+				<div class="meta-data">
+					<span class="name">{{fullname}}</span>
+					<span class="status">Sleeping as usual</span>
+				</div>
+			</div>
+			<div class="hidden">
+				<ul class="actions">
+					<li><span data-icon="U" aria-hidden="true"></span></li>	
+					<li><span data-icon="R" aria-hidden="true"></span></li>
+					<li><span data-icon="'" aria-hidden="true"></span></li>						
+				</ul>
+			</div>
+		</li>
 	</script>
 
 	<!-- here comes the javascript -->
