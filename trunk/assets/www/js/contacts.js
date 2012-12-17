@@ -38,7 +38,7 @@ var jscontacts = {
     bindEvents: function(){
         var self = jscontacts;
         
-		self.ulgroeps.on('click', 'li.contact', self.toggle_contact_options);
+		self.divcontacts.on('click', 'li.contact', self.toggle_contact_options);
     },
 
     createRow : function(context){
