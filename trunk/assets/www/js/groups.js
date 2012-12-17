@@ -353,7 +353,71 @@ var jsgroups = {
 				$this.parents('div.inner-content-wrapper').siblings('div.group-alarms').slideToggle();
 			}
 		});
+		self.groupsElements.on('click', 'a.giveLeader', self.giveLeader);
+		self.groupsElements.on('click', 'a.removeMember', self.removeMember);
+		
+		
 
+	},
+	
+	giveLeader : function(){
+		var self = jsgroups,
+			$this = $(this),
+			groepid = $this.parents('li.leader').attr('id'),
+			newleaderid = $this.parents('li').attr('id');
+			
+		console.log(groepid);
+		console.log(newleaderid);
+			
+		window.ajax.add({
+			url : 'http://www.remcovdk.com/groupalarm/groups.php',
+			type : 'POST',
+			data : {
+				action : 'giveLeader',
+				idgroep : groepid,
+				newleaderid : newleaderid,
+				imei : window.imei
+			},
+			dataType : 'json',
+	
+		}, function(msg) {
+			console.log('success');
+			// refresh page
+			location.reload();
+		}, function(msg) {
+			console.log('kan geen verbinding maken');
+		});
+		
+		
+	},
+	
+	removeMember : function(){
+		var self = jsgroups,
+			$this = $(this),
+			groepid = $this.parents('li.leader').attr('id'),
+			oldMemberid = $this.parents('li').attr('id');
+		
+		console.log(groepid);
+		console.log(oldMemberid);
+			
+		window.ajax.add({
+			url : 'http://www.remcovdk.com/groupalarm/groups.php',
+			type : 'POST',
+			data : {
+				action : 'removeMember',
+				idgroep : groepid,
+				removeMember : oldMemberid,
+				imei : window.imei
+			},
+			dataType : 'json',
+		}, function(msg) {
+			console.log('success');
+			// refresh page
+			location.reload();
+		}, function(msg) {
+			console.log('kan geen verbinding maken');
+		});
+		
 	},
 
 	createRow : function(context){

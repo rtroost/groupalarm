@@ -230,8 +230,11 @@
 				<div class="options">
 					<a href="profile.html?id={{idgebruiker}}"><span data-icon="U" aria-hidden="true"></span></a>
 					{{#if groepLeader}}
-						<a><span class="giveLeader" data-icon="R" aria-hidden="true"></span></a>
-						<a><span data-icon="'" aria-hidden="true"></span></a>
+						{{#if leader}}
+						{{else}}
+						<a class="giveLeader"><span data-icon="R" aria-hidden="true"></span></a>
+						<a class="removeMember"><span data-icon="'" aria-hidden="true"></span></a>
+						{{/if}}
 					{{/if}}
 				</div>
 			</div>
