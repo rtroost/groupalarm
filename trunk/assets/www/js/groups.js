@@ -114,7 +114,8 @@ var jsgroups = {
 					mobile : msg[item].mobile,
 					backup_mobile : msg[item].backup_mobile,
 					email : msg[item].email,
-					imei : msg[item].imei
+					imei : msg[item].imei,
+					groepInfo : msg[item].idgebruiker + '-' + groepid
 				}, groepid);
 				
 			}
@@ -131,7 +132,7 @@ var jsgroups = {
 		// als ze bijde niet klaar zijn return;
 		
 		if(self.is_empty(self.groeps) || self.is_empty(window.jsgroepalarm.alarms)){
-			setTimeout(self.eerstvolgendeEvent, 100);
+			setTimeout(self.eerstvolgendeEvent, 1000);
 			return;
 		}
 		
@@ -316,13 +317,10 @@ var jsgroups = {
 			var newdate= new Date(currTimeStamp);
 			console.log(newdate);
 			
-
-			self.changeFirstAlarmDisplay(groepid, newdate);
-			
 			self.groeps[groepid].eerstvolgende = currID;
 			
-			// pak de event op die ingesteld staat en pak het id
-			
+			self.changeFirstAlarmDisplay(groepid, newdate);
+			self.changeMemberEventInfo(groepid);
 			
 			
 		}
@@ -332,15 +330,40 @@ var jsgroups = {
 		var self = jsgroups;
 		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 		var weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-		
-		console.log('Maand = ' + months[a.getMonth()]);
-		console.log('Maand = ' + a.getDate());
-		console.log('Maand = ' + weekday[a.getDay()]);
-		
-		
+				
 		var alarmDiv = self.groupsElements.children('li#'+groepid).find('div.group-alarm-first-up');
 		alarmDiv.children('span.date').text(weekday[a.getDay()] + ' ' + a.getDate()  + ' ' + months[a.getMonth()]);
 		alarmDiv.children('span.time').text(self.padfield(a.getHours()) + ':' + self.padfield(a.getMinutes()));
+	},
+	
+	changeMemberEventInfo : function(groepid){
+		var self = jsgroups;
+		
+		var memberUl = self.groupsElements.children('li#'+groepid).find('ul.group-members-large').children('li.members');
+		var events = window.jsgroepalarm.alarms;
+		
+		memberUl.each(function(i){
+			
+			var idgebruiker = memberUl.eq(i).attr('id');
+			
+			memberUl.eq(i).find('strong.memberEventAlarm').text(self.padfield(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].hour) + ':' + self.padfield(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].min));
+			
+			var title = events[self.groeps[groepid].eerstvolgende].title;
+			if(title == ''){
+				memberUl.eq(i).find('strong.memberEventTitle').text('No Title');
+			} else {
+				memberUl.eq(i).find('strong.memberEventTitle').text(title);
+			}
+			
+			var active = self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].active;
+			if(active == 1){
+				memberUl.eq(i).find('strong.memberEventActive').text('Active');
+			} else {
+				memberUl.eq(i).find('strong.memberEventActive').text('Not Active');
+			}
+			
+		});
+
 	},
 
 	bindEvents: function(){
@@ -432,7 +455,20 @@ var jsgroups = {
 
 	getTemplates: function(){
 		jsgroups.template = Handlebars.compile( $('#groupsTemplate').html() );		
-		jsgroups.templateMember = Handlebars.compile( $('#groepsMembersTemplate').html() );		
+		jsgroups.templateMember = Handlebars.compile( $('#groepsMembersTemplate').html() );
+		Handlebars.registerHelper('placeStar', function( groepInfo ) {
+			var self = jsgroups;
+			
+			var idgebruiker = groepInfo.split('-')[0];
+			var groepid = groepInfo.split('-')[1];
+			
+			if(idgebruiker == self.groeps[groepid].leader){
+				return new Handlebars.SafeString('<span data-icon="R" aria-hidden="true"></span>');
+			} else {
+				return new Handlebars.SafeString('');
+			}
+			
+		});
 	},
 	
 	pop_tgl_newGroup : function() {
