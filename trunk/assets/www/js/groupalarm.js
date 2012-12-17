@@ -4,7 +4,7 @@ var jsgroepalarm = {
 		//this.hourselect = $('select#hour');
 		//this.minuteselect = $('select#min');
 		this.ulgroeps = $('ul#groups');
-		console.log(this.ulgroeps);
+
 		this.activation_button_html = [
 			'<span data-icon="-" aria-hidden="true"></span>',
 			'<span data-icon="/" aria-hidden="true"></span>',
@@ -165,7 +165,7 @@ var jsgroepalarm = {
 	
 	createRow : function(context, groepid){
 		var self = jsgroepalarm;
-		console.log(context);
+		//console.log(context);
 		
 		self.ulgroeps.children('li#'+groepid).find('ul.alarms').prepend(self.template(context));
 	},
@@ -519,8 +519,8 @@ var jsgroepalarm = {
 	getMyAlarms : function(idevents, idgebruiker){
 		var self = jsgroepalarm;
 		
-		console.log('idevents ' + idevents);
-		console.log('idgebruiker ' + idgebruiker);
+		//console.log('idevents ' + idevents);
+		//console.log('idgebruiker ' + idgebruiker);
 		
 		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',

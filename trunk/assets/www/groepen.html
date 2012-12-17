@@ -170,35 +170,37 @@
 			</div>
 		</li>
 		{{else}}
-		<li class="alarm {{#if pset}}active{{else}}inactive{{/if}}" id="{{id}}">
-			<div class="popoutElement alarm_settings" id="pop_alarm_settings-{{id}}">
-				<h1>Alarm options</h1>
-				<div class="content">
-					<h2>When do you want to wake up for this event?</h2>
-					<div class="new-alarm-block palarm setTime">
-						<select id="hour">{{setHours hour}}</select> : <select id="min">{{setMins min}}</select>
+			{{#if set}}
+				<li class="alarm {{#if pset}}active{{else}}inactive{{/if}}" id="{{id}}">
+					<div class="popoutElement alarm_settings" id="pop_alarm_settings-{{id}}">
+						<h1>Alarm options</h1>
+						<div class="content">
+							<h2>When do you want to wake up for this event?</h2>
+							<div class="new-alarm-block palarm setTime">
+								<select id="hour">{{setHours hour}}</select> : <select id="min">{{setMins min}}</select>
+							</div>
+						</div>
+						<div class="lower">
+							<a class="alarm-settings"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
+							<a class="myalarmsubmit"><span data-icon="/" aria-hidden="true"></span> Accept</a>
+						</div>
 					</div>
-				</div>
-				<div class="lower">
-					<a class="alarm-settings"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
-					<a class="myalarmsubmit"><span data-icon="/" aria-hidden="true"></span> Accept</a>
-				</div>
-			</div>
-			<div class="inner-content-wrapper">
-				<span data-icon="P" aria-hidden="true" class="icon"></span>
-				<div class="showTime">
-					<span class="time">{{hour}}:{{min}}</span>
-					<ul class="showDates">
-						{{frepDays2 repDay}}
-					</ul>
-				</div>
-				
-				<div class="options">
-					<a class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
-					<a class="myAlarmSet"><span data-icon="{{#if pset}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>
-				</div>
-			</div>
-		</li>
+					<div class="inner-content-wrapper">
+						<span data-icon="P" aria-hidden="true" class="icon"></span>
+						<div class="showTime">
+							<span class="time">{{hour}}:{{min}}</span>
+							<ul class="showDates">
+								{{frepDays2 repDay}}
+							</ul>
+						</div>
+						
+						<div class="options">
+							<a class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
+							<a class="myAlarmSet"><span data-icon="{{#if pset}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>
+						</div>
+					</div>
+				</li>
+			{{/if}}
 		{{/if}}
 	</script>
 	
