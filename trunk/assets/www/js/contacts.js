@@ -52,7 +52,7 @@ var jscontacts = {
 	toggle_contact_options : function() {
 		var self = jscontacts,
 			$this = $(this),
-			id = $this.parents('li.contact').attr('id');
+			id = $this.attr('id');
 
 		$('#pop-contact-options-' + id).fadeToggle('fast');
 	},
