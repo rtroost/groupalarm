@@ -37,8 +37,8 @@ var jscontacts = {
 
     bindEvents: function(){
         var self = jscontacts;
-        //self.divinvites.on('click', 'button.acceptbutton', self.acceptInvite);
-        //self.divinvites.on('click', 'button.rejectbutton', self.rejectInvite);
+        
+		self.ulgroeps.on('click', 'li.contact', self.toggle_contact_options);
     },
 
     createRow : function(context){
@@ -48,6 +48,14 @@ var jscontacts = {
     getTemplates: function(){
         jscontacts.template = Handlebars.compile( $('#contactsTemplate').html() );
     },
+	
+	toggle_contact_options : function() {
+		var self = jscontacts,
+			$this = $(this),
+			id = $this.parents('li.contact').attr('id');
+
+		$('#pop-contact-options-' + id).fadeToggle('fast');
+	},
 }
 
 // onError: Failed to get the contacts
