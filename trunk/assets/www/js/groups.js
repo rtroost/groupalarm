@@ -80,11 +80,27 @@ var jsgroups = {
 						min : msg[item].events[item2].min,
 					};
 				}
+				//ge.fullname, ge.nickname, ge.mobile, ge.backup_mobile, ge.email, ge.imei
+				objMember[msg[item].idgebruiker] = ({status : msg[item].status, fullname : msg[item].fullname, nickname : msg[item].nickname, mobile : msg[item].mobile, backup_mobile : msg[item].backup_mobile, email : msg[item].email, imei : msg[item].imei, events : objMember2});
 				
-				objMember[msg[item].idgebruiker] = ({status : msg[item].status, events : objMember2});
+				self.createRowMember({
+					leader : (msg[item].idgebruiker == window.idgebruiker) ? true : false,
+					idgebruiker: msg[item].idgebruiker,
+					events: msg[item].events,
+					status: msg[item].status,
+					fullname : msg[item].fullname,
+					nickname : msg[item].nickname,
+					mobile : msg[item].mobile,
+					backup_mobile : msg[item].backup_mobile,
+					email : msg[item].email,
+					imei : msg[item].imei
+				}, groepid);
+				
 			}
 			
 			self.groeps[groepid].members = objMember;
+			
+			
 			
 		}, function(msg) {
 			console.log('kan geen verbinding maken');
@@ -109,9 +125,16 @@ var jsgroups = {
 		console.log(context);
 		jsgroups.groupsElements.append( jsgroups.template(context) );
 	},
+	
+	createRowMember : function(context, id){
+		console.log(context);
+		console.log(jsgroups.groupsElements.find('li#'+id));
+		jsgroups.groupsElements.find('li#'+id).find('ul.group-members-large').prepend(jsgroups.templateMember(context));
+	},
 
 	getTemplates: function(){
 		jsgroups.template = Handlebars.compile( $('#groupsTemplate').html() );		
+		jsgroups.templateMember = Handlebars.compile( $('#groepsMembersTemplate').html() );		
 	},
 }
 
