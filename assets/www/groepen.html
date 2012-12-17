@@ -170,6 +170,7 @@
 				<span data-icon="P" aria-hidden="true" class="icon"></span>
 				<div class="showTime">							
 					<span class="time">{{hour}}:{{min}}</span><span class="smallTime"></span>
+					<span class="title" style="font-weight: bold; font-size: 14px; display:block; margin-top: -4px; margin-bottom:4px;">{{title}}</span>
 					<ul class="showDates">
 						{{frepDays2 repDay}}
 					</ul>
@@ -203,6 +204,7 @@
 						<span data-icon="P" aria-hidden="true" class="icon"></span>
 						<div class="showTime">
 							<span class="time">{{hour}}:{{min}}</span><span class="smallTime">({{phour}}:{{pmin}})</span>
+							<span class="title" style="font-weight: bold; font-size: 14px; display:block; margin-top: -4px; margin-bottom:4px;">{{title}}</span>
 							<ul class="showDates">
 								{{frepDays2 repDay}}
 							</ul>
@@ -220,12 +222,12 @@
 	
 	
 	<script id="groepsMembersTemplate" type="text/x-handlebars-template">
-		<li id="{{idgebruiker}}">
+		<li id="{{idgebruiker}}" class="members">
 			<div class="inner-content-wrapper">
 				<img src="http://placehold.it/50x50" class="picture" />
 				<div class="meta-data">
-					<span class="name">{{#if leader}}<span data-icon="R" aria-hidden="true"></span>{{/if}} {{fullname}}</span>
-					<span class="status">Next alarm set on <strong>13:37</strong> for <strong>Event title</strong></span>
+					<span class="name">{{placeStar groepInfo}} {{fullname}}</span>
+					<span class="status">His/Her alarm set on <strong class="memberEventAlarm">13:37</strong> is <strong class="memberEventActive"></strong> for <strong class="memberEventTitle">Event title</strong></span>
 				</div>
 				<div class="options">
 					<a href="profile.html?id={{idgebruiker}}"><span data-icon="U" aria-hidden="true"></span></a>

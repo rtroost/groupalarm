@@ -210,6 +210,10 @@ var jsgroepalarm = {
 				description: ''
 			};
 			jsgroepalarm.createRow({id: msg, hour: hour, min: min, set: false, repDay: [1, 0, 0, 0, 0, 0, 0, 0], leader: leader, title : '', description : ''}, groepid);
+			
+			self.ulgroeps.find('li#'+msg+'.alarm').find('span.smallTime').text('(00:00)');
+			self.ulgroeps.find('li#'+msg+'.alarm').find('span.title').text('No Title');
+			
 		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
@@ -758,6 +762,8 @@ var jsgroepalarm = {
 			
 			self.alarms[id].title = title;
 			self.alarms[id].description = description;
+			
+			$this.parents('li.alarm').children('div.inner-content-wrapper').find('span.title').text(title);
 			
 			window.ajax.add({
 				url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
