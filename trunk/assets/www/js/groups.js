@@ -25,6 +25,10 @@ var jsgroups = {
 	
 	    return true;
 	},
+	
+	padfield : function(f) {
+		return (f < 10) ? "0" + f : f;
+	},
 
 	getAll : function(){
 		window.ajax.add({
@@ -308,6 +312,12 @@ var jsgroups = {
 			
 			console.log('currID' + currID);
 			
+			var newdate= new Date(currTimeStamp);
+			console.log(newdate);
+			
+
+			self.changeFirstAlarmDisplay(groepid, newdate);
+			
 			self.groeps[groepid].eerstvolgende = currID;
 			
 			// pak de event op die ingesteld staat en pak het id
@@ -315,6 +325,21 @@ var jsgroups = {
 			
 			
 		}
+	},
+	
+	changeFirstAlarmDisplay : function(groepid, a){
+		var self = jsgroups;
+		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+		var weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+		
+		console.log('Maand = ' + months[a.getMonth()]);
+		console.log('Maand = ' + a.getDate());
+		console.log('Maand = ' + weekday[a.getDay()]);
+		
+		
+		var alarmDiv = self.groupsElements.children('li#'+groepid).find('div.group-alarm-first-up');
+		alarmDiv.children('span.date').text(weekday[a.getDay()] + ' ' + a.getDate()  + ' ' + months[a.getMonth()]);
+		alarmDiv.children('span.time').text(self.padfield(a.getHours()) + ':' + self.padfield(a.getMinutes()));
 	},
 
 	bindEvents: function(){
