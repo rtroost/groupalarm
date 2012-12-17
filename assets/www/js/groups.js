@@ -130,7 +130,7 @@ var jsgroups = {
 		// als ze bijde niet klaar zijn return;
 		
 		if(self.is_empty(self.groeps) || self.is_empty(window.jsgroepalarm.alarms)){
-			setTimeout(self.eerstvolgendeEvent, 1000);
+			setTimeout(self.eerstvolgendeEvent, 100);
 			return;
 		}
 		
