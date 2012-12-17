@@ -1,7 +1,9 @@
 var jsgroups = {
 
 	init : function() {
-		this.groups = $('#groups');
+		this.groupsElements = $('#groups');
+		
+		this.groeps = {};
 
 		this.getAll();
 		this.getTemplates();
@@ -23,6 +25,12 @@ var jsgroups = {
 			var self = jsgroups;
 			window.groepids = [];
 			for(var item in msg){
+				
+				self.groeps[msg[item].idgroep] = {
+					leader : msg[item].idgebruiker,
+					groupname : msg[item].naam,
+				};
+				
 				window.groepids.push(msg[item].idgroep);
 				if(msg[item].idgebruiker == window.idgebruiker){
 					var obj = {
@@ -37,6 +45,7 @@ var jsgroups = {
 						leader : false
 					}
 				}
+				self.getGroepMembers(msg[item].idgroep);
 				self.createRow(obj)
 			}
 			
@@ -46,16 +55,51 @@ var jsgroups = {
 			console.log('kan geen verbinding maken');
 		});
 	},
+	
+	getGroepMembers : function(groepid){
+		window.ajax.add({
+			url : 'http://www.remcovdk.com/groupalarm/groups.php',
+			type : 'POST',
+			data : {
+				action : 'getGroepMembers',
+				idgroep : groepid,
+				imei : window.imei
+			},
+			dataType : 'json',
+	
+		}, function(msg) {
+			var self = jsgroups;
+			var objMember = {};
+			
+			for(var item in msg){
+				var objMember2 = {};
+				for(var item2 in msg[item].events){
+					objMember2[msg[item].events[item2].idevents] = {
+						active : msg[item].events[item2].active,
+						hour : msg[item].events[item2].hour,
+						min : msg[item].events[item2].min,
+					};
+				}
+				
+				objMember[msg[item].idgebruiker] = ({status : msg[item].status, events : objMember2});
+			}
+			
+			self.groeps[groepid].members = objMember;
+			
+		}, function(msg) {
+			console.log('kan geen verbinding maken');
+		});
+	},
 
 	bindEvents: function(){
 		var self = jsgroups;
-		self.groups.on('click', 'ul.buttons li', function(){
+		self.groupsElements.on('click', 'ul.buttons li', function(){
 			$this = $(this);
 			console.log('click');
 			if($this.children('span').data('icon') == 'U'){
-				$this.parents('div.visible').siblings('div.members').slideToggle();
+				$this.parents('div.inner-content-wrapper').siblings('div.members').slideToggle();
 			} else {
-				$this.parents('div.visible').siblings('div.group-alarms').slideToggle();
+				$this.parents('div.inner-content-wrapper').siblings('div.group-alarms').slideToggle();
 			}
 		});
 
@@ -63,7 +107,7 @@ var jsgroups = {
 
 	createRow : function(context){
 		console.log(context);
-		jsgroups.groups.append( jsgroups.template(context) );
+		jsgroups.groupsElements.append( jsgroups.template(context) );
 	},
 
 	getTemplates: function(){
