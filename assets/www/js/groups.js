@@ -376,6 +376,13 @@ var jsgroups = {
 			
 		$('#pop-new-group').fadeToggle('fast');
 	},
+	
+	pop_tgl_select_members : function() {
+		var self = jsgroups,
+			$this = $(this);
+			
+		$('#pop_select_members').fadeToggle('fast');
+	},
 }
 
 //Start this shit
