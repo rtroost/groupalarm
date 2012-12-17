@@ -21,7 +21,7 @@ var jsprofile = {
 			type : 'POST',
 			data : {
 				action : 'getbasis',
-				idgebruiker : idgebruiker[1]
+				profileid : idgebruiker[1]
 			},
 			dataType : 'json',
 	
