@@ -838,6 +838,7 @@ div.info.finished {
 	color: #111;
 	display: inline-block;
 	border: 1px solid #a1c6de;
+	margin-bottom: 5px;
 }
 
 .popoutElement input[type='text'] {
