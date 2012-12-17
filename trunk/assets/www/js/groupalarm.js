@@ -578,13 +578,13 @@ var jsgroepalarm = {
 				self.ulgroeps.find('li#'+idevents+'.alarm').removeClass('active').addClass('inactive');
 				self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').children('span').attr('data-icon', '-');
 			}
-			self.ulgroeps.find('li#'+idevents+'.alarm').find('span.wakeuppreptime').text(msg[0].hour + ':' + msg[0].min);
-			self.ulgroeps.find('li#'+idevents+'.alarm').find('span.wakeuptime').text(msg[0].hour + ':' + msg[0].min);
+			//self.ulgroeps.find('li#'+idevents+'.alarm').find('span.wakeuppreptime').text(msg[0].hour + ':' + msg[0].min);
+			self.ulgroeps.find('li#'+idevents+'.alarm').find('span.smallTime').text('(' + self.padfield(msg[0].hour) + ':' + self.padfield(msg[0].min) + ')');
 			
 			var palarm = self.ulgroeps.find('li#'+idevents+'.alarm').find('div.palarm');
 			//console.log(palarm.find('select#hour'));
-			palarm.find('select#hour').val(self.alarms[idevents].phour);
-			palarm.find('select#min').val(self.alarms[idevents].pmin);
+			palarm.find('select#hour').val(self.padfield(self.alarms[idevents].phour));
+			palarm.find('select#min').val(self.padfield(self.alarms[idevents].pmin));
 			
 			
 			//self.displayTimePrep(idevents, msg[0].preptime);
@@ -680,9 +680,9 @@ var jsgroepalarm = {
 			self.alarms[id].phour = (+hour)+'';
 			self.alarms[id].pmin = (+min)+'';
 			
-			self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuppreptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
-			self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
-			
+			//self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuppreptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
+			//self.ulgroeps.find('li#'+id+'.alarm').find('span.wakeuptime').text(self.alarms[id].phour + ':' + self.alarms[id].pmin);
+			self.ulgroeps.find('li#'+id+'.alarm').find('span.smallTime').text('(' + self.padfield(self.alarms[id].phour) + ':' + self.padfield(self.alarms[id].pmin) + ')');
 			
 			// ajax
 			window.ajax.add({
