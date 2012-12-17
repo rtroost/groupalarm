@@ -16,22 +16,27 @@
 			<ul class="blocks contacts" id="contacts">
 				<script id="contactsTemplate" type="text/x-handlebars-template">
 					<li id="{{id}}" class="contact">
-						<div class="inner-content-wrapper">
-							{{#if hasApp}}
-								<a style="text-decoration:none" href="profile.html?id={{idgebruiker}}">
-									<img src="http://placehold.it/50x50" class="picture" />
-									<span class="name">{{naam}}</span>
-									<span class="phone">{{tel}}</span>
-									<span class="hasApp yes"><span data-icon="." aria-hidden="true"></span><span>
-								</a>
-							{{else}}
-								<a style="text-decoration:none" href="sms:{{tel}}?body=Check out Groupalarm for Android! Download it today from http://code.google.com/p/groupalarm/">
-									<img src="http://placehold.it/50x50" class="picture" />
-									<span class="name">{{naam}}</span>
-									<span class="phone">{{tel}}</span>
-									<span class="hasApp no"><span data-icon="." aria-hidden="true"></span></span>
-								</a>
-							{{/if}}
+						<div class="popoutElement" id="pop-contact-options-{{id}}">
+							<h1>Options</h1>
+							<div class="content">
+								<a class="btn" onclick="">Call {{naam}}</a>
+								{{#if hasApp}}
+								<a class="btn">Invite to eventgroup</a>
+								{{else}}
+								<a class="btn" href="sms:{{tel}}?body=Check out Groupalarm for Android! Download it today from http://code.google.com/p/groupalarm/">Invite to GroupAlarm via SMS</a>
+								{{/if}}
+							</div>
+							<div class="lower">
+								<a>Close</a>
+							</div>
+						</div>
+						<div class="inner-content-wrapper">							
+							<a style="text-decoration:none" >
+								<img src="http://placehold.it/50x50" class="picture" />
+								<span class="name">{{naam}}</span>
+								<span class="phone">{{tel}}</span>
+								<span class="hasApp {{#if hasApp}}yes{{else}}no{{/if}}"><span data-icon="." aria-hidden="true"></span></span>
+							</a>							
 						</div>
 					</li>
 				</script>
