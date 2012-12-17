@@ -175,7 +175,7 @@ h3 { font-size: 1.2em; }
 }
 
 .main-container{
-	padding: 50px 0;
+	padding: 55px 0 50px 0;
 }
 
 /** END OF BASIC STYLING */
@@ -306,10 +306,8 @@ ul.blocks > li {
 	display:block;
 	border: 1px solid #c7ddeb;
 	padding: 5px 5px 5px 10px; 
-	background: #e0ecf4;
-	
-	
-	margin: 10px 0;
+	background: #e0ecf4;	
+	margin: 5px 0 0 0;
 	/*box-shadow:  0px 0px 3px 0px rgba(0, 0, 0, 0.5);*/
 	border-radius: 2px;
 }
@@ -589,6 +587,7 @@ ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1
 	background: #C7DDEB;
 	border: 1px solid #AECEE2;
 	border-radius: 1px;
+	margin-right: 2px;
 }
 
 .alarms .alarm .save {
@@ -629,30 +628,31 @@ div.info.finished {
 }
 
 .alarms .alarm ul.days {
-	font-size: 10px;
+	font-size: 12px;
 	display: block;
 	margin-top: 10px;
 	width: 100%;
 }
 
 .alarms .alarm ul.days li {
-	box-shadow:  0px 0px 2px 0px rgba(0, 0, 0, 0.5);
-	padding: 5px;
-	width: 50px;
-	margin: 0 4% 5px 0;
+	border: 1px solid rgba(0,0,0,0.15);
+	padding: 5px 15px 5px 10px;
+	width: 60px;
+	margin: 0 2px 2px 2px;
 	display: inline-block;
 	position: relative;
 	   -moz-box-sizing:border-box; /* Firefox */
 	-webkit-box-sizing:border-box; /* Safari */
 			box-sizing:border-box;
 	text-align: left;
-
+	font-weight: 600;
 }
 
 .alarms .alarm ul.days li > span {
 	position: absolute;
 	right: 5px;
 	top: 20%;
+	font-weight: 400;
 }
 
 .alarms .alarm ul.buttons {
@@ -807,6 +807,8 @@ div.info.finished {
 .popoutElement .content {
 	padding: 14px 5px;;
 	display: block;
+	max-height: 300px;
+	overflow-y: auto;
 }
 
 .popoutElement .lower {
