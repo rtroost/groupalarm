@@ -16,21 +16,23 @@
 			<ul class="blocks contacts" id="contacts">
 				<script id="contactsTemplate" type="text/x-handlebars-template">
 					<li id="{{id}}" class="contact">
-						{{#if hasApp}}
-							<a style="text-decoration:none" href="profile.html?id={{idgebruiker}}">
-								<img src="http://placehold.it/50x50" class="picture" />
-								<span class="name">{{naam}}</span>
-								<span class="phone">{{tel}}</span>
-								<span class="hasApp yes"><span data-icon="." aria-hidden="true"></span><span>
-							</a>
-						{{else}}
-							<a style="text-decoration:none" href="sms:{{tel}}?body=Check out Groupalarm for Android! Download it today from http://code.google.com/p/groupalarm/">
-								<img src="http://placehold.it/50x50" class="picture" />
-								<span class="name">{{naam}}</span>
-								<span class="phone">{{tel}}</span>
-								<span class="hasApp no"><span data-icon="." aria-hidden="true"></span></span>
-							</a>
-						{{/if}}
+						<div class="inner-content-wrapper">
+							{{#if hasApp}}
+								<a style="text-decoration:none" href="profile.html?id={{idgebruiker}}">
+									<img src="http://placehold.it/50x50" class="picture" />
+									<span class="name">{{naam}}</span>
+									<span class="phone">{{tel}}</span>
+									<span class="hasApp yes"><span data-icon="." aria-hidden="true"></span><span>
+								</a>
+							{{else}}
+								<a style="text-decoration:none" href="sms:{{tel}}?body=Check out Groupalarm for Android! Download it today from http://code.google.com/p/groupalarm/">
+									<img src="http://placehold.it/50x50" class="picture" />
+									<span class="name">{{naam}}</span>
+									<span class="phone">{{tel}}</span>
+									<span class="hasApp no"><span data-icon="." aria-hidden="true"></span></span>
+								</a>
+							{{/if}}
+						</div>
 					</li>
 				</script>
 			</ul>
