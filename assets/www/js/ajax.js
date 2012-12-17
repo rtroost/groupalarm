@@ -33,7 +33,7 @@ window.ajax = {
 		var self = window.ajax;
 		if(string == 'done'){
 			for(var item in self.ajaxStack){
-				console.log(item);
+				//console.log(item);
 				self.activate(item);
 			}
 			return;
@@ -47,7 +47,7 @@ window.ajax = {
 		if(self.ajaxStack[id].busy){
 			return;
 		}
-		console.log(self.ajaxStack[id]);
+		//console.log(self.ajaxStack[id]);
 		self.ajaxStack[id].busy = true;
 		
 		$.ajax(

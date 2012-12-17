@@ -8,6 +8,22 @@ var jsgroups = {
 		this.getAll();
 		this.getTemplates();
 		this.bindEvents();
+		this.eerstvolgendeEvent();
+	},
+	
+	is_empty : function(obj) {
+		
+		if(obj == undefined) return true;
+	    // Assume if it has a length property with a non-zero value
+	    // that that property is correct.
+	    if (obj.length && obj.length > 0)    return false;
+	    if (obj.length && obj.length === 0)  return true;
+	
+	    for (var key in obj) {
+	        if (hasOwnProperty.call(obj, key))    return false;
+	    }
+	
+	    return true;
 	},
 
 	getAll : function(){
@@ -46,9 +62,9 @@ var jsgroups = {
 					}
 				}
 				self.getGroepMembers(msg[item].idgroep);
-				self.createRow(obj)
+				self.createRow(obj);
 			}
-			
+
 			jsgroepalarm.init();
 			
 		}, function(msg) {
@@ -100,18 +116,211 @@ var jsgroups = {
 			
 			self.groeps[groepid].members = objMember;
 			
-			
-			
 		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
+	},
+	
+	eerstvolgendeEvent : function(groepid){
+		var self = jsgroups;
+		// als ze bijde niet klaar zijn return;
+		
+		if(self.is_empty(self.groeps) || self.is_empty(window.jsgroepalarm.alarms)){
+			setTimeout(self.eerstvolgendeEvent, 1000);
+			return;
+		}
+		
+		console.log(self.groeps);
+		
+		var events = window.jsgroepalarm.alarms;
+		
+		//var currFirstEvent = 0;
+		//var currHour = 24;
+		//var currMin = 60;
+		
+		var date = new Date();
+		var nowTimeStamp = date.getTime();
+		console.log('nowTimeStamp ' + nowTimeStamp);
+		var nowday = date.getDay();
+		if(nowday == 0){ nowday = 7; }
+		var nowhour = date.getHours();
+		var nowmin = date.getMinutes();
+					
+		
+		for(var groepid in self.groeps){
+			console.log('groepid' + groepid);
+			console.log(events);
+			
+			var currTimeStamp = 999999999999999;
+			var currID = 0;
+			
+			//var currFirstEvent = 0;
+			//var currHour = 24;
+			//var currMin = 60;
+			
+			
+			for(var item in events){
+				if(events[item].groepid == groepid && events[item].set){
+					console.log(events[item]);
+					
+					if(events[item].repDay[0] != 1){
+						// wel repeat
+						//console.log('welrepeat');
+						
+						for (var i=1; i < events[item].repDay.length; i++) {
+							if(events[item].repDay[i] == 1){
+							
+								if(i < nowday){
+									
+									var aantalDagen = i - nowday;
+									
+									if(nowhour > events[item].hour || (nowmin >= events[item].min && events[item].hour <= nowhour )){
+										var d = new Date(); d.setHours(events[item].hour); d.setMinutes(events[item].min);
+										d.setDate(new Date().getDate()+1+aantalDagen);
+										var dTimeStamp = d.getTime();
+										
+										if(dTimeStamp < currTimeStamp){
+											currTimeStamp = dTimeStamp;
+											currID = item;
+							    		}
+							    		//console.log('hier1 ' + item);
+							    		continue;
+							    	}
+									
+									if(!(nowhour > events[item].hour) || !(nowmin >= events[item].min && events[item].hour <= nowhour )) {
+										var d = new Date(); d.setHours(events[item].hour); d.setMinutes(events[item].min);
+										d.setDate(new Date().getDate()+aantalDagen);
+										var dTimeStamp = d.getTime();
+										
+										if(dTimeStamp < currTimeStamp){
+											currTimeStamp = dTimeStamp;
+											currID = item;
+							    		}
+							    		//console.log('hier2 ' + item);
+							    		continue;
+							    	}
+								}
+								
+								if(i > nowday){
+									
+									var aantalDagen = (i+7) - nowday;
+									
+									
+									if(nowhour > events[item].hour || (nowmin >= events[item].min && events[item].hour <= nowhour )){
+										var d = new Date(); d.setHours(events[item].hour); d.setMinutes(events[item].min);
+										d.setDate(new Date().getDate()+1+aantalDagen);
+										var dTimeStamp = d.getTime();
+										
+										if(dTimeStamp < currTimeStamp){
+											currTimeStamp = dTimeStamp;
+											currID = item;
+							    		}
+							    		//console.log('hier3 ' + item);
+							    		continue;
+							    	}
+									
+									if(!(nowhour > events[item].hour) || !(nowmin >= events[item].min && events[item].hour <= nowhour )) {
+										var d = new Date(); d.setHours(events[item].hour); d.setMinutes(events[item].min);
+										d.setDate(new Date().getDate()+aantalDagen);
+										var dTimeStamp = d.getTime();
+										
+										if(dTimeStamp < currTimeStamp){
+											currTimeStamp = dTimeStamp;
+											currID = item;
+							    		}
+							    		//console.log('hier4 ' + item);
+							    		continue;
+							    	}
+								}							
+								
+								if(i = nowday){
+									if(nowhour > events[item].hour || (nowmin >= events[item].min && events[item].hour <= nowhour )){
+										var d = new Date(); d.setHours(events[item].hour); d.setMinutes(events[item].min);
+										d.setDate(new Date().getDate()+1);
+										var dTimeStamp = d.getTime();
+										
+										if(dTimeStamp < currTimeStamp){
+											currTimeStamp = dTimeStamp;
+											currID = item;
+							    		}
+							    		//console.log('hier5 ' + item);
+							    		continue;
+							    	}
+									
+									if(!(nowhour > events[item].hour) || !(nowmin >= events[item].min && events[item].hour <= nowhour )) {
+										var d = new Date(); d.setHours(events[item].hour); d.setMinutes(events[item].min);
+										var dTimeStamp = d.getTime();
+										
+										if(dTimeStamp < currTimeStamp){
+											currTimeStamp = dTimeStamp;
+											currID = item;
+							    		}
+							    		//console.log('hier6 ' + item);
+							    		continue;
+							    	}
+								}
+							}
+						}
+						
+						continue;
+					}
+					
+					
+					
+				}
+			}
+
+			for(var item in events){
+				if(events[item].groepid == groepid && events[item].set){
+					if(events[item].repDay[0] == 1){
+						// no-repeat !!!
+						//console.log('norepeat');
+						
+						if(nowhour > events[item].hour || (nowmin >= events[item].min && events[item].hour <= nowhour )){
+							var d = new Date(); d.setHours(events[item].hour); d.setMinutes(events[item].min);
+							d.setDate(new Date().getDate()+1);
+							var dTimeStamp = d.getTime();
+							
+							if(dTimeStamp < currTimeStamp){
+								currTimeStamp = dTimeStamp;
+								currID = item;
+				    		}
+				    		continue;
+				    	}
+						
+						if(!(nowhour > events[item].hour) || !(nowmin >= events[item].min && events[item].hour <= nowhour )) {
+							var d = new Date(); d.setHours(events[item].hour); d.setMinutes(events[item].min);
+							var dTimeStamp = d.getTime();
+							
+							if(dTimeStamp < currTimeStamp){
+								currTimeStamp = dTimeStamp;
+								currID = item;
+				    		}
+				    		continue;
+				    	}
+					}
+				}
+			}
+			
+			
+			console.log('currTimeStamp' + currTimeStamp);
+			// die de dag en maand  CONVERT
+			
+			console.log('currID' + currID);
+			
+			self.groeps[groepid].eerstvolgende = currID;
+			
+			// pak de event op die ingesteld staat en pak het id
+			
+			
+			
+		}
 	},
 
 	bindEvents: function(){
 		var self = jsgroups;
 		self.groupsElements.on('click', 'ul.buttons li', function(){
 			$this = $(this);
-			console.log('click');
 			if($this.children('span').data('icon') == 'U'){
 				$this.parents('div.inner-content-wrapper').siblings('div.members').slideToggle();
 			} else {
@@ -122,13 +331,12 @@ var jsgroups = {
 	},
 
 	createRow : function(context){
-		console.log(context);
+		//console.log(context);
 		jsgroups.groupsElements.append( jsgroups.template(context) );
 	},
 	
 	createRowMember : function(context, id){
-		console.log(context);
-		console.log(jsgroups.groupsElements.find('li#'+id));
+		//console.log(context);
 		jsgroups.groupsElements.find('li#'+id).find('ul.group-members-large').prepend(jsgroups.templateMember(context));
 	},
 
