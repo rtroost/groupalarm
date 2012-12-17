@@ -71,17 +71,9 @@ var jspi = {
 		jspi.template = Handlebars.compile( $('#profielinstellingenTemplate').html() );
 	},
 	
-	pop_profile_pic_open : function(){
+	pop_tgl_profilePic_edit : function(){
 		// Open the popup window, load stuff
-		$('#profilePictureOptions').fadeIn('fast');
-	},
-	
-	pop_profile_pic_close : function() {
-		// Close the popup window without saving
-	},
-	
-	pop_profile_pic_accept : function() {
-		// Close the popup window with saving
+		$('#profilePictureOptions').fadeToggle('fast');
 	},
 }
 
