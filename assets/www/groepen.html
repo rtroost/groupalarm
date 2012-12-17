@@ -228,9 +228,11 @@
 					<span class="status">[STATUS]</span>
 				</div>
 				<div class="options">
-					<a><span data-icon="U" aria-hidden="true"></span></a>
-					<a><span data-icon="R" aria-hidden="true"></span></a>
-					<a><span data-icon="'" aria-hidden="true"></span></a>
+					<a href="profile.html?id={{idgebruiker}}"><span data-icon="U" aria-hidden="true"></span></a>
+					{{#if groepLeader}}
+						<a><span class="giveLeader" data-icon="R" aria-hidden="true"></span></a>
+						<a><span data-icon="'" aria-hidden="true"></span></a>
+					{{/if}}
 				</div>
 			</div>
 		</li>

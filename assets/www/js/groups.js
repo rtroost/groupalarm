@@ -105,6 +105,7 @@ var jsgroups = {
 				
 				self.createRowMember({
 					leader : (msg[item].idgebruiker == window.idgebruiker) ? true : false,
+					groepLeader : (window.idgebruiker == self.groeps[groepid].leader) ? true : false,
 					idgebruiker: msg[item].idgebruiker,
 					events: msg[item].events,
 					status: msg[item].status,
