@@ -77,6 +77,7 @@ var jsalarm = {
 			for (var i = 0; i < 24; i++) {
 				if((+hour) == i){
 					html += '<option value="' + self.padfield(i) + '" selected="selected">' + self.padfield(i) + '</option>';
+					continue;
 				}
 				html += '<option value="' + self.padfield(i) + '">' + self.padfield(i) + '</option>';
 			}
@@ -88,6 +89,7 @@ var jsalarm = {
 			for (var i = 0; i < 60; i++) {
 				if((+min) == i){
 					html += '<option value="' + self.padfield(i) + '" selected="selected">' + self.padfield(i) + '</option>';
+					continue;
 				}
 				html += '<option value="' + self.padfield(i) + '">' + self.padfield(i) + '</option>';
 			}
