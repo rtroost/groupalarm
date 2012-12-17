@@ -6,6 +6,18 @@
 	<link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+	<div class="popoutElement" id="pop-new-group">
+        <h1>Create a new group</h1>
+        <div class="content">
+            <h2>The name for this group</h2>
+            <input type="text" class="title" />
+            <a class="btn">Invite members</a>
+        </div>
+        <div class="lower">
+            <a onClick="jsgroups.pop_tgl_newGroup();"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
+            <a class="myalarmsubmit"><span data-icon="/" aria-hidden="true"></span> Accept</a>
+        </div>
+    </div>
 	<div class="header-container">
 		<header class="clearfix">
 			<h1 class="title">Groups</h1>
@@ -45,37 +57,18 @@
 							<span data-icon="P" aria-hidden="true" class="icon"></span>
 							<span class="date">Mon 13 jan</span><span class="time">13:37</span>
 						</div>
-						<!--<div class="group-pictures">
-							<ul class="group-pictures-list">
-								<li>
-									<img src="http://placehold.it/35x35" />
-									<span data-icon="/" aria-hidden="true" class="picture-status awake"></span>
-									<span data-icon="R" aria-hidden="true" class="leader"></span>
-								</li>
-								<li>
-									<img src="http://placehold.it/35x35" />
-									<span data-icon="/" aria-hidden="true" class="picture-status awake"></span>
-								</li>
-								<li>
-									<img src="http://placehold.it/35x35" />
-									<span data-icon="W" aria-hidden="true" class="picture-status snooze"></span>
-								</li>
-								<li>
-									<img src="http://placehold.it/35x35" />
-									<span data-icon="P" aria-hidden="true" class="picture-status delay"></span>
-								</li>
-								<li><img src="http://placehold.it/35x35" /></li>
-							</ul>
-						</div>-->
 						<ul class="buttons">
 							<li><span data-icon="U" aria-hidden="true"></span></li>
 							<li><span data-icon="P" aria-hidden="true"></span></li>
+							{{#if leader}}
+							<li><span data-icon="+" aria-hidden="true"></span></li>
+							{{/if}}
 						</ul>
 					</div>
 					<div class="members" style="display: none;">
-						<ul class="group-members-large">
-
-						</ul>
+						<ul class="blocks group-members-large">
+							
+						</ul>						
 					</div>
 					<div class="group-alarms" style="display: none;">
 						<h2>Alarms</h2>
@@ -89,15 +82,10 @@
 					</div>
 				</li>
 				</script> <!--/END OF GROEPSTEMPLATE -->
-				<li class="new-group">
-					<div class="visible">
-						<h1><span data-icon="+" aria-hidden="true"></span>
-							<a href="newgroup.html">
-								New Group
-							</a>
-						</h1>
+				<li class="new-group" onClick="jsgroups.pop_tgl_newGroup();">                    
+					<div class="inner-content-wrapper">
+						<h1><span data-icon="+" aria-hidden="true"></span> New Group</h1>
 					</div>
-					<div class="hidden"></div>
 				</li>
 			</ul>			
 		</div> <!-- #main -->
@@ -217,19 +205,17 @@
 	
 	<script id="groepsMembersTemplate" type="text/x-handlebars-template">
 		<li id="{{idgebruiker}}">
-			<div class="visible">
+			<div class="inner-content-wrapper">
 				<img src="http://placehold.it/50x50" class="picture" />
 				<div class="meta-data">
 					<span class="name">{{fullname}}</span>
-					<span class="status">Sleeping as usual</span>
+					<span class="status">[STATUS]</span>
 				</div>
-			</div>
-			<div class="hidden">
-				<ul class="actions">
-					<li><span data-icon="U" aria-hidden="true"></span></li>	
-					<li><span data-icon="R" aria-hidden="true"></span></li>
-					<li><span data-icon="'" aria-hidden="true"></span></li>						
-				</ul>
+				<div class="options">
+					<a><span data-icon="U" aria-hidden="true"></span></a>
+					<a><span data-icon="R" aria-hidden="true"></span></a>
+					<a><span data-icon="'" aria-hidden="true"></span></a>
+				</div>
 			</div>
 		</li>
 	</script>

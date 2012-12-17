@@ -136,6 +136,13 @@ var jsgroups = {
 		jsgroups.template = Handlebars.compile( $('#groupsTemplate').html() );		
 		jsgroups.templateMember = Handlebars.compile( $('#groepsMembersTemplate').html() );		
 	},
+	
+	pop_tgl_newGroup : function() {
+		var self = jsgroups,
+			$this = $(this);
+			
+		$('#pop-new-group').fadeToggle('fast');
+	},
 }
 
 //Start this shit
