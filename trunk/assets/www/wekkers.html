@@ -40,18 +40,19 @@
 					</div>
 					<div class="innerAlarm" style="position:relative;">
 						<span data-icon="P" aria-hidden="true" class="icon"></span>
+						<div class="rightSide">
+							<div class="options">
+								<a class="delete-alarm"><span data-icon="'" aria-hidden="true"></span></a>
+								<a class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
+								<a class="set-alarm"><span data-icon="{{#if set}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>
+							</div>
+						</div>
 						<div class="showTime">							
 							<span class="time">{{hour}}:{{min}}</span>
 							<ul class="showDates">
 								{{frepDays2 repDay}}
 							</ul>
-						</div>
-						
-						<div class="options">
-							<a class="delete-alarm"><span data-icon="'" aria-hidden="true"></span></a>
-							<a class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
-							<a class="set-alarm"><span data-icon="{{#if set}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>
-						</div>
+						</div>						
 					</div>
 				</li>
 				</script>

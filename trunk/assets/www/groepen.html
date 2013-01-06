@@ -64,20 +64,23 @@
 				{{else}}
 					<li id="{{id}}" class="member">
 				{{/if}}
-					<div class="inner-content-wrapper">						
+					<div class="inner-content-wrapper clearfix">						
 						<img src="http://placehold.it/75x75" class="group-image" />
-						<div class="group-name">{{#if leader}}<span data-icon="R" aria-hidden="true"> </span>{{/if}}{{groupname}}</div>					
-						<div class="group-alarm-first-up">
-							<span data-icon="P" aria-hidden="true" class="icon"></span>
-							<span class="date"></span><span class="time"></span>
+						<div class="rightSide">
+							<div class="group-alarm-first-up">
+								<span data-icon="P" aria-hidden="true" class="icon"></span>
+								<span class="date"></span><span class="time"></span>
+							</div>	
+							<ul class="buttons">
+								<li><span data-icon="U" aria-hidden="true"></span></li>
+								<li><span data-icon="P" aria-hidden="true"></span></li>
+								{{#if leader}}
+								<li><span data-icon="+" aria-hidden="true"></span></li>
+								{{/if}}
+							</ul>													
 						</div>
-						<ul class="buttons">
-							<li><span data-icon="U" aria-hidden="true"></span></li>
-							<li><span data-icon="P" aria-hidden="true"></span></li>
-							{{#if leader}}
-							<li><span data-icon="+" aria-hidden="true"></span></li>
-							{{/if}}
-						</ul>
+						<div class="group-name">{{#if leader}}<span data-icon="R" aria-hidden="true"> </span>{{/if}}{{groupname}}</div>
+						
 					</div>
 					<div class="members" style="display: none;">
 						<ul class="blocks group-members-large">
@@ -144,11 +147,9 @@
 			<div class="popoutElement alarm_settings" id="pop_alarm_settings-{{id}}">
 				<h1>Alarm options</h1>
 				<div class="content">
-					<h2>When</h2>
 					<div class="new-alarm-block setTime ealarm">
 						<select id="hour">{{setHours hour}}</select> : <select id="min">{{setMins min}}</select>
 					</div>
-					<h2>On which days should this alarm be active?</h2>
 					<ul class="days">
 						{{frepDays repDay}}
 					</ul>									
@@ -156,7 +157,7 @@
 					<input type="text" class="title" value="{{title}}" />
 					<h3>Description</h3>
 					<input type="text" class="description" value="{{description}}" />
-					<h3>When do you personally want to be woken up for this event?</h3>
+					<h3>Personal alarm</h3>
 					<div class="new-alarm-block palarm setTime">
 						<select id="hour">{{setHours hour}}</select> : <select id="min">{{setMins min}}</select>
 					</div>
@@ -175,12 +176,13 @@
 						{{frepDays2 repDay}}
 					</ul>
 				</div>
-				
-				<div class="options">
-					<a class="delete-alarm"><span data-icon="'" aria-hidden="true"></span></a>
-					<a class="set-alarm {{#if set}}active{{else}}inactive{{/if}}"><span data-icon="J" aria-hidden="true"></span></a>
-					<a class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
-					<a class="myAlarmSet"><span data-icon="{{#if pset}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>					
+				<div class="rightSide">					
+					<div class="options">
+						<a class="delete-alarm"><span data-icon="'" aria-hidden="true"></span></a>
+						<a class="set-alarm {{#if set}}active{{else}}inactive{{/if}}"><span data-icon="J" aria-hidden="true"></span></a>
+						<a class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
+						<a class="myAlarmSet"><span data-icon="{{#if pset}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>					
+					</div>
 				</div>
 			</div>
 		</li>
@@ -202,6 +204,12 @@
 					</div>
 					<div class="inner-content-wrapper">
 						<span data-icon="P" aria-hidden="true" class="icon"></span>
+						<div class="rightSide">
+							<div class="options">
+								<a class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
+								<a class="myAlarmSet"><span data-icon="{{#if pset}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>
+							</div>
+						</div>
 						<div class="showTime">
 							<span class="time">{{hour}}:{{min}}</span><span class="smallTime">({{phour}}:{{pmin}})</span>
 							<span class="title" style="font-weight: bold; font-size: 14px; display:block; margin-top: -4px; margin-bottom:4px;">{{title}}</span>
@@ -210,10 +218,6 @@
 							</ul>
 						</div>
 						
-						<div class="options">
-							<a class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
-							<a class="myAlarmSet"><span data-icon="{{#if pset}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>
-						</div>
 					</div>
 				</li>
 			{{/if}}
@@ -222,22 +226,28 @@
 	
 	
 	<script id="groepsMembersTemplate" type="text/x-handlebars-template">
-		<li id="{{idgebruiker}}" class="members">
-			<div class="inner-content-wrapper">
+		<li id="{{idgebruiker}}" class="members clearfix">
+			<div class="inner-content-wrapper clearfix">
 				<a href="profile.html?id={{idgebruiker}}"><img src="http://placehold.it/50x50" class="picture" /></a>
+				<div class="rightSide">
+					<div class="options">
+						<a href="profile.html?id={{idgebruiker}}"><span data-icon="U" aria-hidden="true"></span></a>
+						{{#if groepLeader}}
+							{{#if leader}}
+							{{else}}
+							<a class="giveLeader"><span data-icon="R" aria-hidden="true"></span></a>
+							<a class="removeMember"><span data-icon="'" aria-hidden="true"></span></a>
+							{{/if}}
+						{{/if}}
+					</div>
+					<div class="group-alarm-first-up">
+						<span data-icon="P" aria-hidden="true" class="icon"></span>
+						<span class="date">Title</span><span class="time"></span>
+					</div>
+				</div>
 				<div class="meta-data">
 					<span class="name">{{placeStar groepInfo}} {{fullname}}</span>
-					<span class="status">His/Her alarm set on <strong class="memberEventAlarm">13:37</strong> is <strong class="memberEventActive"></strong> for <strong class="memberEventTitle">Event title</strong></span>
-				</div>
-				<div class="options">
-					<a href="profile.html?id={{idgebruiker}}"><span data-icon="U" aria-hidden="true"></span></a>
-					{{#if groepLeader}}
-						{{#if leader}}
-						{{else}}
-						<a class="giveLeader"><span data-icon="R" aria-hidden="true"></span></a>
-						<a class="removeMember"><span data-icon="'" aria-hidden="true"></span></a>
-						{{/if}}
-					{{/if}}
+					<!--<span class="status">His/Her alarm set on <strong class="memberEventAlarm">13:37</strong> is <strong class="memberEventActive"></strong> for <strong class="memberEventTitle">Event title</strong></span>-->
 				</div>
 			</div>
 		</li>
