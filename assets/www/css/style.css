@@ -305,10 +305,9 @@ nav#footer-nav a {
 ul.blocks > li {
 	display:block;
 	border: 1px solid #c7ddeb;
-	padding: 4px 8px; 
+	padding: 4px; 
 	background: #e0ecf4;	
-	margin: 0 0 5px 0;
-	/*box-shadow:  0px 0px 3px 0px rgba(0, 0, 0, 0.5);*/
+	margin: 5px 0;
 	border-radius: 2px;
 }
 
@@ -321,9 +320,7 @@ ul.blocks > li .inner-content-wrapper {
 }
 
 ul.blocks li .options {
-	position: absolute;
-	right: 0;
-	top: 0;	
+	margin: 0 0 4px 0;
 }
 
 ul.blocks li .options a.inactive {
@@ -337,7 +334,7 @@ ul.blocks li .options a {
 	text-decoration: none;
 	color: #1D3D52;
 	background: #c7ddeb;
-	padding: 5px 10px;	
+	padding: 4px 8px;	
 	border: 1px solid #aecee2;
 	border-radius: 3px;
 }
@@ -359,29 +356,26 @@ li.alarm.inactive { border-right: 5px solid red !important; }
 	font-weight: 800;
 	color: #1d3d52; 
 	letter-spacing: -1px;
-	display: inline-block;
-	vertical-align: top;
-	padding: 2px;
-	border-bottom: 1px solid #bbd6e6;
+	margin: 2px 0 0;
+	display: inline;
 }
 
 .groups .group-image {
-	display: inline-block;
+	float: left;
 	padding: 3px;
 	border: 1px solid #bbd6e6;
 	background: #c7ddeb;
+	margin: 0 10px 0 0;
 }
 
 .groups .buttons {
-	position: absolute;
-	bottom: 3px;
-	left: 90px;
+	display: block;
 }
 
 .groups .buttons > li {
 	background: #C7DDEB;
 	display: inline-block;
-	padding: 6px 8px;
+	padding: 4px 8px;
 	border: 1px solid #BAD5E7;
 	border-radius: 3px;
 	font-size: 20px;
@@ -391,17 +385,20 @@ li.alarm.inactive { border-right: 5px solid red !important; }
 /*		SMALL ALARM	IN GROUP DIV	*/
 /************************************/
 
+.rightSide {
+	float: right;
+}
+
 .groups .group-alarm-first-up {
-	position: absolute;
-	bottom: 3px;
-	right: 0;
+	display: block;
 	padding: 5px 0 5px 8px;
-	border-radius: 3px;
+	border-radius: 2px;
 	border: 1px solid #bad5e7;
 	background: #c7ddeb;
 	font-size: 10px;
 	font-weight: 400;
 	line-height: 11px;
+	margin: 0 0 4px 0;
 }
 .groups .group-alarm-first-up .icon {font-size: 12px; line-height: 0; margin-right: 2px;}
 .groups .group-alarm-first-up .date {}
@@ -452,16 +449,17 @@ ul.group-pictures-list li { position:relative; display:inline-block; margin: 0 1
 /****************************************************/
 
 .groups ul.group-members-large > li .picture {
-	display: inline-block;
+	float: left;
+	display: inline;
 	padding: 2px;
 	border: 1px solid #bbd6e6;
 	background: #c7ddeb;
+	margin: 0 5px 0 0;
 }
 
 .groups ul.group-members-large > li .meta-data {
-	display: inline-block;
+	display: inline;
 	position: relative;
-	vertical-align:top;
 }
 
 .groups ul.group-members-large > li .meta-data .name {
@@ -640,7 +638,7 @@ div.info.finished {
 
 .alarms .alarm ul.days li {
 	border: 1px solid rgba(0,0,0,0.15);
-	padding: 5px 15px 5px 10px;
+	padding: 7px 15px 7px 10px;
 	width: 60px;
 	margin: 0 2px 2px 2px;
 	display: inline-block;
