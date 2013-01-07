@@ -144,7 +144,7 @@ var jsgroepalarm = {
 		console.log('Single alarm set: hour= ' + self.alarms[idevents].phour + ' min= ' + self.alarms[idevents].pmin + ' ========================= nummer : ' + idevents);
 		if(window.main != undefined){
 			console.log("doe je het ??????");
-			window.main.setAlarm(parseInt(idevents), parseInt(self.alarms[idevents].phour), parseInt(self.alarms[idevents].pmin), 'true');
+			window.main.setAlarm(parseInt(idevents), parseInt(self.alarms[idevents].phour), parseInt(self.alarms[idevents].pmin), 'true', window.snoozetime);
 		}
 	},
 	
@@ -154,7 +154,7 @@ var jsgroepalarm = {
 		console.log('REPEAT alarm set : hour= ' + self.alarms[idevents].phour + ' min= ' + self.alarms[idevents].pmin + ' ========================== nummer : ' + idevents);
 		if(window.main != undefined){
 			//console.log(parseInt(hour));
-			window.main.setRepeatAlarm(parseInt(idevents), parseInt(self.alarms[idevents].phour), parseInt(self.alarms[idevents].pmin), repDays.join(), 'true');
+			window.main.setRepeatAlarm(parseInt(idevents), parseInt(self.alarms[idevents].phour), parseInt(self.alarms[idevents].pmin), repDays.join(), 'true', window.snoozetime);
 		}
 	},
 	

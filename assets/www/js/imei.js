@@ -37,6 +37,8 @@ window.imei = 351869050386591; // nummer remco // 3
 				window.location.replace('index.html');
 			} else {
 				window.idgebruiker = temp[1];
+				window.email = temp[2];
+				window.snoozetime = temp[3];
 			}
 		}, function(msg) {
 			console.log('kan geen verbinding maken');

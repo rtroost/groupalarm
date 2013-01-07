@@ -25,7 +25,9 @@
 		<button id="stopalarm">
 			STOPALARM
 		</button>
-		
+		<button id="snoozealarm">
+			SNOOZE
+		</button>
 	</div>
 
 
@@ -40,9 +42,11 @@
 			var id = data.split('/')[0];
 			var days = data.split('/')[1];
 			var groep = data.split('/')[2];
+			var snoozetime = data.split('/')[3];
 			console.log('wekker id = ' + id);
 			console.log('days = ' + days);
 			console.log('groep = ' + groep);
+			console.log('snoozetime = ' + snoozetime);
 			
 		$('h1').text('Wekker id = ' + id);
 		if(groep == 'true'){
@@ -55,21 +59,38 @@
 		$('button#stopalarm').on('click', function(){
 
 			if(days == 'no-repeat'){
-				$.ajax({
-					url : 'http://www.remcovdk.com/groupalarm/alarm.php',
-					type : 'POST',
-					data : {
-						action : 'active',
-						set : 0,
-						idwekker : id,
-						imei : window.imei
-					},
-					dataType : 'json',
-				}).done(function(msg) {
-					
-				}).fail(function(msg) {
-					console.log('kan geen verbinding maken');
-				});
+				if(groep == 'true'){
+					window.ajax.add({
+						url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
+						type : 'POST',
+						data : {
+							action : 'deactivate',
+							idevent : id,
+							imei : window.imei
+						},
+						dataType : 'json',
+					}, function(msg) {
+						
+					}, function(msg) {
+						console.log('kan geen verbinding maken');
+					});
+				} else {
+					window.ajax.add({
+						url : 'http://www.remcovdk.com/groupalarm/alarm.php',
+						type : 'POST',
+						data : {
+							action : 'active',
+							set : 0,
+							idwekker : id,
+							imei : window.imei
+						},
+						dataType : 'json',
+					}, function(msg) {
+						
+					}, function(msg) {
+						console.log('kan geen verbinding maken');
+					});
+				}
 			} else {
 				var repDays = days.split(',');
 			}
@@ -78,6 +99,53 @@
 			window.wekker.stopAlarm();
 			
 		});
+		
+		$('button#snoozealarm').on('click', function(){
+			
+			if(groep == 'true'){ // update status
+				window.ajax.add({
+					url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
+					type : 'POST',
+					data : {
+						action : 'active',
+						set : 0,
+						idwekker : id,
+						imei : window.imei
+					},
+					dataType : 'json',
+				}, function(msg) {
+					
+				}, function(msg) {
+					console.log('kan geen verbinding maken');
+				});
+			}
+			
+			var d = new Date();
+			var hour = parseInt(d.getHours());
+			var min = parseInt(d.getMinutes());
+			
+			console.log('hour' + hour);
+			console.log('min' + min);
+			
+			var newhour = parseInt(hour);
+			var newmin = min+parseInt(snoozetime);
+			console.log('newmin' + newmin);
+			if(newmin > 60){
+				var newhour = hour+1;
+				newmin-=60;
+				console.log('newmin' + newmin);
+				if(newhour > 24){
+					newhour-=24;
+				}
+			} 
+			console.log('newhour' + newhour);
+			console.log('newmin' + newmin);
+			window.wekker.setAlarm(parseInt(id), newhour, newmin, groep, snoozetime);
+			window.wekker.pauzeAlarm();
+			
+		});
+		
+
 		
 		
 	</script>

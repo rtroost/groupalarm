@@ -63,9 +63,10 @@ public class MainActivity extends DroidGap {
     	return telephonyManager.getDeviceId();
     }
     
-    public void setAlarm(int id, String hour, String min, String groep){
+    public void setAlarm(int id, String hour, String min, String groep, String snoozetime){
     	System.out.println("hour" + hour);
     	System.out.println("groep" + groep);
+    	System.out.println("snoozetime" + snoozetime);
     	int inthour = Integer.parseInt(hour);
     	int intmin = Integer.parseInt(min);
     	 
@@ -110,6 +111,7 @@ public class MainActivity extends DroidGap {
     	     this.intentsG.get(id).putExtra("id", id);
     	     this.intentsG.get(id).putExtra("days", "no-repeat");
     	     this.intentsG.get(id).putExtra("groep", true);
+    	     this.intentsG.get(id).putExtra("snoozetime", snoozetime);
     	     this.alarmintentsG.put(id, PendingIntent.getActivity(this, id, this.intentsG.get(id), PendingIntent.FLAG_CANCEL_CURRENT));
     	     this.amG.set(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), this.alarmintentsG.get(id));
     	} else {
@@ -118,16 +120,18 @@ public class MainActivity extends DroidGap {
             this.intents.get(id).putExtra("id", id);
             this.intents.get(id).putExtra("days", "no-repeat");
             this.intents.get(id).putExtra("groep", false);
+            this.intents.get(id).putExtra("snoozetime", snoozetime);
             this.alarmintents.put(id, PendingIntent.getActivity(this, id, this.intents.get(id), PendingIntent.FLAG_CANCEL_CURRENT));
             this.am.set(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), this.alarmintents.get(id));	
     	}
     }
     
-    public void setRepeatAlarm(int id, String hour, String min, String days, String groep){
+    public void setRepeatAlarm(int id, String hour, String min, String days, String groep, String snoozetime){
     	System.out.println("REPEAT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     	int inthour = Integer.parseInt(hour);
     	int intmin = Integer.parseInt(min);
     	System.out.println("groep" + groep);
+    	System.out.println("snoozetime" + snoozetime);
     	String[] repDays = days.split(",");
     	
     	System.out.println("hour" + inthour);
@@ -181,6 +185,7 @@ public class MainActivity extends DroidGap {
     	    		this.intentsG.get(id3).putExtra("id", id3);
     	    		this.intentsG.get(id3).putExtra("days", days);
     	    		this.intentsG.get(id3).putExtra("groep", true);
+    	    		this.intentsG.get(id3).putExtra("snoozetime", snoozetime);
     	    		this.alarmintentsG.put(id3, PendingIntent.getActivity(this, id3, this.intentsG.get(id3), PendingIntent.FLAG_CANCEL_CURRENT));
     	    		this.amG.setRepeating(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), 604800000, this.alarmintentsG.get(id3)); // 1 week = 604800000 // 1 min = 60000
     	    	} else {
@@ -188,6 +193,7 @@ public class MainActivity extends DroidGap {
     	    		this.intents.get(id3).putExtra("id", id3);
     	    		this.intents.get(id3).putExtra("days", days);
     	    		this.intents.get(id3).putExtra("groep", false);
+    	    		this.intents.get(id3).putExtra("snoozetime", snoozetime);
     	    		this.alarmintents.put(id3, PendingIntent.getActivity(this, id3, this.intents.get(id3), PendingIntent.FLAG_CANCEL_CURRENT));
     	    		this.am.setRepeating(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), 604800000, this.alarmintents.get(id3)); // 1 week = 604800000 // 1 min = 60000
     	    	}
