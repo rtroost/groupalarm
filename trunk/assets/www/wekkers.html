@@ -24,11 +24,9 @@
 					<div class="popoutElement alarm_settings" id="pop_alarm_settings-{{id}}">
 						<h1>Alarm options</h1>
 						<div class="content">
-							<h2>When</h2>
 							<div class="setTime">
 								<select id="hour">{{setHours hour}}</select> : <select id="min">{{setMins min}}</select>
 							</div>
-							<h2>On which days should this alarm be active?</h2>
 							<ul class="days">
 								{{frepDays repDay}}
 							</ul>
@@ -49,10 +47,10 @@
 						</div>
 						<div class="showTime">							
 							<span class="time">{{hour}}:{{min}}</span>
-							<ul class="showDates">
-								{{frepDays2 repDay}}
-							</ul>
-						</div>						
+						</div>	
+						<ul class="showDates">
+							{{frepDays2 repDay}}
+						</ul>					
 					</div>
 				</li>
 				</script>

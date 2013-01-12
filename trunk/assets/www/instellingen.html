@@ -36,7 +36,14 @@
 					<input id="fullname" name="name" value="{{fullname}}" type="text" />
 					<label for="backup">Phone number</label>
 					<input id="backup" name="backup" value="{{backup}}" type="text" />
-					<button onClick="profileSave();">Opslaan</button>
+					<label for="snooze">Prefered snooze time</label>
+					<select name="snooze">
+						<option value="1">1 Minuut</option>
+						<option value="5">5 Minuten</option>
+						<option value="10">10 Minuten</option>
+						<option value="15">15 Minuten</option>
+					</select>
+					<button onClick="profileSave();">Opslaan</button>					
 				</script>
 			</div>
 		</div> <!-- #main -->
