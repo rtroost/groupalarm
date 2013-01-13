@@ -158,7 +158,7 @@ var jsgroups = {
 			console.log(events);
 			
 			var currTimeStamp = 999999999999999;
-			var currID = 0;
+			var currID = '0';
 			
 			//var currFirstEvent = 0;
 			//var currHour = 24;
@@ -313,15 +313,20 @@ var jsgroups = {
 			// die de dag en maand  CONVERT
 			
 			console.log('currID' + currID);
-			
-			var newdate= new Date(currTimeStamp);
-			console.log(newdate);
-			
-			self.groeps[groepid].eerstvolgende = currID;
-			
-			self.changeFirstAlarmDisplay(groepid, newdate);
-			self.changeMemberEventInfo(groepid);
-			
+
+			if(currTimeStamp == 999999999999999){
+				self.groeps[groepid].eerstvolgende = currID;
+				self.changeFirstAlarmDisplay(groepid, false);
+				self.changeMemberEventInfo(groepid);
+			} else {
+				var newdate= new Date(currTimeStamp);
+				console.log(newdate);
+				
+				self.groeps[groepid].eerstvolgende = currID;
+				
+				self.changeFirstAlarmDisplay(groepid, newdate);
+				self.changeMemberEventInfo(groepid);
+			}
 			
 		}
 	},
@@ -332,8 +337,13 @@ var jsgroups = {
 		var weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 				
 		var alarmDiv = self.groupsElements.children('li#'+groepid).find('div.group-alarm-first-up');
-		alarmDiv.children('span.date').text(weekday[a.getDay()] + ' ' + a.getDate()  + ' ' + months[a.getMonth()]);
-		alarmDiv.children('span.time').text(self.padfield(a.getHours()) + ':' + self.padfield(a.getMinutes()));
+		if(!a){
+			alarmDiv.children('span.date').text('Not available');
+			alarmDiv.children('span.time').text('-:-');
+		} else {
+			alarmDiv.children('span.date').text(weekday[a.getDay()] + ' ' + a.getDate()  + ' ' + months[a.getMonth()]);
+			alarmDiv.children('span.time').text(self.padfield(a.getHours()) + ':' + self.padfield(a.getMinutes()));
+		}
 	},
 	
 	changeMemberEventInfo : function(groepid){
@@ -346,22 +356,35 @@ var jsgroups = {
 			
 			var idgebruiker = memberUl.eq(i).attr('id');
 			
-			memberUl.eq(i).find('strong.memberEventAlarm').text(self.padfield(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].hour) + ':' + self.padfield(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].min));
-			
-			var title = events[self.groeps[groepid].eerstvolgende].title;
-			if(title == ''){
-				memberUl.eq(i).find('strong.memberEventTitle').text('No Title');
+			if(self.groeps[groepid].eerstvolgende != '0'){
+				memberUl.eq(i).find('span.memberEventAlarm').text(self.padfield(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].hour) + ':' + self.padfield(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].min));
 			} else {
-				memberUl.eq(i).find('strong.memberEventTitle').text(title);
+				memberUl.eq(i).find('span.memberEventAlarm').text('no alarm');
 			}
 			
-			var active = self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].active;
-			if(active == 1){
-				memberUl.eq(i).find('strong.memberEventActive').text('Active');
+			if(self.groeps[groepid].eerstvolgende != '0'){
+				var title = events[self.groeps[groepid].eerstvolgende].title;
+				console.log('title ' + title);
+				if(title == ''){
+					memberUl.eq(i).find('span.memberEventTitle').text('No Title');
+				} else {
+					memberUl.eq(i).find('span.memberEventTitle').text(title);
+				}
 			} else {
-				memberUl.eq(i).find('strong.memberEventActive').text('Not Active');
+				memberUl.eq(i).find('span.memberEventTitle').text('No Title');
 			}
 			
+			if(self.groeps[groepid].eerstvolgende != '0'){
+				console.log('test!!!!!!!');
+				var active = self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].active;
+				if(active == 1){
+					memberUl.removeClass('active').removeClass('inactive').addClass('active');
+					//memberUl.eq(i).find('strong.memberEventActive').text('Active');
+				} else {
+					//memberUl.eq(i).find('strong.memberEventActive').text('Not Active');
+					memberUl.removeClass('active').removeClass('inactive').addClass('inactive');
+				}
+			}
 		});
 
 	},
