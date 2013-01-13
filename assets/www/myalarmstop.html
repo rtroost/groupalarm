@@ -58,7 +58,7 @@
 			
 		$('button#stopalarm').on('click', function(){
 
-			if(days == 'no-repeat'){
+			//if(days == 'no-repeat'){
 				if(groep == 'true'){
 					window.ajax.add({
 						url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
@@ -66,6 +66,7 @@
 						data : {
 							action : 'deactivate',
 							idevent : id,
+							set : 1,
 							imei : window.imei
 						},
 						dataType : 'json',
@@ -91,9 +92,9 @@
 						console.log('kan geen verbinding maken');
 					});
 				}
-			} else {
-				var repDays = days.split(',');
-			}
+			//} else {
+			//	var repDays = days.split(',');
+			//}
 
 			
 			window.wekker.stopAlarm();
@@ -107,8 +108,8 @@
 					url : 'http://www.remcovdk.com/groupalarm/groupalarm.php',
 					type : 'POST',
 					data : {
-						action : 'active',
-						set : 0,
+						action : 'deactivate',
+						set : 2,
 						idwekker : id,
 						imei : window.imei
 					},
