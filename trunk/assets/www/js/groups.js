@@ -98,6 +98,7 @@ var jsgroups = {
 						active : msg[item].events[item2].active,
 						hour : msg[item].events[item2].hour,
 						min : msg[item].events[item2].min,
+						status : msg[item].events[item2].status
 					};
 				}
 				//ge.fullname, ge.nickname, ge.mobile, ge.backup_mobile, ge.email, ge.imei
@@ -379,12 +380,24 @@ var jsgroups = {
 				var active = self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].active;
 				if(active == 1){
 					memberUl.removeClass('active').removeClass('inactive').addClass('active');
+					
+					var status = self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].status;
+					console.log('status' + status);
+					if(status == 1){
+						memberUl.eq(i).find('img.picture').removeClass('snooze').addClass('awake');
+					} else if(status == 2){
+						memberUl.eq(i).find('img.picture').removeClass('awake').addClass('snooze');
+					} else {
+						memberUl.eq(i).find('img.picture').removeClass('snooze').removeClass('awake');
+					}
+					
 					//memberUl.eq(i).find('strong.memberEventActive').text('Active');
 				} else {
 					//memberUl.eq(i).find('strong.memberEventActive').text('Not Active');
 					memberUl.removeClass('active').removeClass('inactive').addClass('inactive');
 				}
 			}
+
 		});
 
 	},
