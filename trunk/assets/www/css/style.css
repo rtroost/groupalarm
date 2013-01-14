@@ -712,6 +712,11 @@ ul.group-pictures-list li {
 	right: 0;
 }
 
+.group-image{
+	height: 75px;
+	width:75px;
+}
+
 /****************************/
 /*		PERSONAL ALARMS 	*/
 /****************************/
