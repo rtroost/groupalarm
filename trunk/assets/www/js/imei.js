@@ -2,8 +2,8 @@
 //window.imei = 123; NUMMER NICK
 
 // Groep id 1
-//window.imei = 123; // NUMMER Stefan // id 4
-window.imei = 351869050386591; // nummer remco // 3
+window.imei = 123; // NUMMER Stefan // id 4
+//window.imei = 351869050386591; // nummer remco // 3
 // end group id 1
 
 // =========
