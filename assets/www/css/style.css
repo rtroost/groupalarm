@@ -488,8 +488,8 @@ ul.blocks li .options a {
 	border-radius: 3px;
 }
 
-li.active { border-right: 5px solid green !important; }
-li.inactive { border-right: 5px solid red !important; }
+.alarm-active { border-right: 5px solid green !important; }
+.alarm-inactive { border-right: 5px solid red !important; }
 
 /************************/
 /*		GROUPLISTS		*/
