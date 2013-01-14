@@ -1032,3 +1032,11 @@ button {
 }
 
 .contacts-select li input[type='checkbox'] { margin-left: 5px; }
+
+.snooze{
+    border: 2px solid orange !important;
+}
+
+.awake{
+    border: 2px solid green !important;
+}
