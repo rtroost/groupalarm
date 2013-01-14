@@ -407,9 +407,12 @@ var jsgroups = {
 		self.groupsElements.on('click', 'ul.buttons li', function(){
 			$this = $(this);
 			if($this.children('span').data('icon') == 'U'){
+				alert($this.children('span').attr('class'));
 				$this.parents('div.inner-content-wrapper').siblings('div.members').slideToggle();
-			} else {
+			}else if($this.children('span').data('icon') == 'P'){
 				$this.parents('div.inner-content-wrapper').siblings('div.group-alarms').slideToggle();
+			}else{
+				$this.parents('div.inner-content-wrapper').siblings('div.addMembers').slideToggle();
 			}
 		});
 		self.groupsElements.on('click', 'a.giveLeader', self.giveLeader);
@@ -506,21 +509,54 @@ var jsgroups = {
 			
 		});
 	},
+
+	pop_tgl_newMembers : function(groupId) {
+		var self = jsgroups,
+			$this = $(this);
+		
+		$('#groupId').val(groupId);
+
+		window.ajax.add({
+			url : 'http://www.remcovdk.com/groupalarm/getMembers.php',
+			type : 'POST',
+			data : {
+				idgroep : groupId
+			},
+			dataType : 'json',
+	
+		}, function(msg) {
+			for(var item in msg){
+
+				$('.gebruiker'+msg[item].idgebruiker).css('display', 'none');
+			}
+		}, function(msg) {
+			console.log('kan geen verbinding maken');
+		});
+
+		$('#pop-new-members').fadeToggle('fast');
+
+	},
+
+	rel : function() {
+		location_reload();
+	},
 	
 	pop_tgl_newGroup : function() {
 		var self = jsgroups,
 			$this = $(this);
-			
 		$('#pop-new-group').fadeToggle('fast');
 	},
 	
 	pop_tgl_select_members : function() {
 		var self = jsgroups,
 			$this = $(this);
-			
 		$('#pop_select_members').fadeToggle('fast');
 	},
 }
+
+$(document).ready(function() {
+	$('#profilePic').attr("src",  "http://www.remcovdk.com/groupalarm/grouppic.php?user="+window.imei);
+});
 
 //Start this shit
 jsgroups.init();
