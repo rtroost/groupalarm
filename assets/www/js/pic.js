@@ -22,9 +22,9 @@ function onPhotoDataSuccess(imageData) {
 }
 
 function onPhotoURISuccess(imageURI) {
-  var largeImage = document.getElementById('largeImage');
-  largeImage.style.display = 'block';
-  largeImage.src = imageURI;
+  //var largeImage = document.getElementById('largeImage');
+  //largeImage.style.display = 'block';
+  //largeImage.src = imageURI;
   //var image = document.getElementById('myImage');
   //image.src = "data:image/jpeg;base64," + imageData;
   var request = $.ajax({
@@ -45,7 +45,6 @@ function onPhotoURISuccess(imageURI) {
     alert( "Request failed: " + textStatus );
   });
   //$.post('http://www.remcovdk.com/groupalarm/pictureupload.php', {data:imageData, imei : window.imei});
-
 }
 
 function getPhoto(source) {
