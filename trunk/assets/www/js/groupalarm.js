@@ -140,6 +140,7 @@ var jsgroepalarm = {
 		
 	setAppAlarm : function(hour, min, idevents){
 		var self = jsgroepalarm;
+		console.log(' ID =====================   ' + idevents);
 		//var newtimearray = self.calcTimeAndPrep(idevents, self.alarms[idevents].preptime);
 		console.log('Single alarm set: hour= ' + self.alarms[idevents].phour + ' min= ' + self.alarms[idevents].pmin + ' ========================= nummer : ' + idevents);
 		if(window.main != undefined){
@@ -150,6 +151,7 @@ var jsgroepalarm = {
 	
 	setAppRepeatAlarm : function(hour, min, idevents, repDays){
 		var self = jsgroepalarm;
+		console.log(' ID =====================   ' + idevents);
 		//var newtimearray = self.calcTimeAndPrep(idevents, self.alarms[idevents].preptime);
 		console.log('REPEAT alarm set : hour= ' + self.alarms[idevents].phour + ' min= ' + self.alarms[idevents].pmin + ' ========================== nummer : ' + idevents);
 		if(window.main != undefined){
