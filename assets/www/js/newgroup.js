@@ -1,10 +1,12 @@
 var jscontacts = {
     init : function() {
-        this.divcontacts = $('#contacts');
+        this.divcontacts = $('.contacts');
+        this.divmembers = $('.members');
         //this.acceptbutton = $('#acceptButton');
         //this.rejectbutton = $('#rejectButton');
 
         group = new Array();
+        membersArray = new Array();
         this.getAll();
         this.getTemplates();
         this.bindEvents();
@@ -34,6 +36,7 @@ var jscontacts = {
     bindEvents: function(){
         var self = jscontacts;
         self.divcontacts.on('click', '.contactCheckbox', self.memberAdd);
+        self.divmembers.on('click', '.memberCheckbox', self.newMemberAdd);
     },
 
     memberAdd: function(){
@@ -50,12 +53,29 @@ var jscontacts = {
         }
     },
 
+    newMemberAdd: function(){
+        var self = jscontacts,
+            $this = $(this);
+            
+        var id = $this.parents('div.member').attr('id');
+        alert(id);
+        if($this.attr('checked')){
+            if(membersArray.indexOf(id)){
+                membersArray.push(id);
+            }
+        } else {
+            membersArray.splice(membersArray.indexOf(id), 1);  
+        }
+    },
+
     createRow : function(context){
         jscontacts.divcontacts.append( jscontacts.template(context) );
+        jscontacts.divmembers.append( jscontacts.template(context) );
     },
 
     getTemplates: function(){
-        jscontacts.template = Handlebars.compile( $('#contactsTemplate').html() );
+        jscontacts.template = Handlebars.compile( $('.contactsTemplate').html() );
+        jscontacts.template = Handlebars.compile( $('.membersTemplate').html() );
     },
 }
 
@@ -122,6 +142,10 @@ function onSuccess(contacts){
         try{
             if(contacts[i].phoneNumbers.length > 0){
                 for (var j=1; j<=contacts[i].phoneNumbers.length; j++){
+                    //voor tests
+                    //names[i][j] = contacts[i].phoneNumbers[j*1-1]; 
+
+                    //voor normaal gebruik
                     names[i][j] = contacts[i].phoneNumbers[j*1-1].value; 
                 }
             }
@@ -146,7 +170,30 @@ $(document).ready(function() {
             dataType : 'html',
     
         }, function(msg) {
-                alert(msg);
+            alert('group saved');
+            location.reload();
+        }, function(msg) {
+            console.log('kan geen verbinding maken');
+        });
+    });
+    $('.saveNewMembers').click(function(){
+        
+        groupname = $('#groupname').val();
+        groupId = $('#groupId').val();
+        window.ajax.add({
+            url : 'http://www.remcovdk.com/groupalarm/newMembers.php',
+            type : 'POST',
+            data : {
+                gebruikers : membersArray,
+                naam : groupname,
+                imei : window.imei,
+                hetId : groupId
+            },
+            dataType : 'json',
+    
+        }, function(msg) {
+            alert('Member(s) invited')
+            location.reload();
         }, function(msg) {
             console.log('kan geen verbinding maken');
         });
