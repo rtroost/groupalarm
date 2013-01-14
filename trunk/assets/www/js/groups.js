@@ -544,18 +544,51 @@ var jsgroups = {
 	pop_tgl_newGroup : function() {
 		var self = jsgroups,
 			$this = $(this);
+			
 		$('#pop-new-group').fadeToggle('fast');
 	},
 	
 	pop_tgl_select_members : function() {
 		var self = jsgroups,
 			$this = $(this);
+			
 		$('#pop_select_members').fadeToggle('fast');
+	},
+
+	pop_tgl_change_group : function(groepid, groepsnaam) {
+		var self = jsgroups,
+			$this = $(this);
+
+		$('#groepPic').attr('src', 'http://www.remcovdk.com/groupalarm/grouppic.php?group='+groepid);
+		$('#groepId').val(groepid);
+		$('#pop-change-group').fadeToggle('fast');
+		$('#groepsnaam').val(groepsnaam);
+	},
+
+	pop_tgl_change_group_cancel : function() {	
+		$('#pop-change-group').fadeToggle('fast');
 	},
 }
 
 $(document).ready(function() {
-	$('#profilePic').attr("src",  "http://www.remcovdk.com/groupalarm/grouppic.php?user="+window.imei);
+    $('.saveChangedGroup').click(function(){
+        groupname = $('#groepsnaam').val();
+        id = $('#groepId').val();
+        window.ajax.add({
+            url : 'http://www.remcovdk.com/groupalarm/changedgroup.php',
+            type : 'POST',
+            data : {
+                naam : groupname,
+                id : id
+            },
+            dataType : 'html',
+    
+        }, function(msg) {
+                location.reload();
+        }, function(msg) {
+            console.log('kan geen verbinding maken');
+        });
+    });
 });
 
 //Start this shit
