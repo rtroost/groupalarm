@@ -1,7 +1,7 @@
 var jscontacts = {
     init : function() {
         this.divcontacts = $('.contacts');
-        this.divmembers = $('.members');
+        this.divmembers = $('#members');
         //this.acceptbutton = $('#acceptButton');
         //this.rejectbutton = $('#rejectButton');
 
@@ -56,9 +56,7 @@ var jscontacts = {
     newMemberAdd: function(){
         var self = jscontacts,
             $this = $(this);
-            
         var id = $this.parents('div.member').attr('id');
-        alert(id);
         if($this.attr('checked')){
             if(membersArray.indexOf(id)){
                 membersArray.push(id);
@@ -176,8 +174,8 @@ $(document).ready(function() {
             console.log('kan geen verbinding maken');
         });
     });
+
     $('.saveNewMembers').click(function(){
-        
         groupname = $('#groupname').val();
         groupId = $('#groupId').val();
         window.ajax.add({
@@ -185,11 +183,9 @@ $(document).ready(function() {
             type : 'POST',
             data : {
                 gebruikers : membersArray,
-                naam : groupname,
-                imei : window.imei,
                 hetId : groupId
             },
-            dataType : 'json',
+            dataType : 'html',
     
         }, function(msg) {
             alert('Member(s) invited')

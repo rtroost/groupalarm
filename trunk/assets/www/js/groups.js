@@ -407,7 +407,6 @@ var jsgroups = {
 		self.groupsElements.on('click', 'ul.buttons li', function(){
 			$this = $(this);
 			if($this.children('span').data('icon') == 'U'){
-				alert($this.children('span').attr('class'));
 				$this.parents('div.inner-content-wrapper').siblings('div.members').slideToggle();
 			}else if($this.children('span').data('icon') == 'P'){
 				$this.parents('div.inner-content-wrapper').siblings('div.group-alarms').slideToggle();
@@ -417,9 +416,6 @@ var jsgroups = {
 		});
 		self.groupsElements.on('click', 'a.giveLeader', self.giveLeader);
 		self.groupsElements.on('click', 'a.removeMember', self.removeMember);
-		
-		
-
 	},
 	
 	giveLeader : function(){
