@@ -140,5 +140,3 @@ function answer(){
 		alert('Fout');
 	}
 }
-
-getTruc();
