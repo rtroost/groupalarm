@@ -77,7 +77,7 @@
         <h1>Add member(s)</h1>
         <div class="content">
             <h2>Choose members</h2>
-            <div class="members">
+            <div id="members">
 				<script class="membersTemplate" type="text/x-handlebars-template">
 					<div id="{{id}}" class="member gebruiker{{idgebruiker}}">
 						{{#if hasApp}}
@@ -93,11 +93,16 @@
 			</div>
         </div>
         <div class="lower">
-            <a onClick="jsgroups.pop_tgl_addMembers();" class="saveNewMembers"><span data-icon="-" aria-hidden="true" class="saveNewMembers"></span> Cancel</a>
+            <a onClick="jsgroups.pop_tgl_newMembers();"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
             <a class="myalarmsubmit saveNewMembers"><span data-icon="/" aria-hidden="true" class="saveNewMembers"></span> Accept</a>
         </div>
     </div>
+<<<<<<< .mine
+	
+    
+=======
 
+>>>>>>> .r204
 	<div class="header-container">
 		<header class="clearfix">
 			<h1 class="title">Groups</h1>
