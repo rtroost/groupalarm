@@ -1,17 +1,9 @@
-// PC VERSIE
-//window.imei = 123; NUMMER NICK
-
-// Groep id 1
-window.imei = 123; // NUMMER Stefan // id 4
-//window.imei = 351869050386591; // nummer remco // 3
-// end group id 1
-
-// =========
+window.imei = 123; // imei Stefan // idgebruiker = 4
+//window.imei = 351869050386591; // imei Remco // idgebruiker = 3
 
 //document.addEventListener("deviceready", onDeviceReady, false);
 
 //function onDeviceReady() {
-
 	if(window.imei != undefined){
 		checkregistered();
 	} else {

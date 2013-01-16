@@ -6,7 +6,6 @@ var jsprofile = {
 
 	init : function() {
 		this.profiles = $('#profiles');
-
 		this.getProfile();
 		this.getTemplates();
 		this.bindEvents();
@@ -15,7 +14,7 @@ var jsprofile = {
 	getProfile : function(){
 		var url = document.URL;
 		var idgebruiker = url.split("=");
-
+		
 		window.ajax.add({
 			url : 'http://www.remcovdk.com/groupalarm/profile.php',
 			type : 'POST',

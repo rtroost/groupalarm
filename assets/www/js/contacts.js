@@ -7,7 +7,6 @@ var jscontacts = {
         this.getAll();
         this.getTemplates();
         this.bindEvents();
-        this.testje();
     },
 
     getAll : function(){

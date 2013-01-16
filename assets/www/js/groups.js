@@ -508,7 +508,7 @@ var jsgroups = {
 
 	pop_tgl_newMembers : function(groupId) {
 		var self = jsgroups,
-			$this = $(this);
+		$this = $(this);
 		
 		$('#groupId').val(groupId);
 
@@ -530,11 +530,6 @@ var jsgroups = {
 		});
 
 		$('#pop-new-members').fadeToggle('fast');
-
-	},
-
-	rel : function() {
-		location_reload();
 	},
 	
 	pop_tgl_newGroup : function() {
@@ -563,6 +558,10 @@ var jsgroups = {
 
 	pop_tgl_change_group_cancel : function() {	
 		$('#pop-change-group').fadeToggle('fast');
+	},
+
+	pop_tgl_delete_group : function() {	
+		$('#pop-delete-group').fadeToggle('fast');
 	},
 }
 
