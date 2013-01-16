@@ -15,13 +15,12 @@
 		<div class="wrapper clearfix">
 			<ul class="blocks contacts" id="contacts">
 				<script id="contactsTemplate" type="text/x-handlebars-template">
-					<li id="{{id}}" class="contact">
-						<div class="popoutElement" id="pop-contact-options-{{id}}">
+					<li id="{{idgebruiker}}" class="contact">
+						<div class="popoutElement" id="pop-contact-options-{{idgebruiker}}">
 							<h1>Options</h1>
 							<div class="content">
-								<a class="btn" onclick="">Call {{naam}}</a>
 								{{#if hasApp}}
-								<a class="btn">Invite to group</a>
+								<a class="btn" href="tel:{{tel}}">Call {{naam}}</a>
 								{{else}}
 								<a class="btn" href="sms:{{tel}}?body=Check out Groupalarm for Android! Download it today from http://code.google.com/p/groupalarm/">Invite to GroupAlarm via SMS</a>
 								{{/if}}
@@ -32,7 +31,7 @@
 						</div>
 						<div class="inner-content-wrapper">							
 							<a style="text-decoration:none">
-								<img src="http://placehold.it/50x50" class="picture" />
+								<img src="http://www.remcovdk.com/groupalarm/profilepic.php?user={{idgebruiker}}" class="picture" />
 								<span class="name">{{naam}}</span>
 								<span class="phone">{{tel}}</span>
 								<span class="hasApp {{#if hasApp}}yes{{else}}no{{/if}}"><span data-icon="." aria-hidden="true"></span></span>

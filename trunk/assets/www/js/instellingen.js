@@ -1,5 +1,19 @@
 $(document).ready(function() {
-	$('#profilePic').attr("src",  "http://www.remcovdk.com/groupalarm/profilepic.php?user="+window.imei);
+	window.ajax.add({
+		url : 'http://www.remcovdk.com/groupalarm/profile.php',
+		type : 'POST',
+		data : {
+			action : 'getpic',
+			imei : window.imei
+		},
+		dataType : 'json',
+	
+		}, function(msg) {
+			$('#profilePic').attr("src", "http://www.remcovdk.com/groupalarm/profilepic.php?user="+msg);
+			
+		}, function(msg) {
+			console.log('Can not connect');
+		});	
 });
 
 var jspi = {
@@ -29,12 +43,13 @@ var jspi = {
 			var self = jspi;
 			for(var item in msg){
 				self.createRow({
+					idgebruiker : msg[item].idgebruiker,
 					fullname : msg[item].fullname,
 					backup : msg[item].backup_mobile,
 				})
 			}
 		}, function(msg) {
-			console.log('kan geen verbinding maken');
+			console.log('Can not connect');
 		});
 	},
 
@@ -59,7 +74,7 @@ var jspi = {
 		}, function(msg) {
 			alert('profiel bijgewerkt');
 		}, function(msg) {
-			console.log('kan geen verbinding maken');
+			console.log('Can not connect');
 		});
 	},
 
@@ -77,5 +92,4 @@ var jspi = {
 	},
 }
 
-//Start this shit
 jspi.init();
