@@ -56,7 +56,7 @@
             <a class="btn" onClick="jsgroups.pop_tgl_delete_group();">Delete group</a>
         </div>
         <div class="lower">
-            <a onClick="jsgroups.pop_tgl_change_group_cancel();"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
+            <a onClick="jsgroups.pop_tgl_change_group();"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
             <a class="saveChangedGroup"><span data-icon="/" aria-hidden="true"></span> Accept</a>
         </div>
     </div>
@@ -65,11 +65,12 @@
     	
 	        <h1>Delete group</h1>
 	        <div class="content">
-	            <h2>Do you really want to delete</h2>  
+	            <h2>Do you really want to delete</h2>
+	            <span id="nameDeleteGroup"></span>
 	        </div>
 	        <div class="lower">
 	            <a onClick="jsgroups.pop_tgl_delete_group();"><span data-icon="-" aria-hidden="true"></span> No</a>
-	            <a onClick=""><span data-icon="/" aria-hidden="true"></span> Yes</a>
+	            <a onClick="jsgroups.delete_groep();"><span data-icon="/" aria-hidden="true"></span> Yes</a>
 	        </div>
     </div>
 
