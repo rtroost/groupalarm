@@ -370,6 +370,7 @@ nav#footer-nav > ul > li:hover {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
+	border-right: none !important;
 }
 
 nav#footer-nav li img { height: 70%; }
@@ -488,8 +489,8 @@ ul.blocks li .options a {
 	border-radius: 3px;
 }
 
-.alarm-active { border-right: 5px solid green !important; }
-.alarm-inactive { border-right: 5px solid red !important; }
+.active { border-right: 5px solid green !important; }
+.inactive { border-right: 5px solid red !important; }
 
 /************************/
 /*		GROUPLISTS		*/
