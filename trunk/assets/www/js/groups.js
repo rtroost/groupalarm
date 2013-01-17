@@ -502,7 +502,6 @@ var jsgroups = {
 			} else {
 				return new Handlebars.SafeString('');
 			}
-			
 		});
 	},
 
@@ -556,13 +555,33 @@ var jsgroups = {
 		$('#groepsnaam').val(groepsnaam);
 	},
 
-	pop_tgl_change_group_cancel : function() {	
-		$('#pop-change-group').fadeToggle('fast');
+	pop_tgl_delete_group : function() {
+		var groepId = $('#groepId').val();
+		var groepsNaam = $('#groepsnaam').val();
+
+		$('#pop-delete-group').fadeToggle('fast');
+		$('#nameDeleteGroup').html(groepsNaam);
 	},
 
-	pop_tgl_delete_group : function() {	
-		$('#pop-delete-group').fadeToggle('fast');
-	},
+	delete_groep : function() {
+		var groepId = $('#groepId').val();
+		var groepsNaam = $('#groepsnaam').val();
+
+		window.ajax.add({
+			url : 'http://www.remcovdk.com/groupalarm/deletegroup.php',
+			type : 'POST',
+			data : {
+				groepId : groepId
+			},
+			dataType : 'json',
+	
+		}, function(msg) {
+			location.reload();
+			alert('De groep ' + groepsNaam + ' is verwijdert.');
+		}, function(msg) {
+			console.log('Kan geen verbinding maken');
+		});
+	}
 }
 
 $(document).ready(function() {
@@ -586,5 +605,4 @@ $(document).ready(function() {
     });
 });
 
-//Start this shit
 jsgroups.init();
