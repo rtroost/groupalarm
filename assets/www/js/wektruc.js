@@ -62,7 +62,7 @@ trucen[14][1] = 350;
 
 trucen[15] = new Array(2);
 trucen[15][0] = "10 : 1 + 9";
-trucen[15][1] = 10;
+trucen[15][1] = 19;
 
 trucen[16] = new Array(2);
 trucen[16][0] = "21 : 3 - 3";
@@ -124,7 +124,8 @@ var current;
 
 function getTruc(){
 	current = Math.floor((Math.random()*trucen.length));
-	$('#pop-new-truc').css('display', 'block');
+	$('#pop-new-truc').show();
+	$('#stopalarm').attr('disabled', 'disabled');
 	$('#question').html(trucen[current][0]);
 }
 
@@ -135,8 +136,9 @@ function otherTruc(){
 
 function answer(){
 	if($('#answer').val() == trucen[current][1]){
-		alert('Goed');
+		$('#pop-new-truc').hide();
+		$('#stopalarm').removeAttr('disabled');
 	} else{
-		alert('Fout');
+		$('#answer').css('border', '1px solid red');
 	}
 }
