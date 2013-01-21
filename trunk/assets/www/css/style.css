@@ -1046,3 +1046,15 @@ button {
 .awake{
     border: 2px solid green !important;
 }
+
+.active{
+    border-right: 5px solid green !important;
+}
+
+nav#footer-nav li{
+     border-right: none !important;
+}
+
+.inactive {
+     border-right: 5px solid red !important; 
+}

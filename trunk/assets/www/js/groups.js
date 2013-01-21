@@ -153,6 +153,8 @@ var jsgroups = {
 		var nowhour = date.getHours();
 		var nowmin = date.getMinutes();
 					
+		console.log(self.groeps);
+		
 		
 		for(var groepid in self.groeps){
 			console.log('groepid' + groepid);
@@ -312,11 +314,9 @@ var jsgroups = {
 			
 			console.log('currTimeStamp' + currTimeStamp);
 			// die de dag en maand  CONVERT
-			
-			console.log('currID' + currID);
 
 			if(currTimeStamp == 999999999999999){
-				self.groeps[groepid].eerstvolgende = currID;
+				self.groeps[groepid].eerstvolgende = '0';
 				self.changeFirstAlarmDisplay(groepid, false);
 				self.changeMemberEventInfo(groepid);
 			} else {
@@ -357,44 +357,50 @@ var jsgroups = {
 			
 			var idgebruiker = memberUl.eq(i).attr('id');
 			
-			if(self.groeps[groepid].eerstvolgende != '0'){
-				memberUl.eq(i).find('span.memberEventAlarm').text(self.padfield(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].hour) + ':' + self.padfield(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].min));
-			} else {
-				memberUl.eq(i).find('span.memberEventAlarm').text('no alarm');
-			}
+			console.log('eerstvolgende' + self.groeps[groepid].eerstvolgende);
 			
-			if(self.groeps[groepid].eerstvolgende != '0'){
-				var title = events[self.groeps[groepid].eerstvolgende].title;
-				console.log('title ' + title);
-				if(title == ''){
-					memberUl.eq(i).find('span.memberEventTitle').text('No Title');
+			if(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende] != {}){
+			
+				
+				if(self.groeps[groepid].eerstvolgende != '0'){
+					memberUl.eq(i).find('span.memberEventAlarm').text(self.padfield(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].hour) + ':' + self.padfield(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].min));
 				} else {
-					memberUl.eq(i).find('span.memberEventTitle').text(title);
+					memberUl.eq(i).find('span.memberEventAlarm').text('no alarm');
 				}
-			} else {
-				memberUl.eq(i).find('span.memberEventTitle').text('No Title');
-			}
-			
-			if(self.groeps[groepid].eerstvolgende != '0'){
-				console.log('test!!!!!!!');
-				var active = self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].active;
-				if(active == 1){
-					memberUl.removeClass('active').removeClass('inactive').addClass('active');
-					
-					var status = self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].status;
-					console.log('status' + status);
-					if(status == 1){
-						memberUl.eq(i).find('img.picture').removeClass('snooze').addClass('awake');
-					} else if(status == 2){
-						memberUl.eq(i).find('img.picture').removeClass('awake').addClass('snooze');
+				
+				if(self.groeps[groepid].eerstvolgende != '0'){
+					var title = events[self.groeps[groepid].eerstvolgende].title;
+					console.log('title ' + title);
+					if(title == ''){
+						memberUl.eq(i).find('span.memberEventTitle').text('No Title');
 					} else {
-						memberUl.eq(i).find('img.picture').removeClass('snooze').removeClass('awake');
+						memberUl.eq(i).find('span.memberEventTitle').text(title);
 					}
-					
-					//memberUl.eq(i).find('strong.memberEventActive').text('Active');
 				} else {
-					//memberUl.eq(i).find('strong.memberEventActive').text('Not Active');
-					memberUl.removeClass('active').removeClass('inactive').addClass('inactive');
+					memberUl.eq(i).find('span.memberEventTitle').text('No Title');
+				}
+				
+				if(self.groeps[groepid].eerstvolgende != '0'){
+					console.log('test!!!!!!!');
+					var active = self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].active;
+					if(active == 1){
+						memberUl.removeClass('active').removeClass('inactive').addClass('active');
+						
+						var status = self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].status;
+						console.log('status' + status);
+						if(status == 1){
+							memberUl.eq(i).find('img.picture').removeClass('snooze').addClass('awake');
+						} else if(status == 2){
+							memberUl.eq(i).find('img.picture').removeClass('awake').addClass('snooze');
+						} else {
+							memberUl.eq(i).find('img.picture').removeClass('snooze').removeClass('awake');
+						}
+						
+						//memberUl.eq(i).find('strong.memberEventActive').text('Active');
+					} else {
+						//memberUl.eq(i).find('strong.memberEventActive').text('Not Active');
+						memberUl.removeClass('active').removeClass('inactive').addClass('inactive');
+					}
 				}
 			}
 

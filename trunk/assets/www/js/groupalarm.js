@@ -306,7 +306,8 @@ var jsgroepalarm = {
 			self.alarms[id].hour = (+hour)+'';
 			self.alarms[id].min = (+min)+'';
 			
-			$thisbase.siblings('div.visible').find('span.time').text(hour + ':' + min);
+			//self.ulgroeps.find.siblings('div.visible').find('span.time').text(hour + ':' + min);
+			self.ulgroeps.find('li#'+id+'.alarm').find('span.time').text(hour + ':' + min);
 			//$this.parents('li.alarm').find('span.time').text(hour + ':' + min);
 			
 			window.ajax.add({
@@ -540,63 +541,65 @@ var jsgroepalarm = {
 			},
 			dataType : 'json',
 		}, function(msg) {
-			var self = jsgroepalarm;
-			//self.alarms[idevents].preptime = msg[0].preptime;
-			self.alarms[idevents].phour = msg[0].hour;
-			self.alarms[idevents].pmin = msg[0].min;
-			
-			self.alarms[idevents].pset = (msg[0].active == 1) ? true : false;
-			if(self.alarms[idevents].pset && self.alarms[idevents].set){
-				// functie maken een aanroepen die de normale tijd - de preptijd doet.
-				if(msg[0].hour == 0 && msg[0].min == 0 ){
-					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('');
-				} else {
-					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('my wekker is at ' + msg[0].hour + ':' + msg[0].min + ' min');
-				}
+			if(msg != null){
+				var self = jsgroepalarm;
+				//self.alarms[idevents].preptime = msg[0].preptime;
+				self.alarms[idevents].phour = msg[0].hour;
+				self.alarms[idevents].pmin = msg[0].min;
 				
-				if(self.alarms[idevents].repDay[0] == 1){
-					self.setAppAlarm(self.alarms[idevents].hour, self.alarms[idevents].min, idevents);
+				self.alarms[idevents].pset = (msg[0].active == 1) ? true : false;
+				if(self.alarms[idevents].pset && self.alarms[idevents].set){
+					// functie maken een aanroepen die de normale tijd - de preptijd doet.
+					if(msg[0].hour == 0 && msg[0].min == 0 ){
+						self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('');
+					} else {
+						self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('my wekker is at ' + msg[0].hour + ':' + msg[0].min + ' min');
+					}
+					
+					if(self.alarms[idevents].repDay[0] == 1){
+						self.setAppAlarm(self.alarms[idevents].hour, self.alarms[idevents].min, idevents);
+					} else {
+						self.setAppRepeatAlarm(self.alarms[idevents].hour, self.alarms[idevents].min, idevents, self.alarms[idevents].repDay);
+					}
+					self.ulgroeps.find('li#'+idevents+'.alarm').removeClass('inactive').addClass('active');
+					self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').children('span').attr('data-icon', '/');
+					//self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').removeClass('inactive').addClass('active').text('Deactivate my alarm');
+					
+				} else if(self.alarms[idevents].pset && !self.alarms[idevents].set){
+					if(msg[0].hour == 0 && msg[0].min == 0 ){
+						self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('');
+					} else {
+						self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('my wekker is at ' + msg[0].hour + ':' + msg[0].min + ' min');	
+					}
+					//self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('inactive').addClass('active').text('Deactivate my alarm');
+					self.ulgroeps.find('li#'+idevents+'.alarm').removeClass('inactive').addClass('active');
+					self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').children('span').attr('data-icon', '/');
+				} else if(self.alarms[idevents].set && !self.alarms[idevents].pset){
+					if(msg[0].hour == 0 && msg[0].min == 0 ){
+						self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('');
+					} else {
+						self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('my wekker is at ' + msg[0].hour + ':' + msg[0].min + ' min');	
+					}
+					//self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('active').addClass('inactive').text('Activate my alarm');
+					self.ulgroeps.find('li#'+idevents+'.alarm').removeClass('active').addClass('inactive');
+					self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').children('span').attr('data-icon', '-');
 				} else {
-					self.setAppRepeatAlarm(self.alarms[idevents].hour, self.alarms[idevents].min, idevents, self.alarms[idevents].repDay);
+					//self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('active').addClass('inactive').text('Activate my alarm');
+					self.ulgroeps.find('li#'+idevents+'.alarm').removeClass('active').addClass('inactive');
+					self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').children('span').attr('data-icon', '-');
 				}
-				self.ulgroeps.find('li#'+idevents+'.alarm').removeClass('inactive').addClass('active');
-				self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').children('span').attr('data-icon', '/');
-				//self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').removeClass('inactive').addClass('active').text('Deactivate my alarm');
+				//self.ulgroeps.find('li#'+idevents+'.alarm').find('span.wakeuppreptime').text(msg[0].hour + ':' + msg[0].min);
+				self.ulgroeps.find('li#'+idevents+'.alarm').find('span.smallTime').text('(' + self.padfield(msg[0].hour) + ':' + self.padfield(msg[0].min) + ')');
 				
-			} else if(self.alarms[idevents].pset && !self.alarms[idevents].set){
-				if(msg[0].hour == 0 && msg[0].min == 0 ){
-					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('');
-				} else {
-					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('my wekker is at ' + msg[0].hour + ':' + msg[0].min + ' min');	
-				}
-				//self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('inactive').addClass('active').text('Deactivate my alarm');
-				self.ulgroeps.find('li#'+idevents+'.alarm').removeClass('inactive').addClass('active');
-				self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').children('span').attr('data-icon', '/');
-			} else if(self.alarms[idevents].set && !self.alarms[idevents].pset){
-				if(msg[0].hour == 0 && msg[0].min == 0 ){
-					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('');
-				} else {
-					self.ulgroeps.find('li#'+idevents+'.alarm').find('span.preptimevis').text('my wekker is at ' + msg[0].hour + ':' + msg[0].min + ' min');	
-				}
-				//self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('active').addClass('inactive').text('Activate my alarm');
-				self.ulgroeps.find('li#'+idevents+'.alarm').removeClass('active').addClass('inactive');
-				self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').children('span').attr('data-icon', '-');
-			} else {
-				//self.ulgroeps.find('li#'+idevents+'.alarm').find('li.myAlarmSet').removeClass('active').addClass('inactive').text('Activate my alarm');
-				self.ulgroeps.find('li#'+idevents+'.alarm').removeClass('active').addClass('inactive');
-				self.ulgroeps.find('li#'+idevents+'.alarm').find('a.myAlarmSet').children('span').attr('data-icon', '-');
+				var palarm = self.ulgroeps.find('li#'+idevents+'.alarm').find('div.palarm');
+				//console.log(palarm.find('select#hour'));
+				palarm.find('select#hour').val(self.padfield(self.alarms[idevents].phour));
+				palarm.find('select#min').val(self.padfield(self.alarms[idevents].pmin));
+				
+				
+				//self.displayTimePrep(idevents, msg[0].preptime);
+				console.log('success');
 			}
-			//self.ulgroeps.find('li#'+idevents+'.alarm').find('span.wakeuppreptime').text(msg[0].hour + ':' + msg[0].min);
-			self.ulgroeps.find('li#'+idevents+'.alarm').find('span.smallTime').text('(' + self.padfield(msg[0].hour) + ':' + self.padfield(msg[0].min) + ')');
-			
-			var palarm = self.ulgroeps.find('li#'+idevents+'.alarm').find('div.palarm');
-			//console.log(palarm.find('select#hour'));
-			palarm.find('select#hour').val(self.padfield(self.alarms[idevents].phour));
-			palarm.find('select#min').val(self.padfield(self.alarms[idevents].pmin));
-			
-			
-			//self.displayTimePrep(idevents, msg[0].preptime);
-			console.log('success');
 		}, function(msg) {
 			console.log('kan geen verbinding maken');
 		});
