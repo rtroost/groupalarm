@@ -420,11 +420,12 @@ var jsgroups = {
 				$this.parents('div.inner-content-wrapper').siblings('div.addMembers').slideToggle();
 			}
 		});
-		self.groupsElements.on('click', 'a.giveLeader', self.giveLeader);
-		self.groupsElements.on('click', 'a.removeMember', self.removeMember);
+		self.groupsElements.on('click', '.giveLeader', self.giveLeader);
+		self.groupsElements.on('click', '.removeMember', self.removeMember);
 	},
 	
 	giveLeader : function(){
+	console.log('test');
 		var self = jsgroups,
 			$this = $(this),
 			groepid = $this.parents('li.leader').attr('id'),
