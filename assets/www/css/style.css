@@ -284,7 +284,7 @@ button {
 }
 
 body {
-	font: 13px Helmet, Freesans, sans-serif;
+	font: 400 13px "Helvetica Neue",Helvetica,Arial,sans-serif;
 	background: #fff;
 	color: #222;
 }
@@ -874,15 +874,9 @@ div.info.finished { color: green; }
 }
 
 .contacts .name {
-	font-size: 18px;
-	margin: 7px 0 0 10px;
+	font-size: 16px;
+	margin: 10px 0 0 6px;
 	float: left;
-}
-
-.contacts .phone {
-	font-size: 12px;
-	display: block;
-	margin-left: 60px;
 }
 
 .contacts .hasApp {
