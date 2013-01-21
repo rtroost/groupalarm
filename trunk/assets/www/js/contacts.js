@@ -48,7 +48,11 @@ var jscontacts = {
         jscontacts.template = Handlebars.compile( $('#contactsTemplate').html() );
     },
 	
-	toggle_contact_options : function() {
+	toggle_contact_options : function(e) {
+
+        // Prevent the default action
+        e.preventDefault();
+        
 		var self = jscontacts,
 			$this = $(this),
 			id = $this.attr('id');
@@ -76,7 +80,8 @@ function onDeviceReady(){
 
 names = new Array();
 
-/*contact = new Array();
+// Comment hier
+contact = new Array();
 
 contact[0] = {
     displayName : "Nick van Leeuwen"
@@ -104,7 +109,8 @@ contact[3].displayName = "Stefan Bayarri";
 contact[3].phoneNumbers = new Array();
 contact[3].phoneNumbers[0] = "0634345974";
 
-onSuccess(contact);*/
+onSuccess(contact);
+// Tot hier
 
 // onSuccess: Get a snapshot of the current contacts
 function onSuccess(contacts){
