@@ -304,12 +304,13 @@ h2 { font-size: 1.6em; }
 h3 { font-size: 1.2em; }
 
 .wrapper {
-	width: 96%;
-	margin: 0 2%;
+	width: 98%;
+	margin: 0 1%;
 }
 
 .header-container {
 	width: 100%;
+	display: block;
 	height: 50px;
 	top: 0;
 	left: 0;
@@ -333,7 +334,7 @@ h3 { font-size: 1.2em; }
 	text-shadow: 0 -1px 1px black;
 }
 
-.main-container { padding: 60px 0 50px 0; }
+.main-container { padding: 55px 0 50px 0; }
 
 /** END OF BASIC STYLING */
 
@@ -390,36 +391,6 @@ nav#footer-nav a {
 
 
 /** CUSTOM SHIT */
-
-
-.header-container .btn {
-	color: #fff;
-	text-decoration: none;
-	display: inline-block;
-	padding: 10px;
-	min-width: 60px;
-	text-align: center;
-	border-radius: 5px;
-	background-color: #88b7d5;
-	font-size: 14px;
-	font-weight: 600;
-	letter-spacing: 0px;
-	cursor: pointer;
-}
-
-.header-container .btn:hover { background: #6fa8cc; }
-
-.btn.left {
-	position: fixed;
-	top: 7px;
-	left: 7px;
-}
-
-.btn.right {
-	position: fixed;
-	top: 7px;
-	right: 7px;
-}
 
 /****************************/
 /*			GROUPS			*/
@@ -856,6 +827,7 @@ div.info.finished { color: green; }
 	border-bottom: 1px solid #ccc !important;
 	margin: 0 !important;
 	padding: 6px 4px !important;
+	border-radius: 0 !important;
 }
 
 .contacts li:first-of-type {
@@ -871,6 +843,7 @@ div.info.finished { color: green; }
 	height: 40px;
 	width: 40px;
 	float: left;
+	border-radius: 4px;
 }
 
 .contacts .name {
