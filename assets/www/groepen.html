@@ -6,6 +6,33 @@
 	<link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+	<div class="popoutElement" id="pop-profile">
+        <h1 class="h1-pop-profile">Profile</h1>
+	        <script id="profileTemplate" type="text/x-handlebars-template">
+				<table>
+					<tr>
+						<td style="width:150px"><b>Naam:</b></td>
+						<td>{{fullname}}</td>
+					</tr>
+					<tr>
+						<td><b>Nickname:</b></td>
+						<td>{{nickname}}</td>
+					</tr>
+					<tr>
+						<td><b>Mobiel nummer:</b></td>
+						<td><a href="tel:{{mobile}}">{{mobile}}</a></td>
+					</tr>
+					<tr>
+						<td><b>Backup nummer:</b></td>
+						<td><a href="tel:{{backup}}">{{backup}}</a></td>
+					</tr> 
+				</table>
+			</script>
+        <div class="lower">
+            <a onClick="jsgroups.pop_profile();"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
+        </div>
+    </div>
+
 	<div class="popoutElement" id="pop-new-group">
         <h1>Create a new group</h1>
         <div class="content">
@@ -285,7 +312,7 @@
 				<a href="profile.html?id={{idgebruiker}}"><img src="http://placehold.it/50x50" class="picture" /></a>
 				<div class="rightSide">
 					<div class="options">
-						<a href="profile.html?id={{idgebruiker}}"><span data-icon="U" aria-hidden="true"></span></a>
+						<a class="profileKlick"><span data-icon="U" aria-hidden="true"></span></a>
 						{{#if groepLeader}}
 							{{#if leader}}
 							{{else}}

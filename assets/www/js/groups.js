@@ -422,10 +422,44 @@ var jsgroups = {
 		});
 		self.groupsElements.on('click', '.giveLeader', self.giveLeader);
 		self.groupsElements.on('click', '.removeMember', self.removeMember);
+		self.groupsElements.on('click', '.profileKlick', self.profileShow);
+	},
+	
+	profileShow : function(){
+		var self = jsgroups,
+			$this = $(this),
+			idgebruiker= $this.parents('li').attr('id');
+				
+		window.ajax.add({
+			url : 'http://www.remcovdk.com/groupalarm/profile.php',
+			type : 'POST',
+			data : {
+				action : 'getbasis',
+				profileid : idgebruiker,
+			},
+			dataType : 'json',
+	
+		}, function(msg) {
+
+			var self = jsgroups;
+
+			for(var item in msg){
+				$('.h1-pop-profile').after( self.profileTemplate({
+					fullname : msg[item].fullname,
+					nickname : msg[item].nickname,
+					mobile : msg[item].mobile,
+					backup : msg[item].backup_mobile,
+				}) );
+			}
+		}, function(msg) {
+			console.log('Can not connect');
+		});
+		
+		$('#pop-profile').fadeToggle('fast');
+		
 	},
 	
 	giveLeader : function(){
-	console.log('test');
 		var self = jsgroups,
 			$this = $(this),
 			groepid = $this.parents('li.leader').attr('id'),
@@ -498,6 +532,7 @@ var jsgroups = {
 	getTemplates: function(){
 		jsgroups.template = Handlebars.compile( $('#groupsTemplate').html() );		
 		jsgroups.templateMember = Handlebars.compile( $('#groepsMembersTemplate').html() );
+		jsgroups.profileTemplate = Handlebars.compile( $('#profileTemplate').html() );
 		Handlebars.registerHelper('placeStar', function( groepInfo ) {
 			var self = jsgroups;
 			
@@ -568,6 +603,10 @@ var jsgroups = {
 
 		$('#pop-delete-group').fadeToggle('fast');
 		$('#nameDeleteGroup').html(groepsNaam);
+	},
+	
+	pop_profile : function() {
+		$('#pop-profile').fadeToggle('fast');
 	},
 
 	delete_groep : function() {
