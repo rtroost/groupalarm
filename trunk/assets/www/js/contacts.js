@@ -80,7 +80,9 @@ function onDeviceReady(){
 
 names = new Array();
 
-// Comment hier
+
+
+/*
 contact = new Array();
 
 contact[0] = {
@@ -110,7 +112,9 @@ contact[3].phoneNumbers = new Array();
 contact[3].phoneNumbers[0] = "0634345974";
 
 onSuccess(contact);
-// Tot hier
+*/
+
+
 
 // onSuccess: Get a snapshot of the current contacts
 function onSuccess(contacts){
