@@ -145,8 +145,12 @@
 				{{else}}
 					<li id="{{id}}" class="member">
 				{{/if}}
-					<div class="inner-content-wrapper clearfix">						
+					<div class="inner-content-wrapper clearfix">
+						{{#if leader}}						
 						<img src="http://www.remcovdk.com/groupalarm/grouppic.php?group={{id}}" class="group-image" onClick="jsgroups.pop_tgl_change_group({{id}},'{{groupname}}');" />
+						{{else}}
+						<img src="http://www.remcovdk.com/groupalarm/grouppic.php?group={{id}}" class="group-image" />
+						{{/if}}
 						<div class="rightSide">
 							<div class="group-alarm-first-up">
 								<span data-icon="P" aria-hidden="true" class="icon"></span>
