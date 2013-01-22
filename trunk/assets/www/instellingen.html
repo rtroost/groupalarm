@@ -37,11 +37,11 @@
 					<label for="backup">Backup number</label>
 					<input id="backup" name="backup" value="{{backup}}" type="text" />
 					<label for="snooze">Prefered snooze time</label>
-					<select name="snooze">
-						<option value="1">1 Minuut</option>
-						<option value="5">5 Minuten</option>
-						<option value="10">10 Minuten</option>
-						<option value="15">15 Minuten</option>
+					<select id="snooze" name="snooze">
+						<option {{selectedeen}} value="1">1 Minuut</option>
+						<option {{selectedvijf}} value="5">5 Minuten</option>
+						<option {{selectedtien}} value="10">10 Minuten</option>
+						<option {{selectedvijftien}} value="15">15 Minuten</option>
 					</select>
 					<button onClick="profileSave();">Opslaan</button>					
 				</script>
