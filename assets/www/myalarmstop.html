@@ -14,10 +14,8 @@
 	        <a class="btn" onClick="otherTruc();">Other question</a>
 	    </div>
 	    <div class="lower">
-	        <button id="snoozealarm">
-				Snooze
-			</button>
-	        <a onClick="answer();"><span data-icon="/" aria-hidden="true"></span> Answer</a>
+			<a onClick="cancel();"><span data-icon="'" aria-hidden="true"></span>Cancel</a>
+	        <a onClick="answer();"><span data-icon="/" aria-hidden="true"></span>Answer</a>
 	    </div>
 	</div>
 
@@ -42,7 +40,7 @@
 	<script src="js/wektruc.js"></script>
 	<script>
 
-		var data = window.wekker.getData();
+		/*var data = window.wekker.getData();
 			console.log(data);
 			var id = data.split('/')[0];
 			var days = data.split('/')[1];
@@ -51,19 +49,26 @@
 			console.log('wekker id = ' + id);
 			console.log('days = ' + days);
 			console.log('groep = ' + groep);
-			console.log('snoozetime = ' + snoozetime);
+			console.log('snoozetime = ' + snoozetime);*/
+			
+		window.dismiss = false;
 
-		getTruc();
+		
 
-		$('h1.alarm_title').text('Wekker id = ' + id);
+		/*$('h1.alarm_title').text('Wekker id = ' + id);
 		if(groep == 'true'){
 			$('span').text('ja');
 		} else {
 			$('span').text('nee');
-		}
+		}*/
 
 
 		$('button#stopalarm').on('click', function(){
+			
+			if(!window.dismiss){
+				getTruc();
+				return;
+			}
 
 			if(groep == 'true'){
 				console.log('ajax!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');

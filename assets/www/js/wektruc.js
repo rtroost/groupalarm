@@ -125,7 +125,7 @@ var current;
 function getTruc(){
 	current = Math.floor((Math.random()*trucen.length));
 	$('#pop-new-truc').show();
-	$('#stopalarm').attr('disabled', 'disabled');
+	//$('#stopalarm').attr('disabled', 'disabled');
 	$('#question').html(trucen[current][0]);
 }
 
@@ -137,8 +137,14 @@ function otherTruc(){
 function answer(){
 	if($('#answer').val() == trucen[current][1]){
 		$('#pop-new-truc').hide();
-		$('#stopalarm').removeAttr('disabled');
+		//$('#stopalarm').removeAttr('disabled');
+		window.dismiss = true;
+		$('button#stopalarm').trigger('click');
 	} else{
 		$('#answer').css('border', '1px solid red');
 	}
+}
+
+function cancel(){
+	$('#pop-new-truc').hide();
 }
