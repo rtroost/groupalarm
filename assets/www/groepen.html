@@ -25,7 +25,7 @@
 					<tr>
 						<td><b>Backup nummer:</b></td>
 						<td><a href="tel:{{backup}}">{{backup}}</a></td>
-					</tr> 
+					</tr>
 				</table>
 			</script>
         <div class="lower">
@@ -64,10 +64,13 @@
             <h2>Group name</h2>
             <input type="text" id="groepsnaam" class="title" value"" />
             <h2>Group picture</h2>
-            <img id="groepPic" src="#" />
+            <img id="groepPic" src="#" class="cleafix"/>
             <input type="hidden" id="groepId" value="" />
-            <a class="btn" onClick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">Change picture</a>
-            <a class="btn" onClick="jsgroups.pop_tgl_delete_group();">Delete group</a>
+            <div style="display: block;">
+            	<a class="btn" onClick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">Change picture</a>
+            	<a class="btn" onClick="jsgroups.confirm_leave_group();">Leave group</a>
+            	<a class="btn" onClick="jsgroups.pop_tgl_delete_group();">Delete group</a>
+            </div>
         </div>
         <div class="lower">
             <a onClick="jsgroups.pop_tgl_change_group();"><span data-icon="-" aria-hidden="true"></span> Cancel</a>
@@ -76,7 +79,7 @@
     </div>
 
     <div class="popoutElement" id="pop-delete-group">
-    	
+
 	        <h1>Delete group</h1>
 	        <div class="content">
 	            <h2>Do you really want to delete</h2>
@@ -131,10 +134,10 @@
 						<div class="acceptbutton" style="display: inline-block">
 							<span data-icon="." aria-hidden="true"></span>
 						</div>
-					</div>	
+					</div>
 					You've been invited to join a new group by
 					<span class="leader">{{beheerder}}</span> to join the group
-					<span class="groupname">{{groepsnaam}}</span>								
+					<span class="groupname">{{groepsnaam}}</span>
 				</li>
 				</script>
 			</ul>
@@ -146,7 +149,7 @@
 					<li id="{{id}}" class="member">
 				{{/if}}
 					<div class="inner-content-wrapper clearfix">
-						{{#if leader}}						
+						{{#if leader}}
 						<img src="http://www.remcovdk.com/groupalarm/grouppic.php?group={{id}}" class="group-image" onClick="jsgroups.pop_tgl_change_group({{id}},'{{groupname}}');" />
 						{{else}}
 						<img src="http://www.remcovdk.com/groupalarm/grouppic.php?group={{id}}" class="group-image" />
@@ -155,22 +158,22 @@
 							<div class="group-alarm-first-up">
 								<span data-icon="P" aria-hidden="true" class="icon"></span>
 								<span class="date"></span><span class="time"></span>
-							</div>	
+							</div>
 							<ul class="buttons">
 								<li><span data-icon="U" aria-hidden="true"></span></li>
 								<li><span data-icon="P" aria-hidden="true"></span></li>
 								{{#if leader}}
 								<li onclick="jsgroups.pop_tgl_newMembers({{id}});"><span data-icon="+" aria-hidden="true"></span></li>
 								{{/if}}
-							</ul>													
+							</ul>
 						</div>
 						<div class="group-name">{{#if leader}}<span data-icon="R" aria-hidden="true"> </span>{{/if}}{{groupname}}</div>
-						
+
 					</div>
 					<div class="members" style="display: none;">
 						<ul class="blocks group-members-large">
-							
-						</ul>						
+
+						</ul>
 					</div>
 					<div class="group-alarms" style="display: none;">
 						<h2>Alarms</h2>
@@ -184,12 +187,12 @@
 					</div>
 				</li>
 				</script> <!--/END OF GROEPSTEMPLATE -->
-				<li class="new-group" onClick="jsgroups.pop_tgl_newGroup();">                    
+				<li class="new-group" onClick="jsgroups.pop_tgl_newGroup();">
 					<div class="inner-content-wrapper">
 						<h1><span data-icon="+" aria-hidden="true"></span> New Group</h1>
 					</div>
 				</li>
-			</ul>			
+			</ul>
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
 
@@ -225,7 +228,7 @@
 			</nav>
 		</footer>
 	</div>
-	
+
 	<script id="groepsAlarmTemplate" type="text/x-handlebars-template">
 		{{#if leader}}
 		<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
@@ -237,7 +240,7 @@
 					</div>
 					<ul class="days">
 						{{frepDays repDay}}
-					</ul>									
+					</ul>
 					<h3>Event Title</h3>
 					<input type="text" class="title" value="{{title}}" />
 					<h3>Description</h3>
@@ -254,19 +257,19 @@
 			</div>
 			<div class="inner-content-wrapper">
 				<span data-icon="P" aria-hidden="true" class="icon"></span>
-				<div class="showTime">							
+				<div class="showTime">
 					<span class="time">{{hour}}:{{min}}</span><span class="smallTime"></span>
 					<span class="title" style="font-weight: bold; font-size: 14px; display:block; margin-top: -4px; margin-bottom:4px;">{{title}}</span>
 					<ul class="showDates">
 						{{frepDays2 repDay}}
 					</ul>
 				</div>
-				<div class="rightSide">					
+				<div class="rightSide">
 					<div class="options">
 						<a class="delete-alarm"><span data-icon="'" aria-hidden="true"></span></a>
 						<a class="set-alarm {{#if set}}active{{else}}inactive{{/if}}"><span data-icon="J" aria-hidden="true"></span></a>
 						<a class="alarm-settings"><span data-icon="S" aria-hidden="true"></span></a>
-						<a class="myAlarmSet"><span data-icon="{{#if pset}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>					
+						<a class="myAlarmSet"><span data-icon="{{#if pset}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>
 					</div>
 				</div>
 			</div>
@@ -302,14 +305,14 @@
 								{{frepDays2 repDay}}
 							</ul>
 						</div>
-						
+
 					</div>
 				</li>
 			{{/if}}
 		{{/if}}
 	</script>
-	
-	
+
+
 	<script id="groepsMembersTemplate" type="text/x-handlebars-template">
 		<li id="{{idgebruiker}}" class="members clearfix">
 			<div class="inner-content-wrapper clearfix">
