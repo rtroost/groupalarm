@@ -1,3 +1,5 @@
+window.imei = 593820;
+
 //document.addEventListener("deviceready", onDeviceReady, false);
 
 //function onDeviceReady() {
@@ -58,13 +60,22 @@
 				input = forminput;
 				button = formbutton;
 			}
+			
+			var naam = $('input.fullname').attr('value'),
+				nickname = $('input.nickname').attr('value'),
+				tel = $('input.tel').attr('value'),
+				backuptel = $('input.backuptel').attr('value');
 			window.ajax.add({
 				url : 'http://www.remcovdk.com/groupalarm/register.php',
 				type : 'POST',
 				data : {
 					email : email.toLowerCase(),
 					imei : window.imei,
-					resend: false
+					resend: false,
+					naam : naam,
+					nickname : nickname,
+					tel : tel,
+					backuptel : backuptel
 				},
 				dataType : 'json',
 	
@@ -80,6 +91,11 @@
 					}).appendTo(data);
 					input.hide().siblings('label').hide();
 					button.hide();
+					$('formp').hide();
+					$('input.fullname').hide();
+					$('input.nickname').hide();
+					$('input.tel').hide();
+					$('input.backuptel').hide();
 					buttonaftermail.show();
 					paftermail.show();
 				}
@@ -89,7 +105,7 @@
 		});
 		
 		$('button.refresh').on('click', function(){
-			window.location.replace('index.html');
+			window.location.replace('contact.html');
 		});
 		
 		$('button.resend').on('click', function(){
