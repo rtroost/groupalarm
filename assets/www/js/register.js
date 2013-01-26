@@ -1,4 +1,7 @@
-window.imei = 593820;
+//window.imei = 123; // imei Stefan // idgebruiker = 4
+//window.imei = 351869050386591; // imei Remco // idgebruiker = 3
+
+window.imei = 123;
 
 //document.addEventListener("deviceready", onDeviceReady, false);
 
