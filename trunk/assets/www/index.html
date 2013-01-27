@@ -4,6 +4,38 @@
 	<title>Index</title>
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" href="css/style.css" />
+	<style>
+		#maincontent {
+			width: 90%;
+			margin: 20px auto 0;
+		}
+		.form-box {
+			display: block;
+			margin: 0 0 6px 0;
+			padding: 6px;
+			clear: both;
+		}
+		label {
+			width: 50%;
+			float: left;
+			font-size: 16px;
+			font-weight: 600;
+		}
+		input[type='text'] {
+			padding: 4px;
+			font-size: 12px;
+			margin-left: 10px;
+			float: right;
+			width: 40%;
+		}
+		.submit {
+			width: 100%;
+			margin: 10px 0 0;
+		}
+		.top-logo {
+			margin-bottom: 20px;
+		}
+	</style>
 </head>
 <body>
 	<div class="header-container">
@@ -13,39 +45,43 @@
 	</div>
 	<div class="main-container">
 		<div class="wrapper clearfix">
-			<div id="maincontent" class="mail" style="display: none;">
-				<p>A mail has been send to your mailaccount.</p>
+			<div id="maincontent">
+				<img src="images/groupalarmlogo.png" class="top-logo" />
+				<div id="register-mail" style="display: none;">
+					<p>A mail has been send to your mailaccount.</p>
 
-				<p>click refresh if you clicked on the link in de mail</p>
-				<button class="refresh">Refresh</button>
-				<br />
-				<p>Click resend or enter your mail address to send the mail to another account.</p>
-				<button class="resend">Resend</button>
-				<br />
-				<label for="id">Email</label><input class="email" type="text" />
-				<button class="submit">Verstuur</button>
+					<p>click refresh if you clicked on the link in de mail</p>
+					<button class="refresh">Refresh</button>
+					<br />
+					<p>Click resend or enter your mail address to send the mail to another account.</p>
+					<button class="resend">Resend</button>
+					<br />
+					<label for="id">Email</label><input class="email" type="text" />
+					<button class="submit">Verstuur</button>
 
-				<div class="showdata">
-
+					<div class="showdata"></div>
 				</div>
-			</div>
-			
-			<div id="maincontent" class="form" style="display: none;">
-				<h1>Registreren</h1>
-				<p class="formp">Vul hieronder je email adres in.</p>
-
-				<label for="id">Naam</label><input class="fullname" type="text" />
-				<label for="id">Nickname</label><input class="nickname" type="text" />
-				<label for="id">Telnr</label><input class="tel" type="text" />
-				<label for="id">Backup telnr</label><input class="backuptel" type="text" />
-				<label for="id">Email</label><input class="email" type="text" />
-				<button class="submit">Verstuur</button>
-
-				<div class="showdata">
-
+				<div id="register-form" style="display: none;">
+					<div class="form-box">
+						<label for="id">Naam</label><input class="fullname" type="text" />
+					</div>
+					<div class="form-box">
+						<label for="id">Nickname</label><input class="nickname" type="text" />
+					</div>
+					<div class="form-box">
+						<label for="id">Primair telefoonnummer</label><input class="tel" type="text" />
+					</div>
+					<div class="form-box">
+						<label for="id">Backup telnr</label><input class="backuptel" type="text" />
+					</div>
+					<div class="form-box">
+						<label for="id">Email</label><input class="email" type="text" />
+					</div>
+					<button class="submit">Verstuur</button>
+					<div class="showdata"></div>
+					<p class="paftermail" style="display: none;">Klik op refresh als je de mail geopend hebt.</p>
+					<button class="refresh buttonaftermail" style="display: none;">Refresh</button>
 				</div>
-				<p class="paftermail" style="display: none;">Klik op refresh als je de mail geopend hebt.</p>
-				<button class="refresh buttonaftermail" style="display: none;">Refresh</button>
 			</div>
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
