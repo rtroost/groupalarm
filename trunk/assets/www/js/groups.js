@@ -440,6 +440,8 @@ var jsgroups = {
 			dataType : 'json',
 
 		}, function(msg) {
+			
+			$('#pop-profile').find('table').remove();
 
 			var self = jsgroups;
 
@@ -455,7 +457,7 @@ var jsgroups = {
 			console.log('Can not connect');
 		});
 
-		$('#pop-profile').fadeToggle('fast');
+		$('#pop-profile').fadeIn('fast');
 
 	},
 

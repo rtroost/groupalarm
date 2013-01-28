@@ -125,67 +125,67 @@
 		<div class="wrapper clearfix" id="content">
 			<ul class="blocks invites" id="invites">
 				<script id="invitesTemplate" type="text/x-handlebars-template">
-				<li id="{{id}}">
-					<span class="icon"><span data-icon="R" aria-hidden="true"></span></span>
-					<div class="buttons">
-						<div class="rejectbutton" style="display: inline-block">
-							<span data-icon="\" aria-hidden="true"></span>
+					<li id="{{id}}">
+						<span class="icon"><span data-icon="R" aria-hidden="true"></span></span>
+						<div class="buttons">
+							<div class="rejectbutton" style="display: inline-block">
+								<span data-icon="\" aria-hidden="true"></span>
+							</div>
+							<div class="acceptbutton" style="display: inline-block">
+								<span data-icon="." aria-hidden="true"></span>
+							</div>
 						</div>
-						<div class="acceptbutton" style="display: inline-block">
-							<span data-icon="." aria-hidden="true"></span>
-						</div>
-					</div>
-					You've been invited to join a new group by
-					<span class="leader">{{beheerder}}</span> to join the group
-					<span class="groupname">{{groepsnaam}}</span>
-				</li>
+						You've been invited to join a new group by
+						<span class="leader">{{beheerder}}</span> to join the group
+						<span class="groupname">{{groepsnaam}}</span>
+					</li>
 				</script>
 			</ul>
 			<ul class="blocks groups" id="groups">
 				<script id="groupsTemplate" type="text/x-handlebars-template">
-				{{#if leader}}
-					<li id="{{id}}" class="leader">
-				{{else}}
-					<li id="{{id}}" class="member">
-				{{/if}}
-					<div class="inner-content-wrapper clearfix">
-						{{#if leader}}
-						<img src="http://www.remcovdk.com/groupalarm/grouppic.php?group={{id}}" class="group-image" onClick="jsgroups.pop_tgl_change_group({{id}},'{{groupname}}');" />
-						{{else}}
-						<img src="http://www.remcovdk.com/groupalarm/grouppic.php?group={{id}}" class="group-image" />
-						{{/if}}
-						<div class="rightSide">
-							<div class="group-alarm-first-up">
-								<span data-icon="P" aria-hidden="true" class="icon"></span>
-								<span class="date"></span><span class="time"></span>
+					{{#if leader}}
+						<li id="{{id}}" class="leader">
+					{{else}}
+						<li id="{{id}}" class="member">
+					{{/if}}
+						<div class="inner-content-wrapper clearfix">
+							{{#if leader}}
+							<img src="http://www.remcovdk.com/groupalarm/grouppic.php?group={{id}}" class="group-image" onClick="jsgroups.pop_tgl_change_group({{id}},'{{groupname}}');" />
+							{{else}}
+							<img src="http://www.remcovdk.com/groupalarm/grouppic.php?group={{id}}" class="group-image" />
+							{{/if}}
+							<div class="rightSide">
+								<div class="group-alarm-first-up">
+									<span data-icon="P" aria-hidden="true" class="icon"></span>
+									<span class="date"></span><span class="time"></span>
+								</div>
+								<ul class="buttons">
+									<li><span data-icon="U" aria-hidden="true"></span></li>
+									<li><span data-icon="P" aria-hidden="true"></span></li>
+									{{#if leader}}
+									<li onclick="jsgroups.pop_tgl_newMembers({{id}});"><span data-icon="+" aria-hidden="true"></span></li>
+									{{/if}}
+								</ul>
 							</div>
-							<ul class="buttons">
-								<li><span data-icon="U" aria-hidden="true"></span></li>
-								<li><span data-icon="P" aria-hidden="true"></span></li>
+							<div class="group-name">{{#if leader}}<span data-icon="R" aria-hidden="true"> </span>{{/if}}{{groupname}}</div>
+	
+						</div>
+						<div class="members" style="display: none;">
+							<ul class="blocks group-members-large">
+	
+							</ul>
+						</div>
+						<div class="group-alarms" style="display: none;">
+							<h2>Alarms</h2>
+							<ul class="blocks alarms">
 								{{#if leader}}
-								<li onclick="jsgroups.pop_tgl_newMembers({{id}});"><span data-icon="+" aria-hidden="true"></span></li>
+								<li class="new-alarm">
+									<h1><span data-icon="+" aria-hidden="true"></span> Add alarm</h1>
+								</li>
 								{{/if}}
 							</ul>
 						</div>
-						<div class="group-name">{{#if leader}}<span data-icon="R" aria-hidden="true"> </span>{{/if}}{{groupname}}</div>
-
-					</div>
-					<div class="members" style="display: none;">
-						<ul class="blocks group-members-large">
-
-						</ul>
-					</div>
-					<div class="group-alarms" style="display: none;">
-						<h2>Alarms</h2>
-						<ul class="blocks alarms">
-							{{#if leader}}
-							<li class="new-alarm">
-								<h1><span data-icon="+" aria-hidden="true"></span> Add alarm</h1>
-							</li>
-							{{/if}}
-						</ul>
-					</div>
-				</li>
+					</li>
 				</script> <!--/END OF GROEPSTEMPLATE -->
 				<li class="new-group" onClick="jsgroups.pop_tgl_newGroup();">
 					<div class="inner-content-wrapper">
@@ -316,7 +316,7 @@
 	<script id="groepsMembersTemplate" type="text/x-handlebars-template">
 		<li id="{{idgebruiker}}" class="members clearfix">
 			<div class="inner-content-wrapper clearfix">
-				<a href="profile.html?id={{idgebruiker}}"><img style="height:50px;width:50px;" src="http://www.remcovdk.com/groupalarm/profilepic.php?user={{idgebruiker}}" class="picture" /></a>
+				<img style="height:50px;width:50px;" src="http://www.remcovdk.com/groupalarm/profilepic.php?user={{idgebruiker}}" class="picture" />
 				<div class="rightSide">
 					<div class="options">
 						<a class="profileKlick"><span data-icon="U" aria-hidden="true"></span></a>
