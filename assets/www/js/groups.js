@@ -410,8 +410,7 @@ var jsgroups = {
 
 	bindEvents: function(){
 		var self = jsgroups;
-		self.groupsElements.on('click', 'ul.buttons li', function(e){
-			e.preventDefault();
+		self.groupsElements.on('click', 'ul.buttons li', function(){
 			$this = $(this);
 			if($this.children('span').data('icon') == 'U'){
 				$this.parents('div.inner-content-wrapper').siblings('div.members').slideToggle();
@@ -427,8 +426,6 @@ var jsgroups = {
 	},
 
 	profileShow : function(){
-		e.preventDefault();
-
 		var self = jsgroups,
 			$this = $(this),
 			idgebruiker= $this.parents('li').attr('id');
@@ -463,7 +460,6 @@ var jsgroups = {
 	},
 
 	giveLeader : function(){
-		e.preventDefault();
 
 		var self = jsgroups,
 			$this = $(this),
@@ -496,7 +492,6 @@ var jsgroups = {
 	},
 
 	removeMember : function(){
-		e.preventDefault();
 
 		var self = jsgroups,
 			$this = $(this),
@@ -555,7 +550,6 @@ var jsgroups = {
 	},
 
 	pop_tgl_newMembers : function(groupId) {
-		e.preventDefault();
 
 		var self = jsgroups,
 		$this = $(this);
@@ -583,7 +577,6 @@ var jsgroups = {
 	},
 
 	pop_tgl_newGroup : function() {
-		e.preventDefault();
 
 		var self = jsgroups,
 			$this = $(this);
@@ -592,7 +585,6 @@ var jsgroups = {
 	},
 
 	pop_tgl_select_members : function() {
-		e.preventDefault();
 
 		var self = jsgroups,
 			$this = $(this);
@@ -601,8 +593,6 @@ var jsgroups = {
 	},
 
 	pop_tgl_change_group : function(groepid, groepsnaam) {
-		e.preventDefault();
-
 		var self = jsgroups,
 			$this = $(this);
 
@@ -613,7 +603,6 @@ var jsgroups = {
 	},
 
 	pop_tgl_delete_group : function() {
-		e.preventDefault();
 
 		var groepId = $('#groepId').val();
 		var groepsNaam = $('#groepsnaam').val();
@@ -623,13 +612,10 @@ var jsgroups = {
 	},
 
 	pop_profile : function() {
-		e.preventDefault();
-
 		$('#pop-profile').fadeToggle('fast');
 	},
 
 	delete_groep : function() {
-		e.preventDefault();
 
 		var groepId = $('#groepId').val();
 		var groepsNaam = $('#groepsnaam').val();
@@ -653,7 +639,6 @@ var jsgroups = {
 
 $(document).ready(function() {
     $('.saveChangedGroup').click(function(){
-    	e.preventDefault();
 
         groupname = $('#groepsnaam').val();
         id = $('#groepId').val();
