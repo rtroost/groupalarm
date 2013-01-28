@@ -83,7 +83,7 @@ public class WekkerActivity extends DroidGap {
 //        });
         
  
-        //playSound(this, getAlarmUri());
+        playSound(this, getAlarmUri());
         
     }
     
@@ -92,7 +92,7 @@ public class WekkerActivity extends DroidGap {
     }
     
     public boolean stopAlarm() {
-        //mMediaPlayer.stop();
+        mMediaPlayer.stop();
         Intent myIntent = new Intent(WekkerActivity.this, MainActivity.class);
         myIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         WekkerActivity.this.startActivity(myIntent);
@@ -101,7 +101,7 @@ public class WekkerActivity extends DroidGap {
     }
     
     public void pauzeAlarm() {
-       // mMediaPlayer.stop();
+        mMediaPlayer.stop();
         Intent myIntent = new Intent(WekkerActivity.this, MainActivity.class);
         myIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         WekkerActivity.this.startActivity(myIntent);
