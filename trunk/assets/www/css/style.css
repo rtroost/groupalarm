@@ -1,8 +1,6 @@
 
 /* Let's default this puppy out
 -------------------------------------------------------------------------------*/
-
-
 html,
 body,
 body div,
@@ -484,11 +482,12 @@ ul.blocks ul.blocks > li { border-color: #bad5e7; }
 
 ul.blocks > li .inner-content-wrapper { position: relative; }
 
-ul.blocks li .options { margin: 0 0 4px 0; }
+ul.blocks li .options { max-width: 120px; text-align: center; margin: -4px -4px 0 0; }
 
 ul.blocks li .options a.inactive {
 	filter: alpha(opacity=60);
 	opacity: 0.6;
+	border: 0 !important;
 }
 
 ul.blocks li .options a {
@@ -497,18 +496,19 @@ ul.blocks li .options a {
 	text-decoration: none;
 	color: #1D3D52;
 	background: #c7ddeb;
-	padding: 4px 8px;
+	padding: 6px;
+	width: 40px;
 	border: 1px solid #aecee2;
 	border-radius: 3px;
+	margin: 4px 0 0 0;
 }
 
-.active { border-right: 5px solid green !important; }
-.inactive { border-right: 5px solid red !important; }
+.alarm.active { border-right: 5px solid green !important; }
+.alarm.inactive { border-right: 5px solid red !important; }
 
 /************************/
 /*		GROUPLISTS		*/
 /************************/
-
 
 .groups .new-group h1 {
 	padding: 0;
@@ -744,7 +744,7 @@ ul.group-pictures-list li {
 	font-size: 20px;
 }
 
-.alarms .alarm { min-height: 35px; }
+.alarms .alarm {  }
 
 .alarms .alarm .showTime {
 	display: inline-block;
@@ -1073,18 +1073,9 @@ button {
     border: 2px solid green !important;
 }
 
-.active{
-    border-right: 5px solid green !important;
-}
-
 nav#footer-nav li{
      border-right: none !important;
 }
-
-.inactive {
-     border-right: 5px solid red !important;
-}
-
 
 .mooie-knop {
 	width: 40%;
