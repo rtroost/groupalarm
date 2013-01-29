@@ -168,11 +168,11 @@
 								</ul>
 							</div>
 							<div class="group-name">{{#if leader}}<span data-icon="R" aria-hidden="true"> </span>{{/if}}{{groupname}}</div>
-	
+
 						</div>
 						<div class="members" style="display: none;">
 							<ul class="blocks group-members-large">
-	
+
 							</ul>
 						</div>
 						<div class="group-alarms" style="display: none;">
@@ -231,7 +231,7 @@
 
 	<script id="groepsAlarmTemplate" type="text/x-handlebars-template">
 		{{#if leader}}
-		<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
+		<li class="alarm {{#if set}}active{{else}}inactive{{/if}} clearfix" id="{{id}}">
 			<div class="popoutElement alarm_settings" id="pop_alarm_settings-{{id}}">
 				<h1>Alarm options</h1>
 				<div class="content">
@@ -255,7 +255,7 @@
 					<a class="alarmsubmit"><span data-icon="/" aria-hidden="true"></span> Accept</a>
 				</div>
 			</div>
-			<div class="inner-content-wrapper">
+			<div class="inner-content-wrapper clearfix">
 				<span data-icon="P" aria-hidden="true" class="icon"></span>
 				<div class="showTime">
 					<span class="time">{{hour}}:{{min}}</span><span class="smallTime"></span>
@@ -276,8 +276,8 @@
 		</li>
 		{{else}}
 			{{#if set}}
-				<li class="alarm {{#if pset}}active{{else}}inactive{{/if}}" id="{{id}}">
-					<div class="popoutElement alarm_settings" id="pop_alarm_settings-{{id}}">
+				<li class="alarm {{#if pset}}active{{else}}inactive{{/if}} clearfix" id="{{id}}">
+					<div class="popoutElement alarm_settings clearfix" id="pop_alarm_settings-{{id}}">
 						<h1>Alarm options</h1>
 						<div class="content">
 							<h2>When do you want to wake up for this event?</h2>
@@ -318,6 +318,10 @@
 			<div class="inner-content-wrapper clearfix">
 				<img style="height:50px;width:50px;" src="http://www.remcovdk.com/groupalarm/profilepic.php?user={{idgebruiker}}" class="picture" />
 				<div class="rightSide">
+					<div class="group-alarm-first-up">
+						<span data-icon="P" aria-hidden="true" class="icon"></span>
+						<span class="memberEventTitle">Title</span><span class="memberEventAlarm time"></span>
+					</div>
 					<div class="options">
 						<a class="profileKlick"><span data-icon="U" aria-hidden="true"></span></a>
 						{{#if groepLeader}}
@@ -327,10 +331,6 @@
 							<a class="removeMember"><span data-icon="'" aria-hidden="true"></span></a>
 							{{/if}}
 						{{/if}}
-					</div>
-					<div class="group-alarm-first-up">
-						<span data-icon="P" aria-hidden="true" class="icon"></span>
-						<span class="memberEventTitle">Title</span><span class="memberEventAlarm time"></span>
 					</div>
 				</div>
 				<div class="meta-data">
