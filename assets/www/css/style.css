@@ -482,7 +482,7 @@ ul.blocks ul.blocks > li { border-color: #bad5e7; }
 
 ul.blocks > li .inner-content-wrapper { position: relative; }
 
-ul.blocks li .options { max-width: 120px; text-align: center; margin: -4px -4px 0 0; }
+ul.blocks li .options { max-width: 120px; text-align: right; margin: -4px -4px 0 0; }
 
 ul.blocks li .options a.inactive {
 	filter: alpha(opacity=60);
@@ -501,6 +501,7 @@ ul.blocks li .options a {
 	border: 1px solid #aecee2;
 	border-radius: 3px;
 	margin: 4px 0 0 0;
+	text-align: center;
 }
 
 .alarm.active { border-right: 5px solid green !important; }
