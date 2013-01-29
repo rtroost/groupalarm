@@ -362,7 +362,7 @@ var jsgroups = {
 			if(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende] != {}){
 
 
-				if(self.groeps[groepid].eerstvolgende != '0'){
+				if(self.groeps[groepid].eerstvolgende != '0' && self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende] != undefined){
 					memberUl.eq(i).find('span.memberEventAlarm').text(self.padfield(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].hour) + ':' + self.padfield(self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].min));
 				} else {
 					memberUl.eq(i).find('span.memberEventAlarm').text('no alarm');
@@ -380,7 +380,7 @@ var jsgroups = {
 					memberUl.eq(i).find('span.memberEventTitle').text('No Title');
 				}
 
-				if(self.groeps[groepid].eerstvolgende != '0'){
+				if(self.groeps[groepid].eerstvolgende != '0' && self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende] != undefined){
 					console.log('test!!!!!!!');
 					var active = self.groeps[groepid].members[idgebruiker].events[self.groeps[groepid].eerstvolgende].active;
 					if(active == 1){
