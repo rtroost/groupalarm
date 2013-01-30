@@ -487,7 +487,7 @@ ul.blocks li .options { max-width: 120px; text-align: right; margin: -4px 0 0; }
 ul.blocks li .options a.inactive {
 	filter: alpha(opacity=60);
 	opacity: 0.6;
-	border: 0 !important;
+	border-color: transparent !important;
 }
 
 ul.blocks li .options a {
