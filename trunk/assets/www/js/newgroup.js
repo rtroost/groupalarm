@@ -97,7 +97,7 @@ function onDeviceReady(){
 
 names = new Array();
 
-/*contact = new Array();
+contact = new Array();
 
 contact[0] = {
     displayName : "Nick van Leeuwen"
@@ -125,7 +125,7 @@ contact[3].displayName = "Stefan Bayarri";
 contact[3].phoneNumbers = new Array();
 contact[3].phoneNumbers[0] = "0634345974";
 
-onSuccess(contact);*/
+onSuccess(contact);
 
 // onSuccess: Get a snapshot of the current contacts
 function onSuccess(contacts){
@@ -141,10 +141,10 @@ function onSuccess(contacts){
             if(contacts[i].phoneNumbers.length > 0){
                 for (var j=1; j<=contacts[i].phoneNumbers.length; j++){
                     //voor tests
-                    //names[i][j] = contacts[i].phoneNumbers[j*1-1]; 
+                    names[i][j] = contacts[i].phoneNumbers[j*1-1]; 
 
                     //voor normaal gebruik
-                    names[i][j] = contacts[i].phoneNumbers[j*1-1].value; 
+                    //names[i][j] = contacts[i].phoneNumbers[j*1-1].value; 
                 }
             }
         } catch (e){
@@ -157,6 +157,7 @@ function onSuccess(contacts){
 $(document).ready(function() {
     $('.saveGroup').click(function(){
         groupname = $('#groupname').val();
+        console.log("group" + group);
         window.ajax.add({
             url : 'http://www.remcovdk.com/groupalarm/newGroup.php',
             type : 'POST',
@@ -169,7 +170,7 @@ $(document).ready(function() {
     
         }, function(msg) {
             alert('group saved');
-            location.reload();
+            //location.reload();
         }, function(msg) {
             console.log('kan geen verbinding maken');
         });
@@ -189,7 +190,7 @@ $(document).ready(function() {
     
         }, function(msg) {
             alert('Member(s) invited')
-            location.reload();
+            //location.reload();
         }, function(msg) {
             console.log('kan geen verbinding maken');
         });

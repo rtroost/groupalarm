@@ -51,7 +51,6 @@ var jscontacts = {
 	toggle_contact_options : function(e) {
 
         // Prevent the default action
-        e.preventDefault();
         
 		var self = jscontacts,
 			$this = $(this),
