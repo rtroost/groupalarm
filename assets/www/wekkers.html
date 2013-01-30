@@ -20,7 +20,7 @@
 					</div>
 				</li>
 				<script id="alarmtemplate" type="text/x-handlebars-template">
-				<li class="alarm {{#if set}}active{{else}}inactive{{/if}}" id="{{id}}">
+				<li class="alarm {{#if set}}active{{else}}inactive{{/if}} clearfix" id="{{id}}">
 					<div class="popoutElement alarm_settings" id="pop_alarm_settings-{{id}}">
 						<h1>Alarm options</h1>
 						<div class="content">
@@ -45,12 +45,12 @@
 								<a class="set-alarm"><span data-icon="{{#if set}}/{{else}}-{{/if}}" aria-hidden="true"></span></a>
 							</div>
 						</div>
-						<div class="showTime">							
+						<div class="showTime">
 							<span class="time">{{hour}}:{{min}}</span>
-						</div>	
+						</div>
 						<ul class="showDates">
 							{{frepDays2 repDay}}
-						</ul>					
+						</ul>
 					</div>
 				</li>
 				</script>
